@@ -10,7 +10,7 @@ public class TransactionRV extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.transaction_rv);
 
 	}
 }

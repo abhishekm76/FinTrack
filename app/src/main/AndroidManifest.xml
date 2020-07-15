@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kjfmbktgl4.fintrack" >
+    package="com.kjfmbktgl4.fintrack">
 
     <application
         android:allowBackup="true"
@@ -8,14 +8,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name=".ui.TransactionRV"
-            android:label="@string/title_activity_transaction_r_v" >
-        </activity>
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.EditTransaction"></activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/title_activity_nav_drawer_launcher"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.TransactionRV"
+            android:label="@string/title_activity_transaction_r_v" />
+        <activity
+            android:name=".ui.NavDrawerLauncher"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
