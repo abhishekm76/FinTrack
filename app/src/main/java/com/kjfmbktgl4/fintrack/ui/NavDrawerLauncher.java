@@ -8,7 +8,7 @@ import android.view.Menu;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
-import com.kjfmbktgl4.fintrack.MainActivity;
+
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.adapter.TransactionRecyclerViewAdapter;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
@@ -38,7 +38,7 @@ public class NavDrawerLauncher extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_nav_drawer_launcher);
+		setContentView(R.layout.activity_nav_dl);
 		recyclerView = findViewById(R.id.NavRV);
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
