@@ -2,6 +2,7 @@ package com.kjfmbktgl4.fintrack.ui;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
@@ -14,6 +15,8 @@ import com.kjfmbktgl4.fintrack.adapter.TransactionRecyclerViewAdapter;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
 
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -27,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NavDrawerLauncher extends AppCompatActivity {
+public class NavDrawerLauncher extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
 	private AppBarConfiguration mAppBarConfiguration;
 	private RecyclerView recyclerView;
@@ -38,7 +41,7 @@ public class NavDrawerLauncher extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_nav_dl);
+		setContentView(R.layout.activity_main);
 		recyclerView = findViewById(R.id.NavRV);
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -55,15 +58,14 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		});
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		NavigationView navigationView = findViewById(R.id.nav_view);
+		navigationView.setNavigationItemSelectedListener(this);
 		// Passing each menu ID as a set of Ids because each
 		// menu should be considered as top level destinations.
-		mAppBarConfiguration = new AppBarConfiguration.Builder(
+		/*mAppBarConfiguration = new AppBarConfiguration.Builder(
 				R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
 				.setDrawerLayout(drawer)
-				.build();
-		NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-		NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-		NavigationUI.setupWithNavController(navigationView, navController);
+				.build();*/
+
 
 		addInitialTestData(1);
 		setUpTransactionRV();
@@ -114,11 +116,45 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		return true;
 	}
 
+
 	@Override
-	public boolean onSupportNavigateUp() {
-		NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-		return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-				|| super.onSupportNavigateUp();
+	public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+		int id= menuItem.getItemId();
+		switch (id){
+
+			case R.id.nav_home:
+				snacky("Home");
+				break;
+
+			case R.id.nav_gallery:
+				snacky("gallery");
+				break;
+			case R.id.nav_slideshow:
+				snacky("slideshow");
+				break;
+		}
+		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		drawer.closeDrawer(GravityCompat.START);
+		return true;
+
 	}
 
+	private void snacky(String message) {
+		View v=findViewById(R.id.fab);
+		Snackbar.make(v,message,Snackbar.LENGTH_LONG).show();
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+
+		//noinspection SimplifiableIfStatement
+		if (id == R.id.action_settings) {
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
 }
