@@ -30,22 +30,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NavDrawerLauncher extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-
+public class NavDrawerLauncher extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 	private AppBarConfiguration mAppBarConfiguration;
 	private RecyclerView recyclerView;
 	private DatabaseHandler db;
 	private TransactionRecyclerViewAdapter recyclerViewAdapter;
 	private List<TransactionItem> transactionItemArrayList;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		recyclerView = findViewById(R.id.NavRV);
+	/*	recyclerView = findViewById(R.id.NavRV);
 		recyclerView.setHasFixedSize(true);
-		recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+		recyclerView.setLayoutManager(new LinearLayoutManager(this));*/
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		FloatingActionButton fab = findViewById(R.id.fab);
@@ -59,40 +56,24 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		NavigationView navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
-		// Passing each menu ID as a set of Ids because each
-		// menu should be considered as top level destinations.
-		/*mAppBarConfiguration = new AppBarConfiguration.Builder(
-				R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
-				.setDrawerLayout(drawer)
-				.build();*/
-
-
+		//RV methods
 		addInitialTestData(1);
 		setUpTransactionRV();
-
 	}
-
 	private void setUpTransactionRV() {
 		// Hello set up recycler view
-		//recyclerView = findViewById(R.id.transactionRV);
-		/*recyclerView.setHasFixedSize(true);
-		recyclerView.setLayoutManager(new LinearLayoutManager(this));*/
-
-
+		recyclerView = findViewById(R.id.NavRV);
+		recyclerView.setHasFixedSize(true);
+		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		transactionItemArrayList = new ArrayList<>();
 		DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
-
 		List<TransactionItem> transactionItemList = db.getAllTransactions();
-
 		for (TransactionItem transactionItem : transactionItemList) {
-
 			transactionItemArrayList.add(transactionItem);
 		}
-
 		//setup adapter
 		recyclerViewAdapter = new TransactionRecyclerViewAdapter(NavDrawerLauncher.this, transactionItemArrayList);
 		recyclerView.setAdapter(recyclerViewAdapter);
-
 	}
 
 	private void addInitialTestData(int noOfItems) {
@@ -107,20 +88,16 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 			db.addTransaction(transaction);
 		}
 	}
-
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.nav_drawer_launcher, menu);
 		return true;
 	}
-
-
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-		int id= menuItem.getItemId();
-		switch (id){
+		int id = menuItem.getItemId();
+		switch (id) {
 
 			case R.id.nav_home:
 				snacky("Home");
@@ -138,10 +115,9 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		return true;
 
 	}
-
 	private void snacky(String message) {
-		View v=findViewById(R.id.fab);
-		Snackbar.make(v,message,Snackbar.LENGTH_LONG).show();
+		View v = findViewById(R.id.fab);
+		Snackbar.make(v, message, Snackbar.LENGTH_LONG).show();
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
