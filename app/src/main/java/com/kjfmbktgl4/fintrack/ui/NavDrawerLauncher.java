@@ -85,7 +85,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		List<TransactionItem> transactionItemList = db.getAllTransactions();
 
 		for (TransactionItem transactionItem : transactionItemList) {
-			Log.d("MainActivity", "onCreate: " + transactionItem.getNameCategoryOfTransaction());
+
 			transactionItemArrayList.add(transactionItem);
 		}
 
