@@ -56,6 +56,8 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		NavigationView navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
+		Menu menu = navigationView.getMenu();
+		menu.findItem(R.id.nav_home).setChecked(true);
 		//RV methods
 		addInitialTestData(1);
 		setUpTransactionRV();

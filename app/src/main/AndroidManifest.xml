@@ -11,9 +11,7 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".ui.EditTransaction" />
-        <activity
-            android:name=".ui.TransactionRV"
-            android:label="@string/title_activity_transaction_r_v" />
+
         <activity
             android:name=".ui.NavDrawerLauncher"
             android:label="@string/app_name"
