@@ -9,4 +9,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
+    <string name="category_names">Rent, Electricity, Water, Food, Clothing, Travel, School, Vehicle, Services</string>
 </resources>

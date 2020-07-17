@@ -31,4 +31,8 @@ public class Util {
 
 	//Tags
 	public static final String TAG ="dbTest";
+
+	//SharePref
+	public static final String SPREFCATEGORY="CATEGORY";
+	public static final String SPREFMODE="MODE";
 }

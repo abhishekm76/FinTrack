@@ -1,5 +1,7 @@
 package com.kjfmbktgl4.fintrack.ui;
 
+import android.content.SharedPreferences;
+import android.drm.DrmStore;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,6 +18,8 @@ import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -29,6 +33,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.kjfmbktgl4.fintrack.util.Util.SPREFCATEGORY;
 
 public class NavDrawerLauncher extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 	private AppBarConfiguration mAppBarConfiguration;
@@ -58,10 +64,24 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		navigationView.setNavigationItemSelectedListener(this);
 		Menu menu = navigationView.getMenu();
 		menu.findItem(R.id.nav_home).setChecked(true);
+		//hamburger
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+		drawer.setDrawerListener(toggle);
+		toggle.syncState();
 		//RV methods
 		addInitialTestData(1);
 		setUpTransactionRV();
+		setUpCategory();
 	}
+
+	private void setUpCategory() {
+		SharedPreferences sp = getSharedPreferences(SPREFCATEGORY,MODE_PRIVATE);
+		if(!sp.contains("CategoryName"));{
+			SharedPreferences.Editor editor = sp.edit();
+			//editor.putString("CategoryName",R.string.category_names);
+		}
+	}
+
 	private void setUpTransactionRV() {
 		// Hello set up recycler view
 		recyclerView = findViewById(R.id.NavRV);
