@@ -1,5 +1,10 @@
 package com.kjfmbktgl4.fintrack.util;
 
+import android.view.View;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.kjfmbktgl4.fintrack.R;
+
 public class Util {
 
 	//Database related items
@@ -33,6 +38,6 @@ public class Util {
 	public static final String TAG ="dbTest";
 
 	//SharePref
-	public static final String SPREFCATEGORY="CATEGORY";
-	public static final String SPREFMODE="MODE";
+	public static final String SPREFNAME ="FINTRACKPREFS";
+
 }

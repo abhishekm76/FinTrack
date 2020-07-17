@@ -12,4 +12,26 @@
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
     <string name="category_names">Rent, Electricity, Water, Food, Clothing, Travel, School, Vehicle, Services</string>
+    <string-array name="category_array">
+        <item>Rent</item>
+        <item>Food</item>
+        <item>Clothing</item>
+        <item>School</item>
+        <item>Utilities</item>
+        <item>House Maintenance</item>
+        <item>Taxes</item>
+        <item>Fuel</item>
+        <item>Car Maintenance</item>
+        <item>Electricity</item>
+        <item>Water</item>
+        <item>Cable</item>
+        <item>Phone</item>
+        <item>Internet</item>
+        <item>Medical</item>
+        <item>Household Supplies</item>
+        <item>Groceries</item>
+        <item>Gymn</item>
+        <item>Entertainment</item>
+    </string-array>
+
 </resources>

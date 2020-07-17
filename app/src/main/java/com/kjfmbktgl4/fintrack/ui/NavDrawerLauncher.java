@@ -1,9 +1,9 @@
 package com.kjfmbktgl4.fintrack.ui;
 
+import android.content.Context;
 import android.content.SharedPreferences;
-import android.drm.DrmStore;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -16,15 +16,12 @@ import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.adapter.TransactionRecyclerViewAdapter;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
+import com.kjfmbktgl4.fintrack.util.Preferences;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -32,9 +29,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static com.kjfmbktgl4.fintrack.util.Util.SPREFCATEGORY;
+import static com.kjfmbktgl4.fintrack.util.Util.SPREFNAME;
 
 public class NavDrawerLauncher extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 	private AppBarConfiguration mAppBarConfiguration;
@@ -75,10 +73,16 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 	}
 
 	private void setUpCategory() {
-		SharedPreferences sp = getSharedPreferences(SPREFCATEGORY,MODE_PRIVATE);
-		if(!sp.contains("CategoryName"));{
-			SharedPreferences.Editor editor = sp.edit();
-			//editor.putString("CategoryName",R.string.category_names);
+
+		List<String> mcategoryName;
+		mcategoryName= Preferences.getArrayPrefs("CategoryNames",this);
+
+		SharedPreferences sp = getSharedPreferences(SPREFNAME,MODE_PRIVATE);
+		if((mcategoryName==null));{
+
+			Resources res = getResources();
+			mcategoryName = Arrays.asList(res.getStringArray(R.array.category_array));
+			Preferences.setArrayPrefs("CategoryNames",mcategoryName,this);
 		}
 	}
 
