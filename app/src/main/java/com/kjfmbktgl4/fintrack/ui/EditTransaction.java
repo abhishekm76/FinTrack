@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -20,6 +23,7 @@ import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
 
+import java.util.Calendar;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -27,6 +31,7 @@ import java.util.Locale;
 public class EditTransaction extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 	Button saveButton;
 	Button cancelButton;
+	EditText dateET;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,25 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 
 		cancelButton = findViewById(R.id.buttoncancel);
 		cancelButton.setOnClickListener(this);
+		dateET=findViewById(R.id.editTextDate);
+		dateET.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final Calendar cldr = Calendar.getInstance();
+				int day = cldr.get(Calendar.DAY_OF_MONTH);
+				int month = cldr.get(Calendar.MONTH);
+				int year = cldr.get(Calendar.YEAR);
+				// date picker dialog
+				DatePickerDialog picker = new DatePickerDialog(EditTransaction.this,
+						new DatePickerDialog.OnDateSetListener() {
+							@Override
+							public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+								dateET.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+							}
+						}, year, month, day);
+				picker.show();
+			}
+		});
 
 		Locale curLocale = Locale.getDefault();
 		Currency curr = Currency.getInstance(curLocale);
@@ -59,9 +83,15 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		mcategoryName = Preferences.getArrayPrefs("CategoryNames", this);
 		Log.d(Util.TAG, "Category Names " + String.valueOf(mcategoryName.size()));
 		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
+
 		for (String category : mcategoryName) {
 			Chip chip = new Chip(this);
 			chip.setTextAppearance(android.R.style.TextAppearance_Material_Body1);
+			chip.setHeight(72);
+			chip.setRippleColorResource(R.color.colorAccent);
+			chip.setChipIconResource(R.drawable.ic_outline_delete_24);
+			chip.setChipCornerRadius(0);
+
 			chip.setCheckable(true);
 			chip.setText(category);
 
