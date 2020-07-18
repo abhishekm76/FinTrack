@@ -6,6 +6,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -66,7 +67,7 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		Currency curr = Currency.getInstance(curLocale);
 		String symbol = curr.getSymbol();
 		View v = findViewById(R.id.currTV);
-		amountTIL.setPrefixText(symbol);
+		//amountTIL.setPrefixText(symbol);
 		Snackbar.make(v, "Currnecy is  " + symbol, Snackbar.LENGTH_LONG)
 				.setAction("Action", null).show();
 		createCategoryViews();
@@ -130,7 +131,8 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 				//snacky("The chip you selected is  " + selChip.getText());
 				break;
 			case R.id.buttoncancel:
-				snacky("cancelled");
+				Intent intent = new Intent(this,CategoryList.class);
+				startActivity(intent);
 				break;
 
 			case R.id.editTextDate:

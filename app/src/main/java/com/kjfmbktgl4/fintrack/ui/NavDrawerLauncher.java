@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import com.kjfmbktgl4.fintrack.adapter.TransactionRecyclerViewAdapter;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
 import com.kjfmbktgl4.fintrack.util.Preferences;
+import com.kjfmbktgl4.fintrack.util.Util;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -67,7 +69,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		drawer.setDrawerListener(toggle);
 		toggle.syncState();
 		//RV methods
-		addInitialTestData(1);
+		//addInitialTestData(1);
 		setUpTransactionRV();
 		setUpCategory();
 	}
@@ -78,11 +80,12 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		mcategoryName= Preferences.getArrayPrefs("CategoryNames",this);
 
 		SharedPreferences sp = getSharedPreferences(SPREFNAME,MODE_PRIVATE);
-		if((mcategoryName==null));{
+		if((mcategoryName==null)){
 
 			Resources res = getResources();
 			mcategoryName = Arrays.asList(res.getStringArray(R.array.category_array));
 			Preferences.setArrayPrefs("CategoryNames",mcategoryName,this);
+			Log.d(Util.TAG, "writing new sp again in navdl: " + mcategoryName.size());
 		}
 	}
 
