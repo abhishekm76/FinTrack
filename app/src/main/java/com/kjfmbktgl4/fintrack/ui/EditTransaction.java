@@ -33,8 +33,8 @@ import java.util.Locale;
 public class EditTransaction extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 	Button saveButton;
 	Button cancelButton;
-	EditText dateET;
-	TextInputLayout dateTIL;
+	TextInputEditText dateET;
+	TextInputLayout dateTIL, amountTIL;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,16 +53,20 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		cancelButton = findViewById(R.id.buttoncancel);
 		cancelButton.setOnClickListener(this);
 
-		dateET = findViewById(R.id.editTextDate2);
+		dateET = findViewById(R.id.editTextDate);
 		dateET.setOnClickListener(this);
 
 		dateTIL=findViewById(R.id.dateTIL);
 		dateTIL.setOnClickListener(this);
 
+		amountTIL=findViewById(R.id.amountTIL);
+
+
 		Locale curLocale = Locale.getDefault();
 		Currency curr = Currency.getInstance(curLocale);
 		String symbol = curr.getSymbol();
 		View v = findViewById(R.id.currTV);
+		amountTIL.setPrefixText(symbol);
 		Snackbar.make(v, "Currnecy is  " + symbol, Snackbar.LENGTH_LONG)
 				.setAction("Action", null).show();
 		createCategoryViews();
@@ -74,14 +78,14 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		Log.d(Util.TAG, "Category Names " + String.valueOf(mcategoryName.size()));
 		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 
+
 		for (String category : mcategoryName) {
 			Chip chip = new Chip(this);
 			chip.setTextAppearance(android.R.style.TextAppearance_Material_Body1);
-			chip.setHeight(72);
-			chip.setRippleColorResource(R.color.colorAccent);
+
+			chip.setRippleColorResource(R.color.colorPrimary);
 			chip.setChipIconResource(R.drawable.ic_outline_delete_24);
 			chip.setChipCornerRadius(0);
-
 			chip.setCheckable(true);
 			chip.setText(category);
 
@@ -122,13 +126,14 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 			case R.id.buttonsave:
 				ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 				Chip selChip = findViewById(chipGroup.getCheckedChipId());
-				snacky("The chip you selected is  " + selChip.getText());
+				Snackbar.make(v, "you have a problem"+ chipGroup.getCheckedChipId(), Snackbar.LENGTH_LONG).show();
+				//snacky("The chip you selected is  " + selChip.getText());
 				break;
 			case R.id.buttoncancel:
 				snacky("cancelled");
 				break;
 
-			case R.id.editTextDate2:
+			case R.id.editTextDate:
 				pickerShow();
 				break;
 			case R.id.dateTIL:
