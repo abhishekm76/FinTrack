@@ -19,6 +19,8 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
@@ -32,6 +34,7 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 	Button saveButton;
 	Button cancelButton;
 	EditText dateET;
+	TextInputLayout dateTIL;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,25 +52,12 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 
 		cancelButton = findViewById(R.id.buttoncancel);
 		cancelButton.setOnClickListener(this);
-		dateET=findViewById(R.id.editTextDate);
-		dateET.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				final Calendar cldr = Calendar.getInstance();
-				int day = cldr.get(Calendar.DAY_OF_MONTH);
-				int month = cldr.get(Calendar.MONTH);
-				int year = cldr.get(Calendar.YEAR);
-				// date picker dialog
-				DatePickerDialog picker = new DatePickerDialog(EditTransaction.this,
-						new DatePickerDialog.OnDateSetListener() {
-							@Override
-							public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-								dateET.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-							}
-						}, year, month, day);
-				picker.show();
-			}
-		});
+
+		dateET = findViewById(R.id.editTextDate2);
+		dateET.setOnClickListener(this);
+
+		dateTIL=findViewById(R.id.dateTIL);
+		dateTIL.setOnClickListener(this);
 
 		Locale curLocale = Locale.getDefault();
 		Currency curr = Currency.getInstance(curLocale);
@@ -132,12 +122,35 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 			case R.id.buttonsave:
 				ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 				Chip selChip = findViewById(chipGroup.getCheckedChipId());
-				snacky("The chip you selected is  "+selChip.getText());
+				snacky("The chip you selected is  " + selChip.getText());
 				break;
 			case R.id.buttoncancel:
 				snacky("cancelled");
 				break;
+
+			case R.id.editTextDate2:
+				pickerShow();
+				break;
+			case R.id.dateTIL:
+				pickerShow();
+				break;
 		}
 
+	}
+
+	public void pickerShow() {
+		final Calendar cldr = Calendar.getInstance();
+		int day = cldr.get(Calendar.DAY_OF_MONTH);
+		int month = cldr.get(Calendar.MONTH);
+		int year = cldr.get(Calendar.YEAR);
+		// date picker dialog
+		DatePickerDialog picker = new DatePickerDialog(EditTransaction.this,
+				new DatePickerDialog.OnDateSetListener() {
+					@Override
+					public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+						dateET.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+					}
+				}, year, month, day);
+		picker.show();
 	}
 }
