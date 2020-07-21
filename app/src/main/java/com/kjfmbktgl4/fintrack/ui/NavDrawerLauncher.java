@@ -115,14 +115,14 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 
 	private void addInitialTestData(int noOfItems) {
 		DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
+		Util util = new Util();
 		for (int i = 0; i < noOfItems; i++) {
 			Random rnd = new Random();
 			TransactionItem transaction = new TransactionItem();
 			transaction.setNameCategoryOfTransaction("Food");
 			transaction.setNoteOfTransaction("This is a detailed note on the transaction");
-			transaction.setAmountOfTransaction((long) (Math.random() * 100));
-
-			Long ms = -1546361722L + (Math.abs(rnd.nextLong()) % (1L * 365 * 24 * 60 * 60 * 1000));
+			transaction.setAmountOfTransaction((long) (Math.random() * 10)*10+10);
+			Long ms = util.generateRandomDate();
 			transaction.setDateOfTransaction(ms);
 			transaction.setAccountOfTransaction("HDFC " + i);
 			db.addTransaction(transaction);
@@ -147,6 +147,9 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 
 			case R.id.nav_gallery:
 				snacky("gallery");
+				DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
+				db.deleteAll();
+
 				break;
 			case R.id.nav_slideshow:
 				Intent intent = new Intent(this, PieChart.class);
@@ -173,6 +176,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 
 		//noinspection SimplifiableIfStatement
 		if (id == R.id.action_settings) {
+
 			return true;
 		}
 

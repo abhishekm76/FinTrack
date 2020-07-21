@@ -134,4 +134,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 		return categoryTotalsArrayList;
 	}
+	public void deleteAll(){
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		//delete all
+		db.delete(Util.TABLE_NAME,null,null);
+		/*String deleteAll = "DELETE"+" FROM " + Util.TABLE_NAME;
+		db.execSQL(deleteAll, null);
+		*/db.close();
+
+	}
 }

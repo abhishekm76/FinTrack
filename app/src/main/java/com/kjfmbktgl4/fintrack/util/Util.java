@@ -1,9 +1,6 @@
 package com.kjfmbktgl4.fintrack.util;
 
-import android.view.View;
-
-import com.google.android.material.snackbar.Snackbar;
-import com.kjfmbktgl4.fintrack.R;
+import java.sql.Timestamp;
 
 public class Util {
 
@@ -40,5 +37,13 @@ public class Util {
 	//SharePref
 	public static final String SPREFNAME ="FINTRACKPREFS";
 	public static final String CATEGORYTOTAL="totalAmountOfTransaction";
+
+	public Long generateRandomDate(){
+		long beginTime = Timestamp.valueOf("2019-01-01 00:00:00").getTime();
+		long endTime = Timestamp.valueOf("2020-06-30 00:58:00").getTime();
+		long diff = endTime - beginTime + 1;
+		return beginTime + (long) (Math.random() * diff);
+
+	}
 
 }
