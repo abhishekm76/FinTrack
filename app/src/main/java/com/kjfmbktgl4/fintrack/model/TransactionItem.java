@@ -1,6 +1,8 @@
 package com.kjfmbktgl4.fintrack.model;
 
-public class TransactionItem {
+import java.io.Serializable;
+
+public class TransactionItem implements Serializable {
 	private int id;
 	private long dateOfTransaction;
 	private long amountOfTransaction;

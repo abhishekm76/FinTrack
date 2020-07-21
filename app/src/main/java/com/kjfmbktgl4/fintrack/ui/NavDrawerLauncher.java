@@ -1,6 +1,7 @@
 package com.kjfmbktgl4.fintrack.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +43,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 	private RecyclerView recyclerView;
 	private DatabaseHandler db;
 	private TransactionRecyclerViewAdapter recyclerViewAdapter;
-	private List<TransactionItem> transactionItemArrayList;
+	public List<TransactionItem> transactionItemArrayList;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -136,6 +138,9 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 				snacky("gallery");
 				break;
 			case R.id.nav_slideshow:
+			Intent intent = new Intent(this,PieChart.class);
+			intent.putExtra("dataArrayList", (Serializable) transactionItemArrayList);
+				startActivity(intent);
 				snacky("slideshow");
 				break;
 		}

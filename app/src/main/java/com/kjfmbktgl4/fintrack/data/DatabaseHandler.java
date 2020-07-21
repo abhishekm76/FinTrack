@@ -109,4 +109,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 
+	public ArrayList<TransactionItem> getAllTransactionsByCategory() {
+		ArrayList<TransactionItem> transactionArrayListByCategory = new ArrayList<>();
+
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		//Select all contacts
+		String selectAllByCategory = "SELECT "+Util.TRAN_CAT_NAME+",SUM(" +Util.TRAN_AMOUNT + ") as "+Util.TRAN_AMOUNT +" FROM " + Util.TABLE_NAME+ " GROUP BY "+Util.TRAN_CAT_NAME;
+		Cursor cursor = db.rawQuery(selectAllByCategory, null);
+
+		//Loop through our data
+		if (cursor.moveToFirst()) {
+			do {
+				TransactionItem transactionItem = new TransactionItem();
+				transactionItem.setNameCategoryOfTransaction(cursor.getString(0));
+				transactionItem.setAmountOfTransaction(Long.parseLong(cursor.getString(1)));
+
+				//add transaction objects to our list
+				transactionArrayListByCategory.add(transactionItem);
+			}while (cursor.moveToNext());
+		}
+		db.close();
+		return transactionArrayListByCategory;
+	}
 }

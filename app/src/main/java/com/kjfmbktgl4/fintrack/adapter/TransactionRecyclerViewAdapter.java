@@ -42,8 +42,8 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 		TransactionItem transaction = transactionItemList.get(position);
 		holder.categoryName.setText(transaction.getNameCategoryOfTransaction());
 		holder.transNote.setText(transaction.getNoteOfTransaction());
-		//	holder.transAmount.setText((int) transaction.getAmountOfTransaction());
-		//	holder.transDate.setText((int) transaction.getDateOfTransaction());
+		holder.transAmount.setText(""+transaction.getAmountOfTransaction());
+		holder.transDate.setText(""+ transaction.getDateOfTransaction());
 		holder.transAccount.setText(transaction.getAccountOfTransaction());
 
 	}
