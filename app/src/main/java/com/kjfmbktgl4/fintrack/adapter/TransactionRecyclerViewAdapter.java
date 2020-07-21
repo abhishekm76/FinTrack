@@ -18,6 +18,8 @@ import com.kjfmbktgl4.fintrack.ui.EditTransaction;
 import com.kjfmbktgl4.fintrack.ui.NavDrawerLauncher;
 //import com.kjfmbktgl4.fintrack.ui.TransactionRV;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<TransactionRecyclerViewAdapter.ViewHolder> {
@@ -43,7 +45,10 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 		holder.categoryName.setText(transaction.getNameCategoryOfTransaction());
 		holder.transNote.setText(transaction.getNoteOfTransaction());
 		holder.transAmount.setText(""+transaction.getAmountOfTransaction());
-		holder.transDate.setText(""+ transaction.getDateOfTransaction());
+
+		Date transactionDate = new Date(transaction.getDateOfTransaction());
+		String tranDate = DateFormat.getDateInstance(DateFormat.FULL).format(transactionDate);
+		holder.transDate.setText(tranDate);
 		holder.transAccount.setText(transaction.getAccountOfTransaction());
 
 	}

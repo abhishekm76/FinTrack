@@ -7,7 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.kjfmbktgl4.fintrack.model.CategoryTotals;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
+import com.kjfmbktgl4.fintrack.ui.CategoryList;
 import com.kjfmbktgl4.fintrack.util.Util;
 
 import java.util.ArrayList;
@@ -109,27 +111,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 
-	public ArrayList<TransactionItem> getAllTransactionsByCategory() {
-		ArrayList<TransactionItem> transactionArrayListByCategory = new ArrayList<>();
+	public ArrayList<CategoryTotals> getAllTransactionsByCategory() {
+		ArrayList<CategoryTotals> categoryTotalsArrayList = new ArrayList<>();
 
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		//Select all contacts
-		String selectAllByCategory = "SELECT "+Util.TRAN_CAT_NAME+",SUM(" +Util.TRAN_AMOUNT + ") as "+Util.TRAN_AMOUNT +" FROM " + Util.TABLE_NAME+ " GROUP BY "+Util.TRAN_CAT_NAME;
+		String selectAllByCategory = "SELECT "+Util.TRAN_CAT_NAME+",SUM(" +Util.TRAN_AMOUNT + ") as "+Util.CATEGORYTOTAL +" FROM " + Util.TABLE_NAME+ " GROUP BY "+Util.TRAN_CAT_NAME;
 		Cursor cursor = db.rawQuery(selectAllByCategory, null);
 
 		//Loop through our data
 		if (cursor.moveToFirst()) {
 			do {
-				TransactionItem transactionItem = new TransactionItem();
-				transactionItem.setNameCategoryOfTransaction(cursor.getString(0));
-				transactionItem.setAmountOfTransaction(Long.parseLong(cursor.getString(1)));
+				CategoryTotals categoryTotals= new CategoryTotals();;
+				categoryTotals.setNameCategoryOfTransaction(cursor.getString(0));
+				categoryTotals.setTotalAmountOfTransaction(Long.parseLong(cursor.getString(1)));
 
 				//add transaction objects to our list
-				transactionArrayListByCategory.add(transactionItem);
+				categoryTotalsArrayList.add(categoryTotals);
 			}while (cursor.moveToNext());
 		}
 		db.close();
-		return transactionArrayListByCategory;
+		return categoryTotalsArrayList;
 	}
 }

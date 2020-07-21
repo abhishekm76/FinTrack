@@ -26,8 +26,10 @@ import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Currency;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -70,7 +72,15 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		//amountTIL.setPrefixText(symbol);
 		Snackbar.make(v, "Currnecy is  " + symbol, Snackbar.LENGTH_LONG)
 				.setAction("Action", null).show();
+		dateET.setText(setCurrentDate());
 		createCategoryViews();
+
+	}
+
+	private String setCurrentDate() {
+		Calendar calendar = Calendar.getInstance();
+		String currentDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(calendar.getTime());
+		return currentDate;
 	}
 
 	private void createCategoryViews() {
