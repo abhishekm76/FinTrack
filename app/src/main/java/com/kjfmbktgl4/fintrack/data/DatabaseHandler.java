@@ -151,7 +151,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		//Select period totals
-		String selectTotalByPeriod = "SELECT strftime('%m-%Y', "+"datetime("+Util.TRAN_DATE+"/1000, 'unixepoch')) as "+Util.PERIODNAME+", SUM(" +Util.TRAN_AMOUNT + ") as "+Util.PERIODTOTAL +" FROM " + Util.TABLE_NAME+ " GROUP BY "+Util.PERIODNAME;
+		String selectTotalByPeriod = "SELECT strftime('%m-%Y', "+"datetime("+Util.TRAN_DATE+"/1000, 'unixepoch')) as "+Util.PERIODNAME+", SUM(" +Util.TRAN_AMOUNT + ") as "+Util.PERIODTOTAL +" FROM " + Util.TABLE_NAME+ " GROUP BY "+Util.PERIODNAME+ " ORDER BY "+Util.TRAN_DATE;
 		Cursor cursor = db.rawQuery(selectTotalByPeriod, null);
 
 		//Loop through our data
