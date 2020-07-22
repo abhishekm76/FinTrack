@@ -10,7 +10,6 @@ import android.util.Log;
 import com.kjfmbktgl4.fintrack.model.CategoryTotals;
 import com.kjfmbktgl4.fintrack.model.PeriodTotal;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
-import com.kjfmbktgl4.fintrack.ui.CategoryList;
 import com.kjfmbktgl4.fintrack.util.Util;
 
 import java.util.ArrayList;
@@ -124,7 +123,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		//Loop through our data
 		if (cursor.moveToFirst()) {
 			do {
-				CategoryTotals categoryTotals= new CategoryTotals();;
+				CategoryTotals categoryTotals= new CategoryTotals();
 				categoryTotals.setNameCategoryOfTransaction(cursor.getString(0));
 				categoryTotals.setTotalAmountOfTransaction(Long.parseLong(cursor.getString(1)));
 

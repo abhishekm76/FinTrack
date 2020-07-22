@@ -12,7 +12,6 @@ import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.kjfmbktgl4.fintrack.util.Util.SPREFNAME;
@@ -65,7 +64,7 @@ public class CategoryList extends ListActivity {
 	private void saveNewCategory(String mnewCategoryName) {
 		//listItems.add(mnewCategoryName);
 		SharedPreferences sp = getSharedPreferences(SPREFNAME,MODE_PRIVATE);
-		if(!(mnewCategoryName==null));{
+		if(!(mnewCategoryName==null)){
 			Preferences.setArrayPrefs("CategoryNames",listItems,this);
 			Log.d(Util.TAG, "saveNewCategory: " + listItems.size());
 		}

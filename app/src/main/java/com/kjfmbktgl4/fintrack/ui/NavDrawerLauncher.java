@@ -16,7 +16,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.adapter.TransactionRecyclerViewAdapter;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
-import com.kjfmbktgl4.fintrack.model.PeriodTotal;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
@@ -99,9 +98,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
 
 		List<TransactionItem> transactionItemList = db.getAllTransactions();
-		for (TransactionItem transactionItem : transactionItemList) {
-			transactionItemArrayList.add(transactionItem);
-		}
+		transactionItemArrayList.addAll(transactionItemList);
 		//setup adapter
 		recyclerViewAdapter = new TransactionRecyclerViewAdapter(NavDrawerLauncher.this, transactionItemArrayList);
 		recyclerView.setAdapter(recyclerViewAdapter);
@@ -152,7 +149,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 				startActivity(intent);
 				break;
 		}
-		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		drawer.closeDrawer(GravityCompat.START);
 		return true;
 

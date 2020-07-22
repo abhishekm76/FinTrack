@@ -13,7 +13,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
 import com.kjfmbktgl4.fintrack.model.CategoryTotals;
-import com.kjfmbktgl4.fintrack.model.TransactionItem;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -15,7 +15,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
 import com.kjfmbktgl4.fintrack.ui.EditTransaction;
-import com.kjfmbktgl4.fintrack.ui.NavDrawerLauncher;
 //import com.kjfmbktgl4.fintrack.ui.TransactionRV;
 
 import java.text.DateFormat;

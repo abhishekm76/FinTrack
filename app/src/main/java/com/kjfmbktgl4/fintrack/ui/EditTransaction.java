@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -29,7 +28,6 @@ import com.kjfmbktgl4.fintrack.util.Util;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Currency;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -82,14 +80,13 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 
 	private String setCurrentDate() {
 		Calendar calendar = Calendar.getInstance();
-		String currentDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(calendar.getTime());
-		return currentDate;
+		return DateFormat.getDateInstance(DateFormat.MEDIUM).format(calendar.getTime());
 	}
 
 	private void createCategoryViews() {
 		List<String> mcategoryName;
 		mcategoryName = Preferences.getArrayPrefs("CategoryNames", this);
-		Log.d(Util.TAG, "Category Names " + String.valueOf(mcategoryName.size()));
+		Log.d(Util.TAG, "Category Names " + mcategoryName.size());
 		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 
 
@@ -124,7 +121,7 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 				snacky("slideshow");
 				break;
 		}
-		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		drawer.closeDrawer(GravityCompat.START);
 		return true;
 	}
@@ -150,8 +147,6 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 				break;
 
 			case R.id.editTextDate:
-				pickerShow();
-				break;
 			case R.id.dateTIL:
 				pickerShow();
 				break;

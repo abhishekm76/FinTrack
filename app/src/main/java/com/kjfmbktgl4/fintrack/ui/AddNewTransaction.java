@@ -86,7 +86,7 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 	private void createCategoryViews() {
 		List<String> mcategoryName;
 		mcategoryName = Preferences.getArrayPrefs("CategoryNames", this);
-		Log.d(Util.TAG, "Category Names " + String.valueOf(mcategoryName.size()));
+		Log.d(Util.TAG, "Category Names " + mcategoryName.size());
 		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 
 

@@ -10,7 +10,6 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
 import com.kjfmbktgl4.fintrack.model.PeriodTotal;
@@ -36,7 +35,7 @@ public class BarChart extends AppCompatActivity {
 	private void drawGraph(List<PeriodTotal> dataList) {
 		List<BarEntry> entries = new ArrayList<>();
 		ArrayList<String> xAxisLabels = new ArrayList<>();
-		Float index = 0f;
+		Float index;
 		for (int i = 0; i < dataList.size(); i++) {
 			String labelName = dataList.get(i).getPeriodName();
 			int totalOfPeriod = (dataList.get(i).getTotalOfPeriod());
