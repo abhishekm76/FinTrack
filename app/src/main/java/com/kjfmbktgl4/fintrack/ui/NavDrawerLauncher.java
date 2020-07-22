@@ -40,7 +40,8 @@ import static com.kjfmbktgl4.fintrack.util.Util.SPREFNAME;
 public class NavDrawerLauncher extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 	private AppBarConfiguration mAppBarConfiguration;
 	private RecyclerView recyclerView;
-	private DatabaseHandler db;
+	//private DatabaseHandler db;
+	private final DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
 	private TransactionRecyclerViewAdapter recyclerViewAdapter;
 	public List<TransactionItem> transactionItemArrayList;
 
@@ -80,7 +81,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		mcategoryName = Preferences.getArrayPrefs("CategoryNames", this);
 
 		SharedPreferences sp = getSharedPreferences(SPREFNAME, MODE_PRIVATE);
-		if ((mcategoryName == null)) {
+		if (mcategoryName == null) {
 
 			Resources res = getResources();
 			mcategoryName = Arrays.asList(res.getStringArray(R.array.category_array));
@@ -95,7 +96,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		transactionItemArrayList = new ArrayList<>();
-		DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
+		//DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
 
 		List<TransactionItem> transactionItemList = db.getAllTransactions();
 		transactionItemArrayList.addAll(transactionItemList);
@@ -107,7 +108,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 
 
 	private void addInitialTestData(int noOfItems) {
-		DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
+		//DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
 		Util util = new Util();
 		for (int i = 0; i < noOfItems; i++) {
 			Random rnd = new Random();
@@ -119,6 +120,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 			transaction.setDateOfTransaction(ms);
 			transaction.setAccountOfTransaction("HDFC " + i);
 			db.addTransaction(transaction);
+			db.close();
 		}
 	}
 
@@ -172,7 +174,13 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 
 			return true;
 		}
+		if (id == R.id.delete_all) {
+			db.deleteAll();
+			recyclerViewAdapter.notifyDataSetChanged();
+			return true;
+		}
 
 		return super.onOptionsItemSelected(item);
 	}
+
 }

@@ -16,6 +16,7 @@
     <string name="thisyear">This Year</string>
     <string name="this_month">This Month</string>
     <string name="today">Today</string>
+    <string name="delete_all_data">Delete all data</string>
     <string-array name="category_array">
         <item>Rent</item>
         <item>Food</item>

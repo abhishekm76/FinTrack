@@ -16,26 +16,37 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kjfmbktgl4.fintrack.R;
+import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
+import com.kjfmbktgl4.fintrack.model.TransactionItem;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Currency;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class AddNewTransaction extends AppCompatActivity implements View.OnClickListener {
 	Button saveButton;
 	Button cancelButton;
-	TextInputEditText dateET;
+	String selCategoryName, selAccountName;
+	TextInputEditText dateET, noteET, amountET;
+	Chip categoryChip, accountChip;
+	ChipGroup categoryChipGroup, accountChipGroup;
 	TextInputLayout dateTIL, amountTIL;
+	private final DatabaseHandler db = new DatabaseHandler(AddNewTransaction.this);
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_transaction);
 		saveButton = findViewById(R.id.buttonsave);
 		saveButton.setOnClickListener(this);
+		categoryChipGroup = findViewById(R.id.catChipGroup);
 
 		cancelButton = findViewById(R.id.buttoncancel);
 		cancelButton.setOnClickListener(this);
@@ -43,10 +54,12 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 		dateET = findViewById(R.id.editTextDate);
 		dateET.setOnClickListener(this);
 
-		dateTIL=findViewById(R.id.dateTIL);
+		dateTIL = findViewById(R.id.dateTIL);
 		dateTIL.setOnClickListener(this);
 
-		amountTIL=findViewById(R.id.amountTIL);
+		amountTIL = findViewById(R.id.amountTIL);
+		amountET = findViewById(R.id.editTextAmount);
+		noteET = findViewById(R.id.editTextNote);
 
 		setDateAndCurrency();
 		createCategoryViews();
@@ -57,13 +70,13 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 		int id = view.getId();
 		switch (id) {
 			case R.id.buttonsave:
-				ChipGroup chipGroup = findViewById(R.id.catChipGroup);
-				Chip selChip = findViewById(chipGroup.getCheckedChipId());
-				Snackbar.make(view, "you have a problem"+ chipGroup.getCheckedChipId(), Snackbar.LENGTH_LONG).show();
+				saveNewTransacton();
+				Intent intent1 = new Intent(this, NavDrawerLauncher.class);
+				startActivity(intent1);
 
 				break;
 			case R.id.buttoncancel:
-				Intent intent = new Intent(this,NavDrawerLauncher.class);
+				Intent intent = new Intent(this, NavDrawerLauncher.class);
 				startActivity(intent);
 				break;
 
@@ -73,6 +86,31 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 				break;
 		}
 	}
+
+	private void saveNewTransacton() {
+
+		TransactionItem transaction = new TransactionItem();
+		int id = categoryChipGroup.getCheckedChipId();
+		if (id!=-1) {
+			categoryChip = findViewById(categoryChipGroup.getCheckedChipId());
+			transaction.setNameCategoryOfTransaction(String.valueOf(categoryChip.getText()));
+		}
+		transaction.setNoteOfTransaction(String.valueOf(noteET.getText()));
+		transaction.setAmountOfTransaction(Long.parseLong(String.valueOf(amountET.getText())));
+
+		try {
+			Date transDate = DateFormat.getDateInstance().parse(dateET.getText().toString());
+			transaction.setDateOfTransaction(transDate.getTime());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		transaction.setAccountOfTransaction("HDFC ");
+		db.addTransaction(transaction);
+		db.close();
+
+
+	}
+
 	private void setDateAndCurrency() {
 		Locale curLocale = Locale.getDefault();
 		Currency curr = Currency.getInstance(curLocale);
@@ -83,6 +121,7 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 		String currentDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(calendar.getTime());
 		dateET.setText(currentDate);
 	}
+
 	private void createCategoryViews() {
 		List<String> mcategoryName;
 		mcategoryName = Preferences.getArrayPrefs("CategoryNames", this);
@@ -103,6 +142,7 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 			chipGroup.addView(chip);
 		}
 	}
+
 	public void pickerShow() {
 		final Calendar cldr = Calendar.getInstance();
 		int day = cldr.get(Calendar.DAY_OF_MONTH);
