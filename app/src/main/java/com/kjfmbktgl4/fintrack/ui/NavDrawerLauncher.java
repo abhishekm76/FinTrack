@@ -1,10 +1,8 @@
 package com.kjfmbktgl4.fintrack.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -18,12 +16,12 @@ import com.google.android.material.navigation.NavigationView;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.adapter.TransactionRecyclerViewAdapter;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
+import com.kjfmbktgl4.fintrack.model.PeriodTotal;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -33,8 +31,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,9 +49,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-	/*	recyclerView = findViewById(R.id.NavRV);
-		recyclerView.setHasFixedSize(true);
-		recyclerView.setLayoutManager(new LinearLayoutManager(this));*/
+
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		FloatingActionButton fab = findViewById(R.id.fab);
@@ -76,7 +70,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		drawer.setDrawerListener(toggle);
 		toggle.syncState();
 		//RV methods
-		addInitialTestData(5);
+		//addInitialTestData(5);
 		setUpTransactionRV();
 		setUpCategory();
 	}
@@ -103,6 +97,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		transactionItemArrayList = new ArrayList<>();
 		DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
+
 		List<TransactionItem> transactionItemList = db.getAllTransactions();
 		for (TransactionItem transactionItem : transactionItemList) {
 			transactionItemArrayList.add(transactionItem);
@@ -110,6 +105,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		//setup adapter
 		recyclerViewAdapter = new TransactionRecyclerViewAdapter(NavDrawerLauncher.this, transactionItemArrayList);
 		recyclerView.setAdapter(recyclerViewAdapter);
+
 	}
 
 
@@ -120,8 +116,8 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 			Random rnd = new Random();
 			TransactionItem transaction = new TransactionItem();
 			transaction.setNameCategoryOfTransaction("Food");
-			transaction.setNoteOfTransaction("This is a detailed note on the transaction");
-			transaction.setAmountOfTransaction((long) (Math.random() * 10)*10+10);
+			transaction.setNoteOfTransaction("This is a detailed note on the transaction and can be quite long");
+			transaction.setAmountOfTransaction((long) (Math.random() * 10) * 10 + 10);
 			Long ms = util.generateRandomDate();
 			transaction.setDateOfTransaction(ms);
 			transaction.setAccountOfTransaction("HDFC " + i);
@@ -147,8 +143,8 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 
 			case R.id.nav_gallery:
 				snacky("gallery");
-				DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
-				db.deleteAll();
+				Intent intentForBarChart = new Intent(this, BarChart.class);
+				startActivity(intentForBarChart);
 
 				break;
 			case R.id.nav_slideshow:

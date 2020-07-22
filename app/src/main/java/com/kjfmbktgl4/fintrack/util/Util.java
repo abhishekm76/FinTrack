@@ -37,6 +37,8 @@ public class Util {
 	//SharePref
 	public static final String SPREFNAME ="FINTRACKPREFS";
 	public static final String CATEGORYTOTAL="totalAmountOfTransaction";
+	public static final String PERIODTOTAL= "totalByPeriod";
+	public static final String PERIODNAME ="nameOfPeriod";
 
 	public Long generateRandomDate(){
 		long beginTime = Timestamp.valueOf("2019-01-01 00:00:00").getTime();

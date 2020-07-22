@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.kjfmbktgl4.fintrack.model.CategoryTotals;
+import com.kjfmbktgl4.fintrack.model.PeriodTotal;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
 import com.kjfmbktgl4.fintrack.ui.CategoryList;
 import com.kjfmbktgl4.fintrack.util.Util;
@@ -143,5 +144,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.execSQL(deleteAll, null);
 		*/db.close();
 
+	}
+
+	public List<PeriodTotal> getTransactionsByPeriod() {
+		ArrayList<PeriodTotal> periodTotalArrayList = new ArrayList<>();
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		//Select period totals
+		String selectTotalByPeriod = "SELECT strftime('%m-%Y', "+"datetime("+Util.TRAN_DATE+"/1000, 'unixepoch')) as "+Util.PERIODNAME+", SUM(" +Util.TRAN_AMOUNT + ") as "+Util.PERIODTOTAL +" FROM " + Util.TABLE_NAME+ " GROUP BY "+Util.PERIODNAME;
+		Cursor cursor = db.rawQuery(selectTotalByPeriod, null);
+
+		//Loop through our data
+		if (cursor.moveToFirst()) {
+			do {
+				PeriodTotal periodTotal= new PeriodTotal();
+				String periodName =cursor.getString(0);
+				periodTotal.setPeriodName(cursor.getString(0));
+				periodTotal.setTotalOfPeriod(Integer.parseInt((cursor.getString(1))));
+
+				//add transaction objects to our list
+				periodTotalArrayList.add(periodTotal);
+			}while (cursor.moveToNext());
+		}
+		db.close();
+		return periodTotalArrayList;
 	}
 }

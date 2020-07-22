@@ -9,6 +9,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
 import com.kjfmbktgl4.fintrack.model.CategoryTotals;
@@ -48,6 +49,7 @@ public class PieChart extends AppCompatActivity {
 		PieDataSet set = new PieDataSet(entries, "Spend by category");
 		PieData data = new PieData(set);
 		pieChart.setData(data);
+		set.setColors(ColorTemplate.MATERIAL_COLORS);
 		data.setValueFormatter(new PercentFormatter());
 		data.setValueTextSize(13f);
 		data.setValueTextColor(Color.DKGRAY);
