@@ -134,6 +134,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return transactionItem;
 	}
 
+	//Update a transaction
+	public int updateTransaction(TransactionItem transactionItem) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(Util.TRAN_ID, transactionItem.getId());
+		values.put(Util.TRAN_CAT_NAME, transactionItem.getNameCategoryOfTransaction());
+		values.put(Util.TRAN_NOTE, transactionItem.getNoteOfTransaction());
+		values.put(Util.TRAN_AMOUNT, transactionItem.getAmountOfTransaction());
+		values.put(Util.TRAN_ACT, transactionItem.getAccountOfTransaction());
+		values.put(Util.TRAN_DATE, transactionItem.getDateOfTransaction());
+
+		//update the row
+		//update(tablename, values, where id = 43)
+		db.update(Util.TABLE_NAME, values, Util.TRAN_ID + "=?",
+				new String[]{String.valueOf(transactionItem.getId())});
+		db.close();
+		return transactionItem.getId();
+	}
 	public ArrayList<CategoryTotals> getAllTransactionsByCategory() {
 		ArrayList<CategoryTotals> categoryTotalsArrayList = new ArrayList<>();
 

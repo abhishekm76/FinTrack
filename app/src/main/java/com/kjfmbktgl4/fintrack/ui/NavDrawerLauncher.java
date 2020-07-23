@@ -132,6 +132,11 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 
 	}
 
+	@Override
+	protected void onResume() {
+		recyclerViewAdapter.notifyDataSetChanged();
+		super.onResume();
+	}
 
 	private void addInitialTestData(int noOfItems) {
 		//DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);

@@ -28,6 +28,7 @@ import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
@@ -40,6 +41,7 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 	TextInputEditText dateET,amountET,noteET;
 	String categoryName;
 	TextInputLayout amountTIL;
+	int id;
 	private final DatabaseHandler db = new DatabaseHandler(EditTransaction.this);
 
 	@Override
@@ -76,7 +78,7 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 
 	private void setValuesToEdit() {
 		Intent intent = getIntent();
-		int id = intent.getIntExtra("id",0);
+		id = intent.getIntExtra("id",0);
 		TransactionItem transactionItem = new TransactionItem();
 		transactionItem = db.getOneTransaction(id);
 		snacky(transactionItem.getNameCategoryOfTransaction());
@@ -143,12 +145,6 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 			chip.setChipCornerRadius(0);
 			chip.setCheckable(true);
 			chip.setText(category);
-
-			/*if(category.equals(categoryName)){
-
-				//chip.setChecked(true);
-			}*/
-
 			chipGroup.addView(chip);
 			chipGroup.setSingleSelection(true);
 		}
@@ -185,10 +181,11 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		int id = v.getId();
 		switch (id) {
 			case R.id.buttonsave:
-				ChipGroup chipGroup = findViewById(R.id.catChipGroup);
+				/*ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 				Chip selChip = findViewById(chipGroup.getCheckedChipId());
-				Snackbar.make(v, "you have a problem" + chipGroup.getCheckedChipId(), Snackbar.LENGTH_LONG).show();
+				Snackbar.make(v, "you have a problem" + chipGroup.getCheckedChipId(), Snackbar.LENGTH_LONG).show();*/
 				//snacky("The chip you selected is  " + selChip.getText());
+				updateTransaction();
 				break;
 			case R.id.buttoncancel:
 				Intent intent = new Intent(this, CategoryList.class);
@@ -200,6 +197,30 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 				pickerShow();
 				break;
 		}
+
+	}
+
+	private void updateTransaction() {
+		TransactionItem transaction = new TransactionItem();
+		transaction.setNameCategoryOfTransaction("Food");
+		transaction.setNoteOfTransaction(String.valueOf(noteET.getText()));
+		transaction.setAmountOfTransaction(Long.parseLong(String.valueOf(amountET.getText())));
+		transaction.setId(id);
+		try {
+			Date transDate = DateFormat.getDateInstance().parse(String.valueOf(dateET.getText()));
+			transaction.setDateOfTransaction(transDate.getTime());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
+		Chip selChip = findViewById(chipGroup.getCheckedChipId());
+		String selChipString = String.valueOf(selChip.getText());
+		transaction.setNameCategoryOfTransaction(selChipString);
+
+		db.updateTransaction(transaction);
+
+
 
 	}
 
