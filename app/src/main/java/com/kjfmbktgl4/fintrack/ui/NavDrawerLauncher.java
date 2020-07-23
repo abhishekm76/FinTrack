@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-//ToDo  datepicker fix
+
 //// TODO: 23-07-2020  add account detaisl for chip selection
 // TODO: 23-07-2020 add delete and edit for simple list
 // TODO: 23-07-2020 add date filters for graphs
@@ -50,6 +50,9 @@ import java.util.Random;
 // TODO: 23-07-2020 add apache
 // TODO: 23-07-2020 proguard
 // TODO: 23-07-2020 backup
+// TODO: 23-07-2020 adjsut resize to show input while entering it
+// TODO: 23-07-2020 when delete all and restart the chip labels disapper 
+
 import static com.kjfmbktgl4.fintrack.util.Util.SPREFNAME;
 
 public class NavDrawerLauncher extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

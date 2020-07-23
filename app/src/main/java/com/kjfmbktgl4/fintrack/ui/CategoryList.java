@@ -28,27 +28,27 @@ public class CategoryList extends ListActivity {
 
 
 	EditText newCategory;
+	String dialogSelection;
 
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-		setContentView(R.layout.category_listview);
+		setContentView(R.layout.category_recyclerview);
 		newCategory = findViewById(R.id.categoryEditText);
 		getListData();
-		adapter=new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_single_choice,
+		adapter = new ArrayAdapter<String>(this,
+					android.R.layout.simple_list_item_single_choice,
 				listItems);
 		setListAdapter(adapter);
 	}
 
 	private void getListData() {
 		List<String> mcategoryName;
-		mcategoryName= Preferences.getArrayPrefs("CategoryNames",this);
-		listItems=mcategoryName;
+		mcategoryName = Preferences.getArrayPrefs("CategoryNames", this);
+		listItems = mcategoryName;
 	/*	for (String s : listItems = mcategoryName) {
 			listItems.add(s);
 		};	*/
-
 
 
 	}
@@ -63,9 +63,9 @@ public class CategoryList extends ListActivity {
 
 	private void saveNewCategory(String mnewCategoryName) {
 		//listItems.add(mnewCategoryName);
-		SharedPreferences sp = getSharedPreferences(SPREFNAME,MODE_PRIVATE);
-		if(!(mnewCategoryName==null)){
-			Preferences.setArrayPrefs("CategoryNames",listItems,this);
+		SharedPreferences sp = getSharedPreferences(SPREFNAME, MODE_PRIVATE);
+		if (!(mnewCategoryName == null)) {
+			Preferences.setArrayPrefs("CategoryNames", listItems, this);
 			Log.d(Util.TAG, "saveNewCategory: " + listItems.size());
 		}
 
