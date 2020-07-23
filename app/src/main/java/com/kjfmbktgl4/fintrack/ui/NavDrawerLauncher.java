@@ -1,8 +1,10 @@
 package com.kjfmbktgl4.fintrack.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -22,6 +24,7 @@ import com.kjfmbktgl4.fintrack.util.Util;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -30,8 +33,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -62,6 +69,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 	private final DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
 	private TransactionRecyclerViewAdapter recyclerViewAdapter;
 	public List<TransactionItem> transactionItemArrayList;
+	public List<TransactionItem> exportArrayList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +96,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		drawer.setDrawerListener(toggle);
 		toggle.syncState();
 		//RV methods
-		//addInitialTestData(5);
+		addInitialTestData(5);
 		setUpTransactionRV();
 		setUpCategory();
 	}
@@ -99,7 +107,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		mcategoryName = Preferences.getArrayPrefs("CategoryNames", this);
 
 		SharedPreferences sp = getSharedPreferences(SPREFNAME, MODE_PRIVATE);
-		if (mcategoryName == null) {
+		if (mcategoryName.size() == 0) {
 
 			Resources res = getResources();
 			mcategoryName = Arrays.asList(res.getStringArray(R.array.category_array));
@@ -197,8 +205,58 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 			recyclerViewAdapter.notifyDataSetChanged();
 			return true;
 		}
+		if (id == R.id.export) {
+			View v = findViewById(R.id.fab);
+			exportData(v);
+
+			return true;
+		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void exportData(View view) {
+		//generate data
+		List<TransactionItem> transactionItemListForExport = db.getAllTransactions();
+		exportArrayList = new ArrayList<>();
+		exportArrayList.addAll(transactionItemListForExport);
+		StringBuilder data = new StringBuilder();
+		data.append("Index,Weekday,Day,Year,Amount,Account,Category,Note");
+		for(int i=0;i<exportArrayList.size();i++){
+			Date transactionDate = new Date(exportArrayList.get(i).getDateOfTransaction());
+			String tranDate = DateFormat.getDateInstance(DateFormat.FULL).format(transactionDate);
+
+			data.append("\n"+String.valueOf(i)+","+String.valueOf(tranDate));
+			data.append(","+String.valueOf(exportArrayList.get(i).getAmountOfTransaction()));
+			data.append(","+String.valueOf(exportArrayList.get(i).getAccountOfTransaction()));
+			data.append(","+String.valueOf(exportArrayList.get(i).getNameCategoryOfTransaction()));
+			data.append(","+String.valueOf(exportArrayList.get(i).getNoteOfTransaction()));
+
+		}
+
+
+
+		try{
+			//saving the file into device
+			FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
+			out.write((data.toString()).getBytes());
+			out.close();
+
+			//exporting
+			Context context = getApplicationContext();
+			File filelocation = new File(getFilesDir(), "data.csv");
+			Uri path = FileProvider.getUriForFile(context, "com.kjfmbktgl4.fintrack.fileprovider", filelocation);
+			Intent fileIntent = new Intent(Intent.ACTION_SEND);
+			fileIntent.setType("text/csv");
+			fileIntent.putExtra(Intent.EXTRA_SUBJECT, "Data");
+			fileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+			fileIntent.putExtra(Intent.EXTRA_STREAM, path);
+			startActivity(Intent.createChooser(fileIntent, "Exported data"));
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+
 	}
 
 }
