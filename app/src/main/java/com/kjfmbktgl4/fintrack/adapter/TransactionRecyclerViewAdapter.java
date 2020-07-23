@@ -87,7 +87,7 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 					.setAction("Action", null).show();
 			Intent intent = new Intent(context, EditTransaction.class);
 
-			intent.putExtra("name", transactionItem.getNameCategoryOfTransaction());
+			intent.putExtra("id", transactionItem.getId());
 			context.startActivity(intent);
 
 

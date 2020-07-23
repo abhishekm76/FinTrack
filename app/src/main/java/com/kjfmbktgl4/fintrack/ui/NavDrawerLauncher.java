@@ -46,7 +46,6 @@ import java.util.Random;
 // TODO: 23-07-2020 add delete and edit for simple list
 // TODO: 23-07-2020 add date filters for graphs
 // TODO: 23-07-2020 edit transaction with id details
-// TODO: 23-07-2020 add export
 // TODO: 23-07-2020 navigation optimise
 // TODO: 23-07-2020 optimise add and edit activity
 // TODO: 23-07-2020 set up themes styles and colours
@@ -58,7 +57,8 @@ import java.util.Random;
 // TODO: 23-07-2020 proguard
 // TODO: 23-07-2020 backup
 // TODO: 23-07-2020 adjsut resize to show input while entering it
-// TODO: 23-07-2020 when delete all and restart the chip labels disapper 
+// TODO: 23-07-2020 when delete all and restart the chip labels disapper
+//// TODO: 23-07-2020 check if prefsize causes an issue when there is no app data present
 
 import static com.kjfmbktgl4.fintrack.util.Util.SPREFNAME;
 
@@ -96,7 +96,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		drawer.setDrawerListener(toggle);
 		toggle.syncState();
 		//RV methods
-		addInitialTestData(5);
+		//addInitialTestData(5);
 		setUpTransactionRV();
 		setUpCategory();
 	}

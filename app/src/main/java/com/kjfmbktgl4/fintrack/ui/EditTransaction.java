@@ -22,20 +22,25 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kjfmbktgl4.fintrack.R;
+import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
+import com.kjfmbktgl4.fintrack.model.TransactionItem;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Currency;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class EditTransaction extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 	Button saveButton;
 	Button cancelButton;
-	TextInputEditText dateET;
-	TextInputLayout dateTIL, amountTIL;
+	TextInputEditText dateET,amountET,noteET;
+	String categoryName;
+	TextInputLayout amountTIL;
+	private final DatabaseHandler db = new DatabaseHandler(EditTransaction.this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,8 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		navigationView.setNavigationItemSelectedListener(this);
 		Menu menu = navigationView.getMenu();
 		menu.findItem(R.id.nav_home).setChecked(true);
+		amountET = findViewById(R.id.editTextAmount);
+		noteET = findViewById(R.id.editTextNote);
 
 		saveButton = findViewById(R.id.buttonsave);
 		saveButton.setOnClickListener(this);
@@ -57,15 +64,51 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		dateET = findViewById(R.id.editTextDate);
 		dateET.setOnClickListener(this);
 
-	/*	dateTIL=findViewById(R.id.dateTIL);
-		dateTIL.setOnClickListener(this);*/
-
-		amountTIL=findViewById(R.id.amountTIL);
-
+		amountTIL = findViewById(R.id.amountTIL);
+		createCategoryViews();
+		setValuesToEdit();
 
 		setDateAndCurrency();
-		dateET.setText(setCurrentDate());
-		createCategoryViews();
+
+
+
+	}
+
+	private void setValuesToEdit() {
+		Intent intent = getIntent();
+		int id = intent.getIntExtra("id",0);
+		TransactionItem transactionItem = new TransactionItem();
+		transactionItem = db.getOneTransaction(id);
+		snacky(transactionItem.getNameCategoryOfTransaction());
+
+		amountET.setText((String.valueOf(transactionItem.getAmountOfTransaction())));
+		noteET.setText(transactionItem.getNoteOfTransaction());
+
+		Date transactionDate = new Date(transactionItem.getDateOfTransaction());
+		String tranDate = DateFormat.getDateInstance(DateFormat.FULL).format(transactionDate);
+		dateET.setText(tranDate);
+
+		categoryName = transactionItem.getNameCategoryOfTransaction();
+
+		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
+		for (int i=0; i<chipGroup.getChildCount();i++){
+			Chip chip = (Chip)chipGroup.getChildAt(i);
+			if(categoryName.equals(chip.getText())){
+				chip.setChecked(true);
+			}
+		}
+		chipGroup.setSingleSelection(true);
+
+
+
+
+
+
+
+
+
+
+
 
 	}
 
@@ -101,7 +144,13 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 			chip.setCheckable(true);
 			chip.setText(category);
 
+			/*if(category.equals(categoryName)){
+
+				//chip.setChecked(true);
+			}*/
+
 			chipGroup.addView(chip);
+			chipGroup.setSingleSelection(true);
 		}
 	}
 
@@ -138,21 +187,22 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 			case R.id.buttonsave:
 				ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 				Chip selChip = findViewById(chipGroup.getCheckedChipId());
-				Snackbar.make(v, "you have a problem"+ chipGroup.getCheckedChipId(), Snackbar.LENGTH_LONG).show();
+				Snackbar.make(v, "you have a problem" + chipGroup.getCheckedChipId(), Snackbar.LENGTH_LONG).show();
 				//snacky("The chip you selected is  " + selChip.getText());
 				break;
 			case R.id.buttoncancel:
-				Intent intent = new Intent(this,CategoryList.class);
+				Intent intent = new Intent(this, CategoryList.class);
 				startActivity(intent);
 				break;
 
 			case R.id.editTextDate:
-			//case R.id.dateTIL:
+				//case R.id.dateTIL:
 				pickerShow();
 				break;
 		}
 
 	}
+
 	public void pickerShow() {
 		final Calendar cldr = Calendar.getInstance();
 		int day = cldr.get(Calendar.DAY_OF_MONTH);
@@ -173,19 +223,5 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 
 
 	}
-	/*public void pickerShow() {
-		final Calendar cldr = Calendar.getInstance();
-		int day = cldr.get(Calendar.DAY_OF_MONTH);
-		int month = cldr.get(Calendar.MONTH);
-		int year = cldr.get(Calendar.YEAR);
-		// date picker dialog
-		DatePickerDialog picker = new DatePickerDialog(EditTransaction.this,
-				new DatePickerDialog.OnDateSetListener() {
-					@Override
-					public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-						dateET.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-					}
-				}, year, month, day);
-		picker.show();
-	}*/
+
 }

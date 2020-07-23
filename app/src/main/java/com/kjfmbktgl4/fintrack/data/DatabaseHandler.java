@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-	public DatabaseHandler(Context context ) {
+	public DatabaseHandler(Context context) {
 		super(context, Util.DATABASE_NAME, null, Util.DATABASE_VERSION);
 	}
 
@@ -35,14 +35,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				+ "("
 				+ Util.TRAN_ID + " INTEGER PRIMARY KEY,"
 				+ Util.TRAN_DATE + " LONG,"
-				+ Util.TRAN_AMOUNT+ " LONG,"
-				+ Util.TRAN_ICON_CAT+ " INTEGER,"
-				+ Util.TRAN_CAT_NAME+ " TEXT,"
-				+ Util.TRAN_ACT+ " TEXT,"
-				+ Util.TRAN_NOTE+ " TEXT" // no comma after the last column
+				+ Util.TRAN_AMOUNT + " LONG,"
+				+ Util.TRAN_ICON_CAT + " INTEGER,"
+				+ Util.TRAN_CAT_NAME + " TEXT,"
+				+ Util.TRAN_ACT + " TEXT,"
+				+ Util.TRAN_NOTE + " TEXT" // no comma after the last column
 				+ ")";
 		db.execSQL(CREATE_TRANS_TABLE); //creating our table
-
 
 
 	}
@@ -76,7 +75,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		//Insert to row
 		db.insert(Util.TABLE_NAME, null, values);
 
-		Log.d(Util.TAG, "addTransaction: " + "item added with category "+transaction_p.getIconCategoryOfTransaction()+" "+transaction_p.getNameCategoryOfTransaction());
+		Log.d(Util.TAG, "addTransaction: " + "item added with category " + transaction_p.getIconCategoryOfTransaction() + " " + transaction_p.getNameCategoryOfTransaction());
 		db.close(); //closing db connection!
 	}
 
@@ -87,7 +86,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		//Select all contacts
-		String selectAll = "SELECT * FROM " + Util.TABLE_NAME+" ORDER BY " +Util.TRAN_DATE+" DESC ";
+		String selectAll = "SELECT * FROM " + Util.TABLE_NAME + " ORDER BY " + Util.TRAN_DATE + " DESC ";
 		Cursor cursor = db.rawQuery(selectAll, null);
 
 		//Loop through our data
@@ -104,12 +103,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 				//add contact objects to our list
 				transactionArrayList.add(transactionItem);
-			}while (cursor.moveToNext());
+			} while (cursor.moveToNext());
 		}
 		db.close();
 		return transactionArrayList;
 	}
 
+	public TransactionItem getOneTransaction(int id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		Cursor cursor = db.query(Util.TABLE_NAME,
+				new String[]{Util.TRAN_ID, Util.TRAN_DATE, Util.TRAN_CAT_NAME, Util.TRAN_AMOUNT,                                Util.TRAN_ACT, Util.TRAN_NOTE},
+				Util.TRAN_ID + "=?", new String[]{String.valueOf(id)},
+				null, null, null);
+
+
+		if (cursor != null) {
+			cursor.moveToFirst();
+		}
+
+		TransactionItem transactionItem = new TransactionItem();
+		transactionItem.setId(cursor.getInt(0));
+		transactionItem.setDateOfTransaction(cursor.getLong(1));
+		transactionItem.setNameCategoryOfTransaction(cursor.getString(2));
+		transactionItem.setAmountOfTransaction(cursor.getLong(3));
+		transactionItem.setAccountOfTransaction(cursor.getString(4));
+		transactionItem.setNoteOfTransaction(cursor.getString(5));
+		db.close();
+
+		return transactionItem;
+	}
 
 	public ArrayList<CategoryTotals> getAllTransactionsByCategory() {
 		ArrayList<CategoryTotals> categoryTotalsArrayList = new ArrayList<>();
@@ -117,31 +140,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		//Select all contacts
-		String selectAllByCategory = "SELECT "+Util.TRAN_CAT_NAME+",SUM(" +Util.TRAN_AMOUNT + ") as "+Util.CATEGORYTOTAL +" FROM " + Util.TABLE_NAME+ " GROUP BY "+Util.TRAN_CAT_NAME;
+		String selectAllByCategory = "SELECT " + Util.TRAN_CAT_NAME + ",SUM(" + Util.TRAN_AMOUNT + ") as " + Util.CATEGORYTOTAL + " FROM " + Util.TABLE_NAME + " GROUP BY " + Util.TRAN_CAT_NAME;
 		Cursor cursor = db.rawQuery(selectAllByCategory, null);
 
 		//Loop through our data
 		if (cursor.moveToFirst()) {
 			do {
-				CategoryTotals categoryTotals= new CategoryTotals();
+				CategoryTotals categoryTotals = new CategoryTotals();
 				categoryTotals.setNameCategoryOfTransaction(cursor.getString(0));
 				categoryTotals.setTotalAmountOfTransaction(Long.parseLong(cursor.getString(1)));
 
 				//add transaction objects to our list
 				categoryTotalsArrayList.add(categoryTotals);
-			}while (cursor.moveToNext());
+			} while (cursor.moveToNext());
 		}
 		db.close();
 		return categoryTotalsArrayList;
 	}
-	public void deleteAll(){
+
+	public void deleteAll() {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		//delete all
-		db.delete(Util.TABLE_NAME,null,null);
+		db.delete(Util.TABLE_NAME, null, null);
 		/*String deleteAll = "DELETE"+" FROM " + Util.TABLE_NAME;
 		db.execSQL(deleteAll, null);
-		*/db.close();
+		*/
+		db.close();
 
 	}
 
@@ -150,20 +175,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		//Select period totals
-		String selectTotalByPeriod = "SELECT strftime('%m-%Y', "+"datetime("+Util.TRAN_DATE+"/1000, 'unixepoch')) as "+Util.PERIODNAME+", SUM(" +Util.TRAN_AMOUNT + ") as "+Util.PERIODTOTAL +" FROM " + Util.TABLE_NAME+ " GROUP BY "+Util.PERIODNAME+ " ORDER BY "+Util.TRAN_DATE;
+		String selectTotalByPeriod = "SELECT strftime('%m-%Y', " + "datetime(" + Util.TRAN_DATE + "/1000, 'unixepoch')) as " + Util.PERIODNAME + ", SUM(" + Util.TRAN_AMOUNT + ") as " + Util.PERIODTOTAL + " FROM " + Util.TABLE_NAME + " GROUP BY " + Util.PERIODNAME + " ORDER BY " + Util.TRAN_DATE;
 		Cursor cursor = db.rawQuery(selectTotalByPeriod, null);
 
 		//Loop through our data
 		if (cursor.moveToFirst()) {
 			do {
-				PeriodTotal periodTotal= new PeriodTotal();
-				String periodName =cursor.getString(0);
+				PeriodTotal periodTotal = new PeriodTotal();
+				String periodName = cursor.getString(0);
 				periodTotal.setPeriodName(cursor.getString(0));
 				periodTotal.setTotalOfPeriod(Integer.parseInt((cursor.getString(1))));
 
 				//add transaction objects to our list
 				periodTotalArrayList.add(periodTotal);
-			}while (cursor.moveToNext());
+			} while (cursor.moveToNext());
 		}
 		db.close();
 		return periodTotalArrayList;
