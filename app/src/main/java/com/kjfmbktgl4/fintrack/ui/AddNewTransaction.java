@@ -54,8 +54,8 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 		dateET = findViewById(R.id.editTextDate);
 		dateET.setOnClickListener(this);
 
-		dateTIL = findViewById(R.id.dateTIL);
-		dateTIL.setOnClickListener(this);
+	/*	dateTIL = findViewById(R.id.dateTIL);
+		dateTIL.setOnClickListener(this);*/
 
 		amountTIL = findViewById(R.id.amountTIL);
 		amountET = findViewById(R.id.editTextAmount);
@@ -81,7 +81,7 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 				break;
 
 			case R.id.editTextDate:
-			case R.id.dateTIL:
+				//case R.id.dateTIL:
 				pickerShow();
 				break;
 		}
@@ -91,7 +91,7 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 
 		TransactionItem transaction = new TransactionItem();
 		int id = categoryChipGroup.getCheckedChipId();
-		if (id!=-1) {
+		if (id != -1) {
 			categoryChip = findViewById(categoryChipGroup.getCheckedChipId());
 			transaction.setNameCategoryOfTransaction(String.valueOf(categoryChip.getText()));
 		}
@@ -153,10 +153,15 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 				new DatePickerDialog.OnDateSetListener() {
 					@Override
 					public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-						dateET.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+						cldr.set(year, monthOfYear, dayOfMonth);
+						String setDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(cldr.getTime());
+
+						dateET.setText(setDate);
 					}
 				}, year, month, day);
 		picker.show();
+
+
 	}
 
 }

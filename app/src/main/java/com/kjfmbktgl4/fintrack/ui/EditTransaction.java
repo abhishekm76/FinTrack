@@ -57,8 +57,8 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		dateET = findViewById(R.id.editTextDate);
 		dateET.setOnClickListener(this);
 
-		dateTIL=findViewById(R.id.dateTIL);
-		dateTIL.setOnClickListener(this);
+	/*	dateTIL=findViewById(R.id.dateTIL);
+		dateTIL.setOnClickListener(this);*/
 
 		amountTIL=findViewById(R.id.amountTIL);
 
@@ -147,14 +147,33 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 				break;
 
 			case R.id.editTextDate:
-			case R.id.dateTIL:
+			//case R.id.dateTIL:
 				pickerShow();
 				break;
 		}
 
 	}
-
 	public void pickerShow() {
+		final Calendar cldr = Calendar.getInstance();
+		int day = cldr.get(Calendar.DAY_OF_MONTH);
+		int month = cldr.get(Calendar.MONTH);
+		int year = cldr.get(Calendar.YEAR);
+		// date picker dialog
+		DatePickerDialog picker = new DatePickerDialog(EditTransaction.this,
+				new DatePickerDialog.OnDateSetListener() {
+					@Override
+					public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+						cldr.set(year, monthOfYear, dayOfMonth);
+						String setDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(cldr.getTime());
+
+						dateET.setText(setDate);
+					}
+				}, year, month, day);
+		picker.show();
+
+
+	}
+	/*public void pickerShow() {
 		final Calendar cldr = Calendar.getInstance();
 		int day = cldr.get(Calendar.DAY_OF_MONTH);
 		int month = cldr.get(Calendar.MONTH);
@@ -168,5 +187,5 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 					}
 				}, year, month, day);
 		picker.show();
-	}
+	}*/
 }

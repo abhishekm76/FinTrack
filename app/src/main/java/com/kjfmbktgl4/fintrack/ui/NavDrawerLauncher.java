@@ -34,7 +34,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
+//ToDo  datepicker fix
+//// TODO: 23-07-2020  add account detaisl for chip selection
+// TODO: 23-07-2020 add delete and edit for simple list
+// TODO: 23-07-2020 add date filters for graphs
+// TODO: 23-07-2020 edit transaction with id details
+// TODO: 23-07-2020 add export
+// TODO: 23-07-2020 navigation optimise
+// TODO: 23-07-2020 optimise add and edit activity
+// TODO: 23-07-2020 set up themes styles and colours
+// TODO: 23-07-2020 add income options
+// TODO: 23-07-2020 recyclerview search
+// TODO: 23-07-2020 add icon options and colours in settings
+// TODO: 23-07-2020 OTHER LANGUAGES support
+// TODO: 23-07-2020 add apache
+// TODO: 23-07-2020 proguard
+// TODO: 23-07-2020 backup
 import static com.kjfmbktgl4.fintrack.util.Util.SPREFNAME;
 
 public class NavDrawerLauncher extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
