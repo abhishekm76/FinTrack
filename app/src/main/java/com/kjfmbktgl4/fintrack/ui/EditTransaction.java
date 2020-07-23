@@ -87,7 +87,7 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		noteET.setText(transactionItem.getNoteOfTransaction());
 
 		Date transactionDate = new Date(transactionItem.getDateOfTransaction());
-		String tranDate = DateFormat.getDateInstance(DateFormat.FULL).format(transactionDate);
+		String tranDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(transactionDate);
 		dateET.setText(tranDate);
 
 		categoryName = transactionItem.getNameCategoryOfTransaction();
@@ -202,7 +202,7 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 
 	private void updateTransaction() {
 		TransactionItem transaction = new TransactionItem();
-		transaction.setNameCategoryOfTransaction("Food");
+		//transaction.setNameCategoryOfTransaction("Food");
 		transaction.setNoteOfTransaction(String.valueOf(noteET.getText()));
 		transaction.setAmountOfTransaction(Long.parseLong(String.valueOf(amountET.getText())));
 		transaction.setId(id);
