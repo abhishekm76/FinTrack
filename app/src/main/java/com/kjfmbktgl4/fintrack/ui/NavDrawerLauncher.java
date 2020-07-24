@@ -59,6 +59,8 @@ import java.util.Random;
 // TODO: 23-07-2020 adjsut resize to show input while entering it
 // TODO: 23-07-2020 when delete all and restart the chip labels disapper
 //// TODO: 23-07-2020 check if prefsize causes an issue when there is no app data present
+// TODO: 24-07-2020 saving a transaction with no amount crashes the app
+// TODO: 24-07-2020 back sends us to a previous view of the home recycler view?? 
 
 import static com.kjfmbktgl4.fintrack.util.Util.SPREFNAME;
 

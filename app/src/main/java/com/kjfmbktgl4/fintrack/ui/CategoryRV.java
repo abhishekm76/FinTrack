@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.kjfmbktgl4.fintrack.R;
@@ -17,11 +18,13 @@ public class CategoryRV extends AppCompatActivity  {
 	private RecyclerView recyclerView;
 	private CategoryRVAdapter recyclerviewAdapter;
 	private List<String> categoryList;
+	Context mContext;
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mContext=this;
 		setContentView(R.layout.activity_category_r_v);
 		getAllData();
 		setUpRecyclerView();
@@ -32,7 +35,7 @@ public class CategoryRV extends AppCompatActivity  {
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-		recyclerviewAdapter = new CategoryRVAdapter(this,categoryList);
+		recyclerviewAdapter = new CategoryRVAdapter(mContext,categoryList);
 		recyclerView.setAdapter(recyclerviewAdapter);
 	}
 

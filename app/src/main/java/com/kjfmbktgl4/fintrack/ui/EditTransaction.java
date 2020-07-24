@@ -186,10 +186,12 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 				Snackbar.make(v, "you have a problem" + chipGroup.getCheckedChipId(), Snackbar.LENGTH_LONG).show();*/
 				//snacky("The chip you selected is  " + selChip.getText());
 				updateTransaction();
+				Intent intent = new Intent(this, NavDrawerLauncher.class);
+				startActivity(intent);
 				break;
 			case R.id.buttoncancel:
-				Intent intent = new Intent(this, CategoryList.class);
-				startActivity(intent);
+				Intent intent1 = new Intent(this, NavDrawerLauncher.class);
+				startActivity(intent1);
 				break;
 
 			case R.id.editTextDate:
