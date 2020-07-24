@@ -217,6 +217,13 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 			return true;
 		}
 
+		if (id == R.id.categoryList) {
+			Intent intentCategory = new Intent(this,CategoryRV.class);
+			startActivity(intentCategory);
+
+			return true;
+		}
+
 		return super.onOptionsItemSelected(item);
 	}
 

@@ -17,4 +17,9 @@
         android:orderInCategory="300"
         app:showAsAction="never"
         />
+    <item android:title="Category"
+        android:id="@+id/categoryList"
+        android:orderInCategory="400"
+        app:showAsAction="never"
+        />
 </menu>
