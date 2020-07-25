@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.kjfmbktgl4.fintrack.R;
@@ -26,8 +27,14 @@ public class CategoryRV extends AppCompatActivity  {
 		super.onCreate(savedInstanceState);
 		mContext=this;
 		setContentView(R.layout.activity_category_r_v);
+		checkUpdatedCategory();
 		getAllData();
 		setUpRecyclerView();
+	}
+
+	private void checkUpdatedCategory() {
+		Intent intentFromEdit=getIntent();
+		String updatedCategory= intentFromEdit.getStringExtra("updatedCategory");
 	}
 
 	private void setUpRecyclerView() {

@@ -2,6 +2,7 @@ package com.kjfmbktgl4.fintrack.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kjfmbktgl4.fintrack.R;
 
 
+import com.kjfmbktgl4.fintrack.ui.EditCategory;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
 
@@ -73,7 +75,9 @@ public class CategoryRVAdapter extends RecyclerView.Adapter<CategoryRVAdapter.Vi
 					confirmDel(String.valueOf(categoryName.getText()));
 					break;
 				case R.id.catTV: //item clicked
-					Log.d(Util.TAG, "category name clicked");
+					Intent intent = new Intent(context, EditCategory.class);
+					intent.putExtra("editcategory",categoryName.getText());
+					context.startActivity(intent);
 					break;
 			}
 		}
