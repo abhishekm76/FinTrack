@@ -1,12 +1,15 @@
 package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.adapter.CategoryRVAdapter;
@@ -51,5 +54,25 @@ public class CategoryRV extends AppCompatActivity  {
 		mcategoryName = Preferences.getArrayPrefs("CategoryNames", this);
 		categoryList= mcategoryName;
 
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.recycler_search, menu);
+		MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+		SearchView searchView= (SearchView) searchMenuItem.getActionView();
+		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				return false;
+			}
+
+			@Override
+			public boolean onQueryTextChange(String newText) {
+				return false;
+			}
+		});
+
+	return super.onCreateOptionsMenu(menu);
 	}
 }
