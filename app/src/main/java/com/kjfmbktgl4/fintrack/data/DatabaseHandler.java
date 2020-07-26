@@ -105,6 +105,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				transactionArrayList.add(transactionItem);
 			} while (cursor.moveToNext());
 		}
+		cursor.close();
 		db.close();
 		return transactionArrayList;
 	}
@@ -129,6 +130,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		transactionItem.setAmountOfTransaction(cursor.getLong(3));
 		transactionItem.setAccountOfTransaction(cursor.getString(4));
 		transactionItem.setNoteOfTransaction(cursor.getString(5));
+		cursor.close();
 		db.close();
 
 		return transactionItem;
@@ -172,6 +174,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				categoryTotalsArrayList.add(categoryTotals);
 			} while (cursor.moveToNext());
 		}
+		cursor.close();
 		db.close();
 		return categoryTotalsArrayList;
 	}
@@ -208,6 +211,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				periodTotalArrayList.add(periodTotal);
 			} while (cursor.moveToNext());
 		}
+		cursor.close();
 		db.close();
 		return periodTotalArrayList;
 	}
