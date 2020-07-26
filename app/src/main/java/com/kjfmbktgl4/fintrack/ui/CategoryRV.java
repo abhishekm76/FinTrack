@@ -10,10 +10,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.adapter.CategoryRVAdapter;
 
+import com.kjfmbktgl4.fintrack.adapter.TransactionRecyclerViewAdapter;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 
 import java.util.List;
@@ -33,6 +36,18 @@ public class CategoryRV extends AppCompatActivity  {
 		checkUpdatedCategory();
 		getAllData();
 		setUpRecyclerView();
+		setUpFab();
+	}
+
+	private void setUpFab() {
+		FloatingActionButton fab = findViewById(R.id.fab);
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intentNew = new Intent(CategoryRV.this,AddNewCategory.class);
+				startActivity(intentNew);
+			}
+		});
 	}
 
 	private void checkUpdatedCategory() {
@@ -69,6 +84,7 @@ public class CategoryRV extends AppCompatActivity  {
 
 			@Override
 			public boolean onQueryTextChange(String newText) {
+				recyclerviewAdapter.getFilter().filter(newText);
 				return false;
 			}
 		});

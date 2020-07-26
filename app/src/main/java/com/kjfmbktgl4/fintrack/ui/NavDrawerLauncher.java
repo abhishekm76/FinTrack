@@ -42,8 +42,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-//// TODO: 23-07-2020  add account detaisl for chip selection
 // TODO: 23-07-2020 add delete and edit for simple list
+
+//// TODO: 23-07-2020  add account detaisl for chip selection
+
 // TODO: 23-07-2020 add date filters for graphs
 // TODO: 23-07-2020 edit transaction with id details
 // TODO: 23-07-2020 navigation optimise
@@ -61,6 +63,7 @@ import java.util.Random;
 //// TODO: 23-07-2020 check if prefsize causes an issue when there is no app data present
 // TODO: 24-07-2020 saving a transaction with no amount crashes the app
 // TODO: 24-07-2020 back sends us to a previous view of the home recycler view?? also category edit
+// TODO: 26-07-2020 graph by month is not correct for the entry of the first of the month 
 
 import static com.kjfmbktgl4.fintrack.util.Util.SPREFNAME;
 
