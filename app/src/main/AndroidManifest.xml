@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.CategoryRV"></activity>
+        <activity android:name=".ui.AccountRV"></activity>
+        <activity android:name=".ui.CategoryRV" />
         <activity android:name=".ui.AddNewTransaction" />
         <activity android:name=".ui.BarChart" />
         <activity android:name=".ui.PieChart" />
-        <activity android:name=".ui.EditCategory"/>
-        <activity android:name=".ui.AddNewCategory"/>
+        <activity android:name=".ui.EditCategory" />
+        <activity android:name=".ui.AddNewCategory" />
         <activity android:name=".ui.EditTransaction" />
         <activity
             android:name=".ui.NavDrawerLauncher"

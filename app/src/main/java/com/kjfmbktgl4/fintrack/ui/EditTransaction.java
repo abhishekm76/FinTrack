@@ -39,7 +39,7 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 	Button saveButton;
 	Button cancelButton;
 	TextInputEditText dateET,amountET,noteET;
-	String categoryName;
+	String categoryName, accountName;
 	TextInputLayout amountTIL;
 	int id;
 	private final DatabaseHandler db = new DatabaseHandler(EditTransaction.this);
@@ -91,6 +91,7 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		dateET.setText(tranDate);
 
 		categoryName = transactionItem.getNameCategoryOfTransaction();
+		accountName = transactionItem.getAccountOfTransaction();
 
 		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 		for (int i=0; i<chipGroup.getChildCount();i++){
@@ -101,6 +102,14 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		}
 		chipGroup.setSingleSelection(true);
 
+		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
+		for (int i=0; i<chipGroupAccount.getChildCount();i++){
+			Chip chip = (Chip)chipGroupAccount.getChildAt(i);
+			if(accountName.equals(chip.getText())){
+				chip.setChecked(true);
+			}
+		}
+		chipGroupAccount.setSingleSelection(true);
 
 
 
@@ -134,13 +143,10 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		Log.d(Util.TAG, "Category Names " + mcategoryName.size());
 		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 
-
 		for (String category : mcategoryName) {
 			Chip chip = new Chip(this);
 			chip.setTextAppearance(android.R.style.TextAppearance_Material_Body1);
-
 			chip.setRippleColorResource(R.color.colorPrimary);
-
 			chip.setChipIconResource(R.drawable.ic_outline_delete_24);
 			chip.setChipCornerRadius(0);
 			chip.setCheckable(true);
@@ -148,6 +154,23 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 			chipGroup.addView(chip);
 			chipGroup.setSingleSelection(true);
 		}
+
+		List<String> accountNames;
+		accountNames=Preferences.getArrayPrefs("AccountNames",this);
+		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
+		for (String accountName: accountNames){
+			Chip chip = new Chip(this);
+			chip.setTextAppearance(android.R.style.TextAppearance_Material_Body1);
+			chip.setRippleColorResource(R.color.colorPrimary);
+			chip.setChipIconResource(R.drawable.ic_outline_delete_24);
+			chip.setChipCornerRadius(0);
+			chip.setCheckable(true);
+			chip.setText(accountName);
+			chipGroupAccount.addView(chip);
+			chipGroupAccount.setSingleSelection(true);
+
+		}
+
 	}
 
 	@Override
@@ -219,6 +242,13 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		Chip selChip = findViewById(chipGroup.getCheckedChipId());
 		String selChipString = String.valueOf(selChip.getText());
 		transaction.setNameCategoryOfTransaction(selChipString);
+
+
+		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
+		Chip selChipAccount = findViewById(chipGroupAccount.getCheckedChipId());
+		String selChipStringAccount = String.valueOf(selChipAccount.getText());
+		transaction.setAccountOfTransaction(selChipStringAccount);
+
 
 		db.updateTransaction(transaction);
 

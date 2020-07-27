@@ -47,6 +47,7 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 		saveButton = findViewById(R.id.buttonsave);
 		saveButton.setOnClickListener(this);
 		categoryChipGroup = findViewById(R.id.catChipGroup);
+		accountChipGroup=findViewById(R.id.actChipGroup);
 
 		cancelButton = findViewById(R.id.buttoncancel);
 		cancelButton.setOnClickListener(this);
@@ -104,7 +105,13 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		transaction.setAccountOfTransaction("HDFC ");
+
+		int idAccount = accountChipGroup.getCheckedChipId();
+		if (idAccount != -1) {
+			accountChip = findViewById(accountChipGroup.getCheckedChipId());
+			transaction.setAccountOfTransaction(String.valueOf(accountChip.getText()));
+		}
+
 		db.addTransaction(transaction);
 		db.close();
 
@@ -141,6 +148,23 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 
 			chipGroup.addView(chip);
 		}
+
+		List<String> accountNames;
+		accountNames = Preferences.getArrayPrefs("AccountNames", this);
+		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
+		for (String accountName : accountNames) {
+			Chip chip = new Chip(this);
+			chip.setTextAppearance(android.R.style.TextAppearance_Material_Body1);
+			chip.setRippleColorResource(R.color.colorPrimary);
+			chip.setChipIconResource(R.drawable.ic_outline_delete_24);
+			chip.setChipCornerRadius(0);
+			chip.setCheckable(true);
+			chip.setText(accountName);
+			chipGroupAccount.addView(chip);
+			chipGroupAccount.setSingleSelection(true);
+
+		}
+
 	}
 
 	public void pickerShow() {

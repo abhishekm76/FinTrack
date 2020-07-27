@@ -102,16 +102,31 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		toggle.syncState();
 		//RV methods
 		//addInitialTestData(5);
+		//clearSPref(); use to test sharedPref by deleting it completely
 		setUpTransactionRV();
 		setUpCategory();
+		setUpAccount();
 	}
+
+	private void clearSPref() {
+		Preferences.clearPrefs(this);
+	}
+
+	private void setUpAccount() {
+		List<String> account_array;
+		account_array=Preferences.getArrayPrefs("AccountNames",this);
+		if(account_array.size()==0){
+			Resources res = getResources();
+			account_array=Arrays.asList(res.getStringArray(R.array.account_array));
+			Preferences.setArrayPrefs("AccountNames",account_array,this);
+		}
+	}
+
 
 	private void setUpCategory() {
 
 		List<String> mcategoryName;
 		mcategoryName = Preferences.getArrayPrefs("CategoryNames", this);
-
-		SharedPreferences sp = getSharedPreferences(SPREFNAME, MODE_PRIVATE);
 		if (mcategoryName.size() == 0) {
 
 			Resources res = getResources();
@@ -229,6 +244,12 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 			return true;
 		}
 
+		if (id == R.id.accountList) {
+			Intent intentAccount = new Intent(this,AccountRV.class);
+			startActivity(intentAccount);
+
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 

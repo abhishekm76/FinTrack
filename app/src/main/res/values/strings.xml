@@ -11,7 +11,9 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
-    <string name="category_names">Rent, Electricity, Water, Food, Clothing, Travel, School, Vehicle, Services</string>
+    <!--<string name="category_names">Rent, Electricity, Water, Food, Clothing, Travel, School, Vehicle, Services</string>-->
+    <!-- <string name="account_names">Rent, Electricity, Water, Food, Clothing, Travel, School, Vehicle, Services</string>-->
+
     <string name="all_data">All data</string>
     <string name="thisyear">This Year</string>
     <string name="this_month">This Month</string>
@@ -44,5 +46,9 @@
         <item>Gymn</item>
         <item>Entertainment</item>
     </string-array>
-
+    <string-array name="account_array">
+        <item>Cash</item>
+        <item>Bank</item>
+        <item>Mobile</item>
+    </string-array>
 </resources>

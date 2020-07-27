@@ -22,4 +22,9 @@
         android:orderInCategory="400"
         app:showAsAction="never"
         />
+    <item android:title="Accounts"
+        android:id="@+id/accountList"
+        android:orderInCategory="500"
+        app:showAsAction="never"
+        />
 </menu>

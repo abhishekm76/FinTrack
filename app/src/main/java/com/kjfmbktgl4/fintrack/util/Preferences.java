@@ -35,4 +35,11 @@ public class Preferences {
 			array.add(prefs.getString(arrayName + "_" + i, null));
 		return array;
 	}
+	public static void clearPrefs(Context context){
+		SharedPreferences sharedpreferences = context.getSharedPreferences(Util.SPREFNAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedpreferences.edit();
+		editor.clear();
+		editor.apply();
+	}
+
 }
