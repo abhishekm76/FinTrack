@@ -24,7 +24,7 @@ public class AccountRV extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_category_r_v);
+		setContentView(R.layout.activity_simplelist_r_v);
 		//checkUpdatedCategory();
 		getAllData();
 		setUpRecyclerView();

@@ -47,7 +47,6 @@ import java.util.Random;
 //// TODO: 23-07-2020  add account detaisl for chip selection
 
 // TODO: 23-07-2020 add date filters for graphs
-// TODO: 23-07-2020 edit transaction with id details
 // TODO: 23-07-2020 navigation optimise
 // TODO: 23-07-2020 optimise add and edit activity
 // TODO: 23-07-2020 set up themes styles and colours

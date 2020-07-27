@@ -32,7 +32,7 @@ public class CategoryRV extends AppCompatActivity  {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mContext=this;
-		setContentView(R.layout.activity_category_r_v);
+		setContentView(R.layout.activity_simplelist_r_v);
 		checkUpdatedCategory();
 		getAllData();
 		setUpRecyclerView();

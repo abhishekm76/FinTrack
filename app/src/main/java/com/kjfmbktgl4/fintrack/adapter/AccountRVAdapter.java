@@ -1,6 +1,5 @@
 package com.kjfmbktgl4.fintrack.adapter;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,10 +29,10 @@ public class AccountRVAdapter extends RecyclerView.Adapter<AccountRVAdapter.View
 	@NonNull
 	@Override
 	public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_rv_row, parent, false);
-		AccountRVAdapter.ViewHolder vh = new AccountRVAdapter.ViewHolder(view);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.simplelist_rv_row, parent, false);
+		ViewHolder vh = new ViewHolder(view);
 		return vh;
-
+	
 	}
 
 	@Override
