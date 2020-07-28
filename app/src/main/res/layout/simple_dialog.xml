@@ -63,6 +63,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textheading"
         app:srcCompat="@drawable/ic_outline_delete_24"
+        android:adjustViewBounds="true"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
         android:contentDescription="@string/delete" />
 
 
