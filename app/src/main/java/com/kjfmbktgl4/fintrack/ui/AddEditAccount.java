@@ -7,20 +7,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class AddEditAccount extends AppCompatActivity implements View.OnClickListener {
 	Button save, cancel;
+	ImageButton deleteButton;
 	EditText accountName;
 	private String mAccountToEdit, mEditedAccount;
 	boolean mIsNew;
+	private List<String> maccountNameList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +32,19 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 		setContentView(R.layout.activity_add_edit_simplelist);
 		save = findViewById(R.id.button_SaveDF);
 		cancel = findViewById(R.id.button_cancelDF);
+		deleteButton = findViewById(R.id.imageButton_delDF);
 		accountName = findViewById(R.id.editTextDF);
 		save.setOnClickListener(this);
 		cancel.setOnClickListener(this);
+		deleteButton.setOnClickListener(this);
+		maccountNameList = Preferences.getArrayPrefs("AccountNames", this);
+		mAccountToEdit = getIntent().getStringExtra("AccountName");
+		mIsNew = getIntent().getBooleanExtra("isNew", false);
 		setInitialValues();
 	}
 
 	private void setInitialValues() {
-		mIsNew = getIntent().getBooleanExtra("isNew", false);
 		if (!mIsNew) {
-			mAccountToEdit = getIntent().getStringExtra("AccountName");
 			accountName.setText(mAccountToEdit);
 		}
 	}
@@ -51,20 +58,25 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 				break;
 			case R.id.button_cancelDF:
 				break;
+			case R.id.imageButton_delDF:
+				deleteItem();
 		}
 		Intent intent = new Intent(this, AccountRV.class);
 		startActivity(intent);
 
 	}
 
+	private void deleteItem() {
+		maccountNameList.remove(mAccountToEdit);
+		Preferences.setArrayPrefs("AccountNames", maccountNameList, this);
+	}
+
 	private void saveEditedName() {
-		List<String> accountNameList;
-		accountNameList = Preferences.getArrayPrefs("AccountNames", this);
 		if (!mIsNew) {
-			Collections.replaceAll(accountNameList, mAccountToEdit, mEditedAccount);
+			Collections.replaceAll(maccountNameList, mAccountToEdit, mEditedAccount);
 		} else {
-			accountNameList.add(mEditedAccount);
+			maccountNameList.add(mEditedAccount);
 		}
-		Preferences.setArrayPrefs("AccountNames", accountNameList, this);
+		Preferences.setArrayPrefs("AccountNames", maccountNameList, this);
 	}
 }

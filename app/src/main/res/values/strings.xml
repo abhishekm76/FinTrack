@@ -24,7 +24,10 @@
     <string name="enter_any_notes_you_would_like_to_save">Enter any notes you would like to save.</string>
     <string name="enter_the_date">Enter the date</string>
     <string name="enter_the_amount">Enter the amount</string>
-    <string name="edit_a_category">Edit A Category</string>
+    <string name="edit_a_category">Enter / Edit Details</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="delete">Delete</string>
+    <string name="enter_details">Enter Details</string>
     <string-array name="category_array">
         <item>Rent</item>
         <item>Food</item>
