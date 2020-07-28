@@ -23,7 +23,7 @@ public class EditCategory extends AppCompatActivity implements View.OnClickListe
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_edit_category);
+		setContentView(R.layout.activity_add_edit_simplelist);
 		Intent intent = getIntent();
 		mstringToEdit = intent.getStringExtra("editcategory");
 		categoryName = findViewById(R.id.editTextDF);

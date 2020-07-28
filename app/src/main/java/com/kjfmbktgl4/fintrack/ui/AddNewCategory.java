@@ -23,7 +23,7 @@ public class AddNewCategory extends AppCompatActivity implements View.OnClickLis
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_edit_category);
+		setContentView(R.layout.activity_add_edit_simplelist);
 		categoryName = findViewById(R.id.editTextDF);
 		save = findViewById(R.id.button_SaveDF);
 		cancel = findViewById(R.id.button_cancelDF);

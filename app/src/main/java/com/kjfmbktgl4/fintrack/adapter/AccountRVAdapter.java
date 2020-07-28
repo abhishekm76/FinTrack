@@ -1,6 +1,7 @@
 package com.kjfmbktgl4.fintrack.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.model.Accounts;
+import com.kjfmbktgl4.fintrack.ui.AddEditAccount;
 
 import java.util.List;
 
@@ -47,12 +49,22 @@ public class AccountRVAdapter extends RecyclerView.Adapter<AccountRVAdapter.View
 		return mAccountsList.size();
 	}
 
-	public class ViewHolder extends RecyclerView.ViewHolder {
+	public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
 			maccountNameTV = itemView.findViewById(R.id.categoryNameTV);
 			mdeleteIconIV = itemView.findViewById(R.id.deleteCategoryIV);
+			itemView.setOnClickListener(this);
+		}
+
+		@Override
+		public void onClick(View pView) {
+			Accounts accountClicked = mAccountsList.get(getAdapterPosition());
+			String AccountNameToEdit = accountClicked.getStringaccountName();
+			Intent intent = new Intent(mContext, AddEditAccount.class);
+			intent.putExtra("AccountName", AccountNameToEdit);
+			mContext.startActivity(intent);
 		}
 	}
 }

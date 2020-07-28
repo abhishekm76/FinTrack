@@ -39,6 +39,12 @@ public class CategoryRV extends AppCompatActivity  {
 		setUpFab();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		recyclerviewAdapter.notifyDataSetChanged();
+	}
+
 	private void setUpFab() {
 		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {

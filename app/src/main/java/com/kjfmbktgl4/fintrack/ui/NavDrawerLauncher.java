@@ -153,8 +153,8 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 
 	@Override
 	protected void onResume() {
-		recyclerViewAdapter.notifyDataSetChanged();
 		super.onResume();
+		recyclerViewAdapter.notifyDataSetChanged();
 	}
 
 	private void addInitialTestData(int noOfItems) {

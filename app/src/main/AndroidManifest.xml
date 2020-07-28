@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.AccountRV"></activity>
+        <activity android:name=".ui.AddEditAccount"></activity>
+        <activity android:name=".ui.AccountRV" />
         <activity android:name=".ui.CategoryRV" />
         <activity android:name=".ui.AddNewTransaction" />
         <activity android:name=".ui.BarChart" />
