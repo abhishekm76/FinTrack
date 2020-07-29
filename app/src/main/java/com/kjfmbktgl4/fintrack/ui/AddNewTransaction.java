@@ -122,7 +122,7 @@ public class AddNewTransaction extends AppCompatActivity implements View.OnClick
 		Locale curLocale = Locale.getDefault();
 		Currency curr = Currency.getInstance(curLocale);
 		String symbol = curr.getSymbol();
-		View v = findViewById(R.id.currTV);
+
 		amountTIL.setPrefixText(symbol);
 		Calendar calendar = Calendar.getInstance();
 		String currentDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(calendar.getTime());

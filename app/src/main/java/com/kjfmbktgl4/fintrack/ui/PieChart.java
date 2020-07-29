@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -13,13 +14,19 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
 import com.kjfmbktgl4.fintrack.model.CategoryTotals;
+import com.kjfmbktgl4.fintrack.util.DateConverters;
+import com.kjfmbktgl4.fintrack.util.Util;
 
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class PieChart extends AppCompatActivity {
 	private ArrayList<CategoryTotals> dataArrayList;
 	private ArrayList<CategoryTotals> transactionItemArrayListByCategory = new ArrayList<>();
+	private String startDateString,endDateString;
 	com.github.mikephil.charting.charts.PieChart pieChart;
 
 	@Override
@@ -27,13 +34,29 @@ public class PieChart extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pie_chart);
 		pieChart = findViewById(R.id.piechart);
+		setStartAndEndDates();
 		dataArrayList= getDataForGraph();
 		drawPiechart(dataArrayList);
 	}
 
+	private void setStartAndEndDates() {
+		if (startDateString==null || endDateString==null){
+			Date endDate=Calendar.getInstance().getTime();
+			endDateString = String.valueOf(DateConverters.dateToLong(endDate));
+
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.DAY_OF_YEAR, 1);
+			Date startDate = cal.getTime();
+			startDateString= String.valueOf(DateConverters.dateToLong(startDate));
+			Log.d(Util.TAG,startDateString+" "+endDateString);
+
+		}
+
+	}
+
 	private ArrayList<CategoryTotals> getDataForGraph() {
 		DatabaseHandler db = new DatabaseHandler(PieChart.this);
-		transactionItemArrayListByCategory = db.getAllTransactionsByCategory();
+		transactionItemArrayListByCategory = (ArrayList<CategoryTotals>) db.getTransactionsByCategoryByPeriod(startDateString,endDateString);
 		return transactionItemArrayListByCategory;
 	}
 

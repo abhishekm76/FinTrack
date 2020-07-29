@@ -127,7 +127,6 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		Locale curLocale = Locale.getDefault();
 		Currency curr = Currency.getInstance(curLocale);
 		String symbol = curr.getSymbol();
-		View v = findViewById(R.id.currTV);
 		amountTIL.setPrefixText(symbol);
 
 	}
