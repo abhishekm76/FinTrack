@@ -25,6 +25,7 @@ public class AddEditCategory extends AppCompatActivity implements View.OnClickLi
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_add_edit_simplelist);
 		save = findViewById(R.id.button_SaveDF);
 		cancel = findViewById(R.id.button_cancelDF);
 		deleteButton = findViewById(R.id.imageButton_delDF);

@@ -24,18 +24,18 @@ import com.kjfmbktgl4.fintrack.util.Preferences;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryRV extends AppCompatActivity implements View.OnClickListener {
+public class CategoryRV extends AppCompatActivity {
 	private RecyclerView recyclerView;
 	private CategoryRVAdapter2 recyclerviewAdapter;
-	private List<Category> categoryList;
+	private List<Category> mcategoryList;
 	Context mContext;
-
+	private ArrayList<Category> mcategoryArrayList;
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mContext=this;
+		mContext = this;
 		setContentView(R.layout.activity_simplelist_r_v);
 		checkUpdatedCategory();
 		getAllData();
@@ -54,15 +54,16 @@ public class CategoryRV extends AppCompatActivity implements View.OnClickListene
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intentNew = new Intent(CategoryRV.this,AddNewCategory.class);
+				Intent intentNew = new Intent(CategoryRV.this, AddEditCategory.class);
+				intentNew.putExtra("isNew", true);
 				startActivity(intentNew);
 			}
 		});
 	}
 
 	private void checkUpdatedCategory() {
-		Intent intentFromEdit=getIntent();
-		String updatedCategory= intentFromEdit.getStringExtra("updatedCategory");
+		Intent intentFromEdit = getIntent();
+		String updatedCategory = intentFromEdit.getStringExtra("updatedCategory");
 	}
 
 	private void setUpRecyclerView() {
@@ -70,29 +71,20 @@ public class CategoryRV extends AppCompatActivity implements View.OnClickListene
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-		recyclerviewAdapter = new CategoryRVAdapter2(categoryList,mContext );
+		recyclerviewAdapter = new CategoryRVAdapter2(mcategoryList, mContext);
 		recyclerView.setAdapter(recyclerviewAdapter);
 	}
 
 	private void getAllData() {
 		List<String> mcategoryNameString;
-		ArrayList<Category> categoryArrayList = new ArrayList<>();
+		mcategoryList = new ArrayList<Category>();
 		mcategoryNameString = Preferences.getArrayPrefs("CategoryNames", this);
-		for (String categoryNameItem:mcategoryNameString){
+		for (String categoryNameItem : mcategoryNameString) {
 			Category category = new Category();
 			category.setMcategoryName(categoryNameItem);
-			categoryArrayList.add(category);
+			mcategoryList.add(category);
 		}
-		categoryList.addAll(categoryArrayList);
-
 
 	}
 
-
-	@Override
-	public void onClick(View pView) {
-		Intent intent = new Intent(this,AddEditCategory.class);
-		intent.putExtra("isNew",true);
-		startActivity(intent);
-	}
 }

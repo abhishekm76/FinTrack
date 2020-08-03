@@ -12,7 +12,6 @@ import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.adapter.AccountRVAdapter;
-import com.kjfmbktgl4.fintrack.adapter.CategoryRVAdapter;
 import com.kjfmbktgl4.fintrack.model.Accounts;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 

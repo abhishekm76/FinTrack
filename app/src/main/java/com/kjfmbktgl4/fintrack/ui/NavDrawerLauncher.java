@@ -100,7 +100,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		toggle.syncState();
 		//RV methods
 		//addInitialTestData(5);
-		//clearSPref(); use to test sharedPref by deleting it completely
+		//clearSPref(); //use to test sharedPref by deleting it completely
 		setUpTransactionRV();
 		setUpCategory();
 		setUpAccount();
