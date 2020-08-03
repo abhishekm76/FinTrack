@@ -36,7 +36,7 @@ public class Util {
 
 	//SharePref
 	public static final String SPREFNAME ="FINTRACKPREFS";
-	public static final String CATEGORYTOTAL="totalAmountOfTransaction";
+	//public static final String CATEGORYTOTAL="totalAmountOfTransaction";
 	public static final String PERIODTOTAL= "totalByPeriod";
 	public static final String PERIODNAME ="nameOfPeriod";
 

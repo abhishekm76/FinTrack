@@ -155,7 +155,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return transactionItem.getId();
 	}
 
-	public ArrayList<CategoryTotals> getAllTransactionsByCategory() {
+	/*public ArrayList<CategoryTotals> getAllTransactionsByCategory() {
 		ArrayList<CategoryTotals> categoryTotalsArrayList = new ArrayList<>();
 
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -178,7 +178,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		cursor.close();
 		db.close();
 		return categoryTotalsArrayList;
-	}
+	}*/
 
 	public void deleteAll() {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -219,24 +219,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	public List<CategoryTotals> getTransactionsByCategoryByPeriod(String start, String end) {
 		ArrayList<CategoryTotals> categoryTotalsArrayList = new ArrayList<>();
-		String firstSum ="SUM("+Util.TRAN_AMOUNT+")";
+		String firstSum = "SUM(" + Util.TRAN_AMOUNT + ")";
 
 		SQLiteDatabase db = this.getReadableDatabase();
 		String[] noteColumns = {
 				Util.TRAN_CAT_NAME,
 				firstSum,
-
-
 		};
-
-/*
-		String selectAllByCategory = "SELECT " + Util.TRAN_CAT_NAME + ",SUM(" + Util.TRAN_AMOUNT + ") as " + Util.CATEGORYTOTAL + " FROM " + Util.TABLE_NAME + " GROUP BY " + Util.TRAN_CAT_NAME;
-		Cursor cursor = db.rawQuery(selectAllByCategory, null);
-*/
-
 		String selection = Util.TRAN_DATE + " BETWEEN ? and ? ";
 		String[] selectionArgs = {start, end};
-
 		String gby = Util.TRAN_CAT_NAME;
 		String hvng = null;
 		String ordr = null;
@@ -248,17 +239,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				CategoryTotals categoryTotals = new CategoryTotals();
 				categoryTotals.setNameCategoryOfTransaction(cursor.getString(0));
 				categoryTotals.setTotalAmountOfTransaction(Long.parseLong(cursor.getString(1)));
-
-				//add transaction objects to our list
+				//add category Total objects to our list
 				categoryTotalsArrayList.add(categoryTotals);
-
 			} while (cursor.moveToNext());
 		}
-
-
 		cursor.close();
 		db.close();
-
 		return categoryTotalsArrayList;
 	}
 }

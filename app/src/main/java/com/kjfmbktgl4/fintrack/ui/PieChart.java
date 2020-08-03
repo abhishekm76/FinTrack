@@ -42,12 +42,14 @@ public class PieChart extends AppCompatActivity {
 	private void setStartAndEndDates() {
 		if (startDateString==null || endDateString==null){
 			Date endDate=Calendar.getInstance().getTime();
-			endDateString = String.valueOf(DateConverters.dateToLong(endDate));
+			//endDateString = String.valueOf(DateConverters.dateToLong(endDate));
+			endDateString = DateConverters.getcurrentDateInMilLs();
+			startDateString=DateConverters.getFirstOfCurrentYearInMills();
 
-			Calendar cal = Calendar.getInstance();
+			/*Calendar cal = Calendar.getInstance();
 			cal.set(Calendar.DAY_OF_YEAR, 1);
 			Date startDate = cal.getTime();
-			startDateString= String.valueOf(DateConverters.dateToLong(startDate));
+			startDateString= String.valueOf(DateConverters.dateToLong(startDate));*/
 			Log.d(Util.TAG,startDateString+" "+endDateString);
 
 		}

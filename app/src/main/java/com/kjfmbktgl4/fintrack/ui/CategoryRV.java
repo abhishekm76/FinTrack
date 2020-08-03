@@ -14,18 +14,22 @@ import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kjfmbktgl4.fintrack.R;
-import com.kjfmbktgl4.fintrack.adapter.CategoryRVAdapter;
+import com.kjfmbktgl4.fintrack.adapter.CategoryRVAdapter2;
 
 import com.kjfmbktgl4.fintrack.adapter.TransactionRecyclerViewAdapter;
+import com.kjfmbktgl4.fintrack.model.Accounts;
+import com.kjfmbktgl4.fintrack.model.Category;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryRV extends AppCompatActivity  {
+public class CategoryRV extends AppCompatActivity implements View.OnClickListener {
 	private RecyclerView recyclerView;
-	private CategoryRVAdapter recyclerviewAdapter;
-	private List<String> categoryList;
+	private CategoryRVAdapter2 recyclerviewAdapter;
+	private List<Category> categoryList;
 	Context mContext;
+
 
 
 	@Override
@@ -66,35 +70,29 @@ public class CategoryRV extends AppCompatActivity  {
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-		recyclerviewAdapter = new CategoryRVAdapter(mContext,categoryList);
+		recyclerviewAdapter = new CategoryRVAdapter2(categoryList,mContext );
 		recyclerView.setAdapter(recyclerviewAdapter);
 	}
 
 	private void getAllData() {
-		List<String> mcategoryName;
-		mcategoryName = Preferences.getArrayPrefs("CategoryNames", this);
-		categoryList= mcategoryName;
+		List<String> mcategoryNameString;
+		ArrayList<Category> categoryArrayList = new ArrayList<>();
+		mcategoryNameString = Preferences.getArrayPrefs("CategoryNames", this);
+		for (String categoryNameItem:mcategoryNameString){
+			Category category = new Category();
+			category.setMcategoryName(categoryNameItem);
+			categoryArrayList.add(category);
+		}
+		categoryList.addAll(categoryArrayList);
+
 
 	}
 
+
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.recycler_search, menu);
-		MenuItem searchMenuItem = menu.findItem(R.id.action_search);
-		SearchView searchView= (SearchView) searchMenuItem.getActionView();
-		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-			@Override
-			public boolean onQueryTextSubmit(String query) {
-				return false;
-			}
-
-			@Override
-			public boolean onQueryTextChange(String newText) {
-				recyclerviewAdapter.getFilter().filter(newText);
-				return false;
-			}
-		});
-
-	return super.onCreateOptionsMenu(menu);
+	public void onClick(View pView) {
+		Intent intent = new Intent(this,AddEditCategory.class);
+		intent.putExtra("isNew",true);
+		startActivity(intent);
 	}
 }
