@@ -48,7 +48,7 @@ public class BarChart extends AppCompatActivity {
 		BarData data = new BarData(set);
 		data.setBarWidth(0.9f); // set custom bar width
 		barChart.setData(data);
-		barChart.setFitBars(true); // make the x-axis fit exactly all bars
+		barChart.setFitBars(false); // make the x-axis fit exactly all bars
 		barChart.getDescription().setEnabled(false);
 		barChart.setPinchZoom(true);
 		XAxis xAxis = barChart.getXAxis();
