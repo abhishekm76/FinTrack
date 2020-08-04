@@ -47,7 +47,6 @@ import java.util.Random;
 
 // TODO: 04-08-2020 after settign one date on teh graph the other buttons stop working??
 // TODO: 23-07-2020 navigation optimise
-// TODO: 23-07-2020 optimise add and edit activity
 // TODO: 23-07-2020 set up themes styles and colours
 // TODO: 23-07-2020 add income options
 // TODO: 23-07-2020 recyclerview search
@@ -65,7 +64,7 @@ import java.util.Random;
 
 import static com.kjfmbktgl4.fintrack.util.Util.SPREFNAME;
 
-public class NavDrawerLauncher extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class NavDrawerLauncher extends AppCompatActivity {
 	private AppBarConfiguration mAppBarConfiguration;
 	private RecyclerView recyclerView;
 	//private DatabaseHandler db;
@@ -86,11 +85,12 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(NavDrawerLauncher.this,EditTransaction.class);
-				intent.putExtra("isNew",true);
+				Intent intent = new Intent(NavDrawerLauncher.this, EditTransaction.class);
+				intent.putExtra("isNew", true);
 				startActivity(intent);
 			}
 		});
+/*
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		NavigationView navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
@@ -100,6 +100,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 		drawer.setDrawerListener(toggle);
 		toggle.syncState();
+*/
 		//RV methods
 		//addInitialTestData(5);
 		//clearSPref(); //use to test sharedPref by deleting it completely
@@ -114,11 +115,11 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 
 	private void setUpAccount() {
 		List<String> account_array;
-		account_array=Preferences.getArrayPrefs("AccountNames",this);
-		if(account_array.size()==0){
+		account_array = Preferences.getArrayPrefs("AccountNames", this);
+		if (account_array.size() == 0) {
 			Resources res = getResources();
-			account_array=Arrays.asList(res.getStringArray(R.array.account_array));
-			Preferences.setArrayPrefs("AccountNames",account_array,this);
+			account_array = Arrays.asList(res.getStringArray(R.array.account_array));
+			Preferences.setArrayPrefs("AccountNames", account_array, this);
 		}
 	}
 
@@ -182,7 +183,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		return true;
 	}
 
-	@Override
+	/*@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 		int id = menuItem.getItemId();
 		switch (id) {
@@ -206,7 +207,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		drawer.closeDrawer(GravityCompat.START);
 		return true;
 
-	}
+	}*/
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -233,14 +234,14 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		}
 
 		if (id == R.id.categoryList) {
-			Intent intentCategory = new Intent(this,CategoryRV.class);
+			Intent intentCategory = new Intent(this, CategoryRV.class);
 			startActivity(intentCategory);
 
 			return true;
 		}
 
 		if (id == R.id.accountList) {
-			Intent intentAccount = new Intent(this,AccountRV.class);
+			Intent intentAccount = new Intent(this, AccountRV.class);
 			startActivity(intentAccount);
 
 			return true;
@@ -261,7 +262,6 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		}
 
 
-
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -272,21 +272,20 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		exportArrayList.addAll(transactionItemListForExport);
 		StringBuilder data = new StringBuilder();
 		data.append("Index,Weekday,Day,Year,Amount,Account,Category,Note");
-		for(int i=0;i<exportArrayList.size();i++){
+		for (int i = 0; i < exportArrayList.size(); i++) {
 			Date transactionDate = new Date(exportArrayList.get(i).getDateOfTransaction());
 			String tranDate = DateFormat.getDateInstance(DateFormat.FULL).format(transactionDate);
 
-			data.append("\n"+String.valueOf(i)+","+String.valueOf(tranDate));
-			data.append(","+String.valueOf(exportArrayList.get(i).getAmountOfTransaction()));
-			data.append(","+String.valueOf(exportArrayList.get(i).getAccountOfTransaction()));
-			data.append(","+String.valueOf(exportArrayList.get(i).getNameCategoryOfTransaction()));
-			data.append(","+String.valueOf(exportArrayList.get(i).getNoteOfTransaction()));
+			data.append("\n" + String.valueOf(i) + "," + String.valueOf(tranDate));
+			data.append("," + String.valueOf(exportArrayList.get(i).getAmountOfTransaction()));
+			data.append("," + String.valueOf(exportArrayList.get(i).getAccountOfTransaction()));
+			data.append("," + String.valueOf(exportArrayList.get(i).getNameCategoryOfTransaction()));
+			data.append("," + String.valueOf(exportArrayList.get(i).getNoteOfTransaction()));
 
 		}
 
 
-
-		try{
+		try {
 			//saving the file into device
 			FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
 			out.write((data.toString()).getBytes());
@@ -302,8 +301,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 			fileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 			fileIntent.putExtra(Intent.EXTRA_STREAM, path);
 			startActivity(Intent.createChooser(fileIntent, "Exported data"));
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
