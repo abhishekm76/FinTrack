@@ -74,6 +74,7 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 	public List<TransactionItem> transactionItemArrayList;
 	public List<TransactionItem> exportArrayList;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -85,7 +86,8 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(NavDrawerLauncher.this,AddNewTransaction.class);
+				Intent intent = new Intent(NavDrawerLauncher.this,EditTransaction.class);
+				intent.putExtra("isNew",true);
 				startActivity(intent);
 			}
 		});
@@ -186,11 +188,11 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		switch (id) {
 
 			case R.id.nav_home:
-				snacky("Home");
+
 				break;
 
 			case R.id.nav_gallery:
-				snacky("gallery");
+
 				Intent intentForBarChart = new Intent(this, BarChart.class);
 				startActivity(intentForBarChart);
 
@@ -204,11 +206,6 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 		drawer.closeDrawer(GravityCompat.START);
 		return true;
 
-	}
-
-	private void snacky(String message) {
-		View v = findViewById(R.id.fab);
-		Snackbar.make(v, message, Snackbar.LENGTH_LONG).show();
 	}
 
 	@Override

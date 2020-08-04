@@ -83,22 +83,10 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 
 			int position = getAdapterPosition();
 			TransactionItem transactionItem = transactionItemList.get(position);
-			Snackbar.make(v, "Start Edit Activity", Snackbar.LENGTH_LONG)
-					.setAction("Action", null).show();
 			Intent intent = new Intent(context, EditTransaction.class);
 
 			intent.putExtra("id", transactionItem.getId());
 			context.startActivity(intent);
-
-
-//            switch (v.getId()) {
-//                case R.id.icon_button:
-//                    Log.d("IconClicked", "onClick: " + contact.getPhoneNumber());
-//                    break;
-//            }
-
-
-			// Log.d("Clicked", "onClick: " + contact.getName());
 
 		}
 	}

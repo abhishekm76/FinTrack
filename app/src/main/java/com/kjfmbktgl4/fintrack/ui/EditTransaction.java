@@ -38,15 +38,20 @@ import java.util.Locale;
 public class EditTransaction extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 	Button saveButton;
 	Button cancelButton;
-	TextInputEditText dateET,amountET,noteET;
+	TextInputEditText dateET, amountET, noteET;
+	Chip categoryChip, accountChip;
+	ChipGroup categoryChipGroup, accountChipGroup;
+
 	String categoryName, accountName;
 	TextInputLayout amountTIL;
+	public boolean isNew = false;
 	int id;
 	private final DatabaseHandler db = new DatabaseHandler(EditTransaction.this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		isNew = getIntent().getBooleanExtra("isNew", false);
 		setContentView(R.layout.activity_edit_transaction);
 		//Set Up Nav Drawer
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -67,18 +72,25 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		dateET.setOnClickListener(this);
 
 		amountTIL = findViewById(R.id.amountTIL);
+
+		categoryChipGroup = findViewById(R.id.catChipGroup);
+		accountChipGroup = findViewById(R.id.actChipGroup);
+
+
 		createCategoryViews();
-		setValuesToEdit();
-
-		setDateAndCurrency();
-
+		if (!isNew) {
+			setValuesToEdit();
+		} else {
+			setCurrentDate();
+		}
+		setCurrency();
 
 
 	}
 
 	private void setValuesToEdit() {
 		Intent intent = getIntent();
-		id = intent.getIntExtra("id",0);
+		id = intent.getIntExtra("id", 0);
 		TransactionItem transactionItem = new TransactionItem();
 		transactionItem = db.getOneTransaction(id);
 		snacky(transactionItem.getNameCategoryOfTransaction());
@@ -94,36 +106,27 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		accountName = transactionItem.getAccountOfTransaction();
 
 		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
-		for (int i=0; i<chipGroup.getChildCount();i++){
-			Chip chip = (Chip)chipGroup.getChildAt(i);
-			if(categoryName.equals(chip.getText())){
+		for (int i = 0; i < chipGroup.getChildCount(); i++) {
+			Chip chip = (Chip) chipGroup.getChildAt(i);
+			if (categoryName.equals(chip.getText())) {
 				chip.setChecked(true);
 			}
 		}
 		chipGroup.setSingleSelection(true);
 
 		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
-		for (int i=0; i<chipGroupAccount.getChildCount();i++){
-			Chip chip = (Chip)chipGroupAccount.getChildAt(i);
-			if(accountName.equals(chip.getText())){
+		for (int i = 0; i < chipGroupAccount.getChildCount(); i++) {
+			Chip chip = (Chip) chipGroupAccount.getChildAt(i);
+			if (accountName.equals(chip.getText())) {
 				chip.setChecked(true);
 			}
 		}
 		chipGroupAccount.setSingleSelection(true);
 
 
-
-
-
-
-
-
-
-
-
 	}
 
-	private void setDateAndCurrency() {
+	private void setCurrency() {
 		Locale curLocale = Locale.getDefault();
 		Currency curr = Currency.getInstance(curLocale);
 		String symbol = curr.getSymbol();
@@ -131,9 +134,10 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 
 	}
 
-	private String setCurrentDate() {
+	private void setCurrentDate() {
 		Calendar calendar = Calendar.getInstance();
-		return DateFormat.getDateInstance(DateFormat.MEDIUM).format(calendar.getTime());
+		String currentDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(calendar.getTime());
+		dateET.setText(currentDate);
 	}
 
 	private void createCategoryViews() {
@@ -155,9 +159,9 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		}
 
 		List<String> accountNames;
-		accountNames=Preferences.getArrayPrefs("AccountNames",this);
+		accountNames = Preferences.getArrayPrefs("AccountNames", this);
 		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
-		for (String accountName: accountNames){
+		for (String accountName : accountNames) {
 			Chip chip = new Chip(this);
 			chip.setTextAppearance(android.R.style.TextAppearance_Material_Body1);
 			chip.setRippleColorResource(R.color.colorPrimary);
@@ -203,11 +207,11 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		int id = v.getId();
 		switch (id) {
 			case R.id.buttonsave:
-				/*ChipGroup chipGroup = findViewById(R.id.catChipGroup);
-				Chip selChip = findViewById(chipGroup.getCheckedChipId());
-				Snackbar.make(v, "you have a problem" + chipGroup.getCheckedChipId(), Snackbar.LENGTH_LONG).show();*/
-				//snacky("The chip you selected is  " + selChip.getText());
-				updateTransaction();
+				if (isNew) {
+					saveNewTransacton();
+				} else {
+					updateTransaction();
+				}
 				Intent intent = new Intent(this, NavDrawerLauncher.class);
 				startActivity(intent);
 				break;
@@ -252,7 +256,6 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		db.updateTransaction(transaction);
 
 
-
 	}
 
 	public void pickerShow() {
@@ -272,6 +275,36 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 					}
 				}, year, month, day);
 		picker.show();
+
+
+	}
+
+	private void saveNewTransacton() {
+
+		TransactionItem transaction = new TransactionItem();
+		int id = categoryChipGroup.getCheckedChipId();
+		if (id != -1) {
+			categoryChip = findViewById(categoryChipGroup.getCheckedChipId());
+			transaction.setNameCategoryOfTransaction(String.valueOf(categoryChip.getText()));
+		}
+		transaction.setNoteOfTransaction(String.valueOf(noteET.getText()));
+		transaction.setAmountOfTransaction(Long.parseLong(String.valueOf(amountET.getText())));
+
+		try {
+			Date transDate = DateFormat.getDateInstance().parse(dateET.getText().toString());
+			transaction.setDateOfTransaction(transDate.getTime());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		int idAccount = accountChipGroup.getCheckedChipId();
+		if (idAccount != -1) {
+			accountChip = findViewById(accountChipGroup.getCheckedChipId());
+			transaction.setAccountOfTransaction(String.valueOf(accountChip.getText()));
+		}
+
+		db.addTransaction(transaction);
+		db.close();
 
 
 	}
