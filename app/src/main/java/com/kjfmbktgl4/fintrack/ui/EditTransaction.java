@@ -52,7 +52,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		isNew = getIntent().getBooleanExtra("isNew", false);
-		setContentView(R.layout.activity_edit_transaction);
+		setContentView(R.layout.add_edit_trans);
 		//Set Up Nav Drawer
 /*
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -95,7 +95,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		id = intent.getIntExtra("id", 0);
 		TransactionItem transactionItem = new TransactionItem();
 		transactionItem = db.getOneTransaction(id);
-		snacky(transactionItem.getNameCategoryOfTransaction());
+		//snacky(transactionItem.getNameCategoryOfTransaction());
 
 		amountET.setText((String.valueOf(transactionItem.getAmountOfTransaction())));
 		noteET.setText(transactionItem.getNoteOfTransaction());
@@ -179,10 +179,10 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 	}
 
 
-	private void snacky(String message) {
+	/*private void snacky(String message) {
 		View v = findViewById(R.id.nav_view);
 		Snackbar.make(v, message, Snackbar.LENGTH_LONG).show();
-	}
+	}*/
 
 	@Override
 	public void onClick(View v) {
