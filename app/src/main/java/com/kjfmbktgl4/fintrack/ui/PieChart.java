@@ -31,13 +31,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class PieChart extends AppCompatActivity implements View.OnClickListener{
+public class PieChart extends AppCompatActivity implements View.OnClickListener {
 	private ArrayList<CategoryTotals> dataArrayList;
 	private ArrayList<CategoryTotals> transactionItemArrayListByCategory = new ArrayList<>();
-	private String startDateString,endDateString;
+	private String startDateString, endDateString;
 	private TextInputEditText startDateET, endDateET;
 	private Boolean setDate = false;
-	private Button allButton,yearButton,monthButton,refreshButton,todayButton;
+	private Button allButton, yearButton, monthButton, refreshButton, todayButton;
 	com.github.mikephil.charting.charts.PieChart pieChart;
 
 	@Override
@@ -45,13 +45,13 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pie_chart);
 		pieChart = findViewById(R.id.piechart);
-		startDateET=findViewById(R.id.selectStartDateForPie);
-		endDateET=findViewById(R.id.selectEndDateForPie);
+		startDateET = findViewById(R.id.selectStartDateForPie);
+		endDateET = findViewById(R.id.selectEndDateForPie);
 		allButton = findViewById(R.id.btn_all);
-		yearButton=findViewById(R.id.btn_2018);
-		monthButton=findViewById(R.id.btn_thisMonth);
-		todayButton=findViewById(R.id.btn_today);
-		refreshButton=findViewById(R.id.refreshGraphs);
+		yearButton = findViewById(R.id.btn_2018);
+		monthButton = findViewById(R.id.btn_thisMonth);
+		todayButton = findViewById(R.id.btn_today);
+		refreshButton = findViewById(R.id.refreshGraphs);
 
 		allButton.setOnClickListener(this);
 		yearButton.setOnClickListener(this);
@@ -62,10 +62,9 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener{
 		endDateET.setOnClickListener(this);
 
 
-
 		setStartAndEndDates();
 		setDatePickers();
-		dataArrayList= getDataForGraph();
+		dataArrayList = getDataForGraph();
 		drawPiechart(dataArrayList);
 	}
 
@@ -77,11 +76,11 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener{
 	}
 
 	private void setStartAndEndDates() {
-		if (startDateString==null || endDateString==null){
+		if (startDateString == null || endDateString == null) {
 			//Date endDate=Calendar.getInstance().getTime();
 			endDateString = DateConverters.getcurrentDateInMilLs();
-			startDateString=DateConverters.getFirstOfCurrentYearInMills();
-			Log.d(Util.TAG,startDateString+" "+endDateString);
+			startDateString = DateConverters.getFirstOfCurrentYearInMills();
+			Log.d(Util.TAG, startDateString + " " + endDateString);
 
 		}
 
@@ -89,7 +88,7 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener{
 
 	private ArrayList<CategoryTotals> getDataForGraph() {
 		DatabaseHandler db = new DatabaseHandler(PieChart.this);
-		transactionItemArrayListByCategory = (ArrayList<CategoryTotals>) db.getTransactionsByCategoryByPeriod(startDateString,endDateString);
+		transactionItemArrayListByCategory = (ArrayList<CategoryTotals>) db.getTransactionsByCategoryByPeriod(startDateString, endDateString);
 		return transactionItemArrayListByCategory;
 	}
 
@@ -117,53 +116,54 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener{
 		pieChart.invalidate();
 	}
 
-	public void drawAllData(){
-	// set start and end dates to cover all data
+	public void drawAllData() {
+		// set start and end dates to cover all data
 		startDateString = DateConverters.getEpochStart();
 		endDateString = DateConverters.getcurrentDateInMilLs();
-		Log.d(Util.TAG,"all "+startDateString+" "+endDateString);
+		Log.d(Util.TAG, "all " + startDateString + " " + endDateString);
 
 	}
 
-	public void drawThisYear(){
+	public void drawThisYear() {
 		// set start and end dates to cover this year
 		startDateString = DateConverters.getFirstOfCurrentYearInMills();
 		endDateString = DateConverters.getcurrentDateInMilLs();
-		Log.d(Util.TAG,"all "+startDateString+" "+endDateString);
+		Log.d(Util.TAG, "all " + startDateString + " " + endDateString);
 
 	}
-	public void drawThisMonth(){
+
+	public void drawThisMonth() {
 		startDateString = DateConverters.getFirstOfMonth();
 		endDateString = DateConverters.getcurrentDateInMilLs();
-		Log.d(Util.TAG,"month "+startDateString+" "+endDateString);
+		Log.d(Util.TAG, "month " + startDateString + " " + endDateString);
 
 		// set start and end dates to cover this month
 	}
-	public void drawToday(){
+
+	public void drawToday() {
 		startDateString = DateConverters.getFirstOfWeek();
 		endDateString = DateConverters.getcurrentDateInMilLs();
-		Log.d(Util.TAG,"month "+startDateString+" "+endDateString);
-
-
+		Log.d(Util.TAG, "month " + startDateString + " " + endDateString);
 
 
 		// set start and end dates to cover today
 	}
-	public void drawCustom(){
+
+	public void drawCustom() {
 		// set start and end dates to cover custom period
 
 		startDateString = DateConverters.dateStringToLongString(startDateET.getText().toString());
-		endDateString= DateConverters.dateStringToLongString(endDateET.getText().toString());
-		dataArrayList= getDataForGraph();
+		endDateString = DateConverters.dateStringToLongString(endDateET.getText().toString());
+		dataArrayList = getDataForGraph();
 		drawPiechart(dataArrayList);
-		Log.d(Util.TAG,"custom "+startDateString+" "+endDateString);
+		Log.d(Util.TAG, "custom " + startDateString + " " + endDateString);
 	}
 
 	@Override
 	public void onClick(View pView) {
 		switch (pView.getId()) {
 			case R.id.btn_all:
- 				drawAllData();
+				drawAllData();
 				break;
 			case R.id.btn_2018:
 				drawThisYear();
@@ -178,19 +178,23 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener{
 				drawCustom();
 				break;
 
-			case R.id.selectStartDateForPie :
-			case R.id.selectEndDateForPie :
+			case R.id.selectStartDateForPie:
+			case R.id.selectEndDateForPie:
 				pickerShow(pView);
 				setDate = true;
 				break;
 		}
 
-		if(!setDate){
-		setDatePickers();
-		dataArrayList= getDataForGraph();
-		drawPiechart(dataArrayList);
+		if (!setDate) {
+			setDatePickers();
+			dataArrayList = getDataForGraph();
+			drawPiechart(dataArrayList);
 		}
-	}public void pickerShow(final View pView) {
+
+
+	}
+
+	public void pickerShow(final View pView) {
 		final Calendar cldr = Calendar.getInstance();
 		int day = cldr.get(Calendar.DAY_OF_MONTH);
 		int month = cldr.get(Calendar.MONTH);

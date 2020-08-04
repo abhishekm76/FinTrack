@@ -196,9 +196,57 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		ArrayList<PeriodTotal> periodTotalArrayList = new ArrayList<>();
 		SQLiteDatabase db = this.getReadableDatabase();
 
+
+
+
 		//Select period totals
 		String selectTotalByPeriod = "SELECT strftime('%m-%Y', " + "datetime(" + Util.TRAN_DATE + "/1000, 'unixepoch')) as " + Util.PERIODNAME + ", SUM(" + Util.TRAN_AMOUNT + ") as " + Util.PERIODTOTAL + " FROM " + Util.TABLE_NAME + " GROUP BY " + Util.PERIODNAME + " ORDER BY " + Util.TRAN_DATE;
 		Cursor cursor = db.rawQuery(selectTotalByPeriod, null);
+
+		//Loop through our data
+		if (cursor.moveToFirst()) {
+			do {
+				PeriodTotal periodTotal = new PeriodTotal();
+				String periodName = cursor.getString(0);
+				periodTotal.setPeriodName(cursor.getString(0));
+				periodTotal.setTotalOfPeriod(Integer.parseInt((cursor.getString(1))));
+
+				//add transaction objects to our list
+				periodTotalArrayList.add(periodTotal);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		db.close();
+		return periodTotalArrayList;
+	}
+
+	public List<PeriodTotal> getTransactionsByPeriodFiltered(String start, String end){
+		ArrayList<PeriodTotal> periodTotalArrayList = new ArrayList<>();
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		String selection = Util.TRAN_DATE + " BETWEEN ? and ? ";
+		String[] selectionArgs = {start, end};
+		String gby = Util.PERIODNAME;
+		String hvng = null;
+		String ordr = Util.TRAN_DATE;
+
+
+		String firstQ = "strftime('%m-%Y', " + "datetime(" + Util.TRAN_DATE + "/1000, 'unixepoch')) as " + Util.PERIODNAME;
+		String secondQ ="/1000, 'unixepoch')) as ";
+		String thirdQ = "SUM(" + Util.TRAN_AMOUNT + ") as " + Util.PERIODTOTAL;
+		String[] noteColumns = {
+				firstQ,
+				thirdQ,
+		};
+
+		//Select period totals
+//		String[] selectTotalByPeriod = {"strftime('%m-%Y', " + "datetime(" + Util.TRAN_DATE + "/1000, 'unixepoch')) as " + Util.PERIODNAME + ", SUM(" + Util.TRAN_AMOUNT + ") as " + Util.PERIODTOTAL};
+//		Cursor cursor = db.query(Util.TABLE_NAME,noteColumns,selection,selectionArgs,gby,hvng,ordr);
+
+
+		String selectTotalByPeriod = "SELECT strftime('%m-%Y', " + "datetime(" + Util.TRAN_DATE + "/1000, 'unixepoch')) as " + Util.PERIODNAME + ", SUM(" + Util.TRAN_AMOUNT + ") as " + Util.PERIODTOTAL + " FROM " + Util.TABLE_NAME + " GROUP BY " + Util.PERIODNAME + " ORDER BY " + Util.TRAN_DATE;
+		Cursor cursor = db.rawQuery(selectTotalByPeriod, null);
+
 
 		//Loop through our data
 		if (cursor.moveToFirst()) {

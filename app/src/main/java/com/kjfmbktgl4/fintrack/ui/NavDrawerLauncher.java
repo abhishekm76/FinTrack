@@ -45,7 +45,7 @@ import java.util.Random;
 // TODO: 23-07-2020 add delete and edit for simple list
 
 // TODO: 23-07-2020 add date filters for graphs
-
+// TODO: 04-08-2020 after settign one date on teh graph the other buttons stop working??
 // TODO: 23-07-2020 navigation optimise
 // TODO: 23-07-2020 optimise add and edit activity
 // TODO: 23-07-2020 set up themes styles and colours
