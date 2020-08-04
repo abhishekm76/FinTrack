@@ -192,9 +192,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	}
 
+	public void deleteOne(int id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		String idString = String.valueOf(id);
+		//db.delete(Util.TABLE_NAME, null, null);
+		db.delete(Util.TABLE_NAME, Util.TRAN_ID + "=?", new String[]{idString});
+		db.close();
 
+	}
 
-	public List<PeriodTotal> getTransactionsByPeriodFiltered(String start, String end){
+	public List<PeriodTotal> getTransactionsByPeriodFiltered(String start, String end) {
 		ArrayList<PeriodTotal> periodTotalArrayList = new ArrayList<>();
 		SQLiteDatabase db = this.getReadableDatabase();
 
@@ -212,7 +219,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				thirdQ,
 		};
 
-		Cursor cursor = db.query(Util.TABLE_NAME,noteColumns,selection,selectionArgs,gby,hvng,ordr);
+		Cursor cursor = db.query(Util.TABLE_NAME, noteColumns, selection, selectionArgs, gby, hvng, ordr);
 
 		//Loop through our data
 		if (cursor.moveToFirst()) {

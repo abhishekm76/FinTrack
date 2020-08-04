@@ -35,7 +35,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class EditTransaction extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class EditTransaction extends AppCompatActivity implements View.OnClickListener {
 	Button saveButton;
 	Button cancelButton;
 	TextInputEditText dateET, amountET, noteET;
@@ -54,11 +54,13 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 		isNew = getIntent().getBooleanExtra("isNew", false);
 		setContentView(R.layout.activity_edit_transaction);
 		//Set Up Nav Drawer
+/*
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		NavigationView navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 		Menu menu = navigationView.getMenu();
 		menu.findItem(R.id.nav_home).setChecked(true);
+*/
 		amountET = findViewById(R.id.editTextAmount);
 		noteET = findViewById(R.id.editTextNote);
 
@@ -176,26 +178,6 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 
 	}
 
-	@Override
-	public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-		int id = menuItem.getItemId();
-		switch (id) {
-
-			case R.id.nav_home:
-				snacky("Home");
-				break;
-
-			case R.id.nav_gallery:
-				snacky("gallery");
-				break;
-			case R.id.nav_slideshow:
-				snacky("slideshow");
-				break;
-		}
-		DrawerLayout drawer = findViewById(R.id.drawer_layout);
-		drawer.closeDrawer(GravityCompat.START);
-		return true;
-	}
 
 	private void snacky(String message) {
 		View v = findViewById(R.id.nav_view);
@@ -309,4 +291,36 @@ public class EditTransaction extends AppCompatActivity implements NavigationView
 
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		if (!isNew) {
+			getMenuInflater().inflate(R.menu.simple_delete, menu);
+		}
+		return true;
+
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		//noinspection SimplifiableIfStatement
+		if (id == R.id.delete) {
+			deleteEntry();
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void deleteEntry() {
+		Log.d(Util.TAG, "delete "+ id);
+		db.deleteOne(id);
+		Intent intent2 = new Intent(this, NavDrawerLauncher.class);
+		startActivity(intent2);
+
+
+	}
 }

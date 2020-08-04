@@ -27,4 +27,14 @@
         android:orderInCategory="500"
         app:showAsAction="never"
         />
+    <item android:title="Trends"
+        android:id="@+id/trend"
+        android:orderInCategory="600"
+        app:showAsAction="never"
+        />
+    <item android:title="Distribution"
+        android:id="@+id/distribution"
+        android:orderInCategory="700"
+        app:showAsAction="never"
+        />
 </menu>

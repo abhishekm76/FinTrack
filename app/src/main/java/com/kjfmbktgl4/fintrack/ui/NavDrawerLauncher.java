@@ -245,6 +245,23 @@ public class NavDrawerLauncher extends AppCompatActivity implements NavigationVi
 
 			return true;
 		}
+
+		if (id == R.id.trend) {
+			Intent intentForBarChart = new Intent(this, BarChart.class);
+			startActivity(intentForBarChart);
+
+			return true;
+		}
+
+		if (id == R.id.distribution) {
+			Intent intent = new Intent(this, PieChart.class);
+			startActivity(intent);
+
+			return true;
+		}
+
+
+
 		return super.onOptionsItemSelected(item);
 	}
 
