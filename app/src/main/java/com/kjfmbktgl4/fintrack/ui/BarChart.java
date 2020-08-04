@@ -53,6 +53,8 @@ public class BarChart extends AppCompatActivity implements View.OnClickListener 
 		monthButton.setOnClickListener(this);
 		refreshButton.setOnClickListener(this);
 
+		drawThisYear();
+		setDatePickers();
 		dataList = getDataForGraph();
 		drawGraph(dataList);
 
@@ -122,9 +124,8 @@ public class BarChart extends AppCompatActivity implements View.OnClickListener 
 
 		if (!setDate) {
 			setDatePickers();
-			/*setDatePickers();
-			dataArrayList= getDataForGraph();
-			drawPiechart(dataArrayList);*/
+			dataList = getDataForGraph();
+			drawGraph(dataList);
 
 		}
 	}
@@ -160,7 +161,8 @@ public class BarChart extends AppCompatActivity implements View.OnClickListener 
 	private void drawCustom () {
 		startDateString = DateConverters.dateStringToLongString(startDateET.getText().toString());
 		endDateString = DateConverters.dateStringToLongString(endDateET.getText().toString());
-
+		dataList = getDataForGraph();
+		drawGraph(dataList);
 	}
 
 
