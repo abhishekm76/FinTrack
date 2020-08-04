@@ -24,6 +24,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
+                android:focusable="false"
                 android:hint="Start date"
                 android:inputType="date" />
 
@@ -32,6 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
+                android:focusable="false"
                 android:layout_weight="1"
                 android:hint="End date"
                 android:inputType="date" />

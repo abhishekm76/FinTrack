@@ -2,11 +2,14 @@ package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Switch;
 
 import com.github.mikephil.charting.data.PieData;
@@ -33,6 +36,7 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener{
 	private ArrayList<CategoryTotals> transactionItemArrayListByCategory = new ArrayList<>();
 	private String startDateString,endDateString;
 	private TextInputEditText startDateET, endDateET;
+	private Boolean setDate = false;
 	private Button allButton,yearButton,monthButton,refreshButton,todayButton;
 	com.github.mikephil.charting.charts.PieChart pieChart;
 
@@ -54,6 +58,8 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener{
 		monthButton.setOnClickListener(this);
 		todayButton.setOnClickListener(this);
 		refreshButton.setOnClickListener(this);
+		startDateET.setOnClickListener(this);
+		endDateET.setOnClickListener(this);
 
 
 
@@ -72,7 +78,7 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener{
 
 	private void setStartAndEndDates() {
 		if (startDateString==null || endDateString==null){
-			Date endDate=Calendar.getInstance().getTime();
+			//Date endDate=Calendar.getInstance().getTime();
 			endDateString = DateConverters.getcurrentDateInMilLs();
 			startDateString=DateConverters.getFirstOfCurrentYearInMills();
 			Log.d(Util.TAG,startDateString+" "+endDateString);
@@ -145,6 +151,12 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener{
 	}
 	public void drawCustom(){
 		// set start and end dates to cover custom period
+
+		startDateString = DateConverters.dateStringToLongString(startDateET.getText().toString());
+		endDateString= DateConverters.dateStringToLongString(endDateET.getText().toString());
+		dataArrayList= getDataForGraph();
+		drawPiechart(dataArrayList);
+		Log.d(Util.TAG,"custom "+startDateString+" "+endDateString);
 	}
 
 	@Override
@@ -166,10 +178,36 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener{
 				drawCustom();
 				break;
 
- 		}
+			case R.id.selectStartDateForPie :
+			case R.id.selectEndDateForPie :
+				pickerShow(pView);
+				setDate = true;
+				break;
+		}
+
+		if(!setDate){
 		setDatePickers();
 		dataArrayList= getDataForGraph();
 		drawPiechart(dataArrayList);
-	}
+		}
+	}public void pickerShow(final View pView) {
+		final Calendar cldr = Calendar.getInstance();
+		int day = cldr.get(Calendar.DAY_OF_MONTH);
+		int month = cldr.get(Calendar.MONTH);
+		int year = cldr.get(Calendar.YEAR);
+		// date picker dialog
+		DatePickerDialog picker = new DatePickerDialog(PieChart.this,
+				new DatePickerDialog.OnDateSetListener() {
+					@Override
+					public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+						cldr.set(year, monthOfYear, dayOfMonth);
+						String setDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(cldr.getTime());
+						EditText setDateET = (EditText) pView;
+						setDateET.setText(setDate);
+					}
+				}, year, month, day);
+		picker.show();
 
+
+	}
 }
