@@ -83,9 +83,10 @@
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/actChipGroup"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/CustomChipChoice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:padding="8dp"
             app:singleSelection="true">
 

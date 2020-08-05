@@ -42,28 +42,49 @@
 
     <!--Color palette-->
 
-    <color name="colorPrimaryDark">#bb86fc</color> <!--Color primary (dark)-->
-    <color name="colorPrimary">#6200ee</color> <!--Color primary (light)-->
-    <color name="colorAccent">#cf6679</color> <!--Color primary (light)-->
-    <color name="white">#FFFFFF</color> <!--Color primary (light)-->
-    <color name="purple_600">#4b01d0</color> <!--Color primary variant (dark)-->
-    <color name="purple_700">#3700b3</color> <!--Color primary variant (light)-->
+<!--
+    <color name="primaryColor">#e0f7fa</color>
 
-    <color name="green_200">#03dac6</color> <!--Color secondary-->
-    <color name="green_500">#018786</color> <!--Color secondary variant-->
+    <color name="primaryLightColor">#ffffff</color>
 
-    <color name="red_200">#cf6679</color> <!--Color error (dark)-->
-    <color name="red_600">#b00020</color> <!--Color error (light)-->
+    <color name="primaryDarkColor">#aec4c7</color>
+
+    <color name="secondaryColor">#eceff1</color>
+
+    <color name="secondaryLightColor">#ffffff</color>
+
+    <color name="secondaryDarkColor">#babdbe</color>
+
+    <color name="primaryTextColor">#000000</color>
+
+    <color name="secondaryTextColor">#000000</color>
+-->
+
+
+    <color name="colorPrimaryDark">#81b9bf</color> <!--Color primary (dark)-->
+    <color name="colorPrimary">#dff6f9</color> <!--Color primary (light)-->
+
+    <color name="colorAccent">#ff9800</color> <!--Color Accent-->
+
+    <color name="colorSecondaryDark">#babdbe</color> <!--Color secondary-->
+    <color name="colorSecondary">#eceff1</color> <!--Color secondary variant-->
+
+    <color name="colorErrorDark">#b00020</color> <!--Color error (light)-->
+    <color name="colorError">#cf6679</color> <!--Color error (dark)-->
 
     <!--Color surface (light), color on error (light), -->
     <!--color on surface (dark), color on surface (dark)-->
-    <color name="white_50">#ffffff</color>
+    <color name="colorBackgroundDark">#eceff1</color>
+    <color name="colorBackground">#ffffff</color>
 
-    <color name="black_800">#121212</color> <!--Color surface (dark)-->
+    <color name="colorWhite">#ffffff</color> <!--Color surface (dark)-->
     <!--Color on secondary (light), color on background (light),-->
     <!--color on surface (light)-->
-    <color name="black_900">#000000</color>
+    <color name="colorBlack">#000000</color>
 
+    <color name="primaryTextColor">#000000</color>
+
+    <color name="secondaryTextColor">#000000</color>
 
 
     <!--    <color name="purple_200">#bb86fc</color> &lt;!&ndash;Color primary (dark)&ndash;&gt;

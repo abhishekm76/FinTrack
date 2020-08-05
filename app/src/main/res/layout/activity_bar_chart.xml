@@ -70,7 +70,7 @@
                 android:background="@color/colorPrimary"
                 android:text="@string/all_data"
                 android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:textColor="@color/colorWhite" />
 
             <Button
                 android:id="@+id/btn_2018"
@@ -81,7 +81,7 @@
                 android:background="@color/colorPrimary"
                 android:text="@string/thisyear"
                 android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:textColor="@color/colorWhite" />
 
             <Button
                 android:id="@+id/btn_thisMonth"
@@ -92,7 +92,7 @@
                 android:background="@color/colorPrimary"
                 android:text="@string/this_month"
                 android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:textColor="@color/colorWhite" />
 
 
         </LinearLayout>

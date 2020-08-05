@@ -53,31 +53,18 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		super.onCreate(savedInstanceState);
 		isNew = getIntent().getBooleanExtra("isNew", false);
 		setContentView(R.layout.add_edit_trans);
-		//Set Up Nav Drawer
-/*
-		DrawerLayout drawer = findViewById(R.id.drawer_layout);
-		NavigationView navigationView = findViewById(R.id.nav_view);
-		navigationView.setNavigationItemSelectedListener(this);
-		Menu menu = navigationView.getMenu();
-		menu.findItem(R.id.nav_home).setChecked(true);
-*/
+
 		amountET = findViewById(R.id.editTextAmount);
 		noteET = findViewById(R.id.editTextNote);
-
 		saveButton = findViewById(R.id.buttonsave);
 		saveButton.setOnClickListener(this);
-
 		cancelButton = findViewById(R.id.buttoncancel);
 		cancelButton.setOnClickListener(this);
-
 		dateET = findViewById(R.id.editTextDate);
 		dateET.setOnClickListener(this);
-
 		amountTIL = findViewById(R.id.amountTIL);
-
 		categoryChipGroup = findViewById(R.id.catChipGroup);
 		accountChipGroup = findViewById(R.id.actChipGroup);
-
 
 		createCategoryViews();
 		if (!isNew) {
@@ -86,8 +73,6 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 			setCurrentDate();
 		}
 		setCurrency();
-
-
 	}
 
 	private void setValuesToEdit() {
@@ -95,7 +80,6 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		id = intent.getIntExtra("id", 0);
 		TransactionItem transactionItem = new TransactionItem();
 		transactionItem = db.getOneTransaction(id);
-		//snacky(transactionItem.getNameCategoryOfTransaction());
 
 		amountET.setText((String.valueOf(transactionItem.getAmountOfTransaction())));
 		noteET.setText(transactionItem.getNoteOfTransaction());
@@ -124,8 +108,6 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 			}
 		}
 		chipGroupAccount.setSingleSelection(true);
-
-
 	}
 
 	private void setCurrency() {
@@ -133,7 +115,6 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		Currency curr = Currency.getInstance(curLocale);
 		String symbol = curr.getSymbol();
 		amountTIL.setPrefixText(symbol);
-
 	}
 
 	private void setCurrentDate() {
@@ -149,12 +130,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 
 		for (String category : mcategoryName) {
-			Chip chip = new Chip(this);
-			chip.setTextAppearance(android.R.style.TextAppearance_Material_Body1);
-			chip.setRippleColorResource(R.color.colorPrimary);
-			chip.setChipIconResource(R.drawable.ic_outline_delete_24);
-			chip.setChipCornerRadius(0);
-			chip.setCheckable(true);
+			Chip chip =	(Chip) getLayoutInflater().inflate(R.layout.single_chip_layout, chipGroup, false);
 			chip.setText(category);
 			chipGroup.addView(chip);
 			chipGroup.setSingleSelection(true);
@@ -164,25 +140,14 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		accountNames = Preferences.getArrayPrefs("AccountNames", this);
 		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
 		for (String accountName : accountNames) {
-			Chip chip = new Chip(this);
-			chip.setTextAppearance(android.R.style.TextAppearance_Material_Body1);
-			chip.setRippleColorResource(R.color.colorPrimary);
-			chip.setChipIconResource(R.drawable.ic_outline_delete_24);
-			chip.setChipCornerRadius(0);
-			chip.setCheckable(true);
+			Chip chip =	(Chip) getLayoutInflater().inflate(R.layout.single_chip_layout, chipGroupAccount, false);
 			chip.setText(accountName);
 			chipGroupAccount.addView(chip);
 			chipGroupAccount.setSingleSelection(true);
-
 		}
 
 	}
 
-
-	/*private void snacky(String message) {
-		View v = findViewById(R.id.nav_view);
-		Snackbar.make(v, message, Snackbar.LENGTH_LONG).show();
-	}*/
 
 	@Override
 	public void onClick(View v) {
@@ -228,15 +193,12 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		String selChipString = String.valueOf(selChip.getText());
 		transaction.setNameCategoryOfTransaction(selChipString);
 
-
 		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
 		Chip selChipAccount = findViewById(chipGroupAccount.getCheckedChipId());
 		String selChipStringAccount = String.valueOf(selChipAccount.getText());
 		transaction.setAccountOfTransaction(selChipStringAccount);
 
-
 		db.updateTransaction(transaction);
-
 
 	}
 
@@ -257,8 +219,6 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 					}
 				}, year, month, day);
 		picker.show();
-
-
 	}
 
 	private void saveNewTransacton() {
@@ -284,11 +244,8 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 			accountChip = findViewById(accountChipGroup.getCheckedChipId());
 			transaction.setAccountOfTransaction(String.valueOf(accountChip.getText()));
 		}
-
 		db.addTransaction(transaction);
 		db.close();
-
-
 	}
 
 	@Override
@@ -297,7 +254,6 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 			getMenuInflater().inflate(R.menu.simple_delete, menu);
 		}
 		return true;
-
 	}
 
 	@Override
@@ -311,17 +267,13 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 			deleteEntry();
 			return true;
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 
 	private void deleteEntry() {
 		Log.d(Util.TAG, "delete "+ id);
 		db.deleteOne(id);
-
 		Intent intent2 = new Intent(this, NavDrawerLauncher.class);
 		startActivity(intent2);
-
-
 	}
 }
