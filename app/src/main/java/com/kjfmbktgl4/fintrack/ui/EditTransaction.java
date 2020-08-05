@@ -318,6 +318,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 	private void deleteEntry() {
 		Log.d(Util.TAG, "delete "+ id);
 		db.deleteOne(id);
+
 		Intent intent2 = new Intent(this, NavDrawerLauncher.class);
 		startActivity(intent2);
 

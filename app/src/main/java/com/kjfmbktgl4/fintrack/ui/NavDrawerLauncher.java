@@ -80,8 +80,6 @@ public class NavDrawerLauncher extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		executeStrictModePolicy();
-
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.content_main);
 
@@ -96,27 +94,24 @@ public class NavDrawerLauncher extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
-/*
-		DrawerLayout drawer = findViewById(R.id.drawer_layout);
-		NavigationView navigationView = findViewById(R.id.nav_view);
-		navigationView.setNavigationItemSelectedListener(this);
-		Menu menu = navigationView.getMenu();
-		menu.findItem(R.id.nav_home).setChecked(true);
-		//hamburger
-		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-		drawer.setDrawerListener(toggle);
-		toggle.syncState();
-*/
+
 		//RV methods
 		//addInitialTestData(5);
 		//clearSPref(); //use to test sharedPref by deleting it completely
+		getAsyncData();
 		setUpTransactionRV();
-		setUpCategory();
-		setUpAccount();
+		new AsyncSetUpCatAct().execute();
+
+	}
+
+	private void getAsyncData() {
+		transactionItemArrayList = new ArrayList<>();
+		AsyncDataFetch asyncDataFetch = new AsyncDataFetch();
+		asyncDataFetch.execute();
 	}
 
 	private void executeStrictModePolicy() {
-		if(BuildConfig.DEBUG){
+		if (BuildConfig.DEBUG) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
 					.detectAll()
 					.penaltyLog()
@@ -142,7 +137,6 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		}
 	}
 
-
 	private void setUpCategory() {
 
 		List<String> mcategoryName;
@@ -161,14 +155,6 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		recyclerView = findViewById(R.id.NavRV);
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
-		transactionItemArrayList = new ArrayList<>();
-		//DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
-		AsyncDataFetch asyncDataFetch = new AsyncDataFetch();
-		asyncDataFetch.execute();
-
-		//List<TransactionItem> transactionItemList = db.getAllTransactions();
-		//transactionItemArrayList.addAll(transactionItemList);
-		//setup adapter
 		recyclerViewAdapter = new TransactionRecyclerViewAdapter(NavDrawerLauncher.this, transactionItemArrayList);
 		recyclerView.setAdapter(recyclerViewAdapter);
 
@@ -177,7 +163,8 @@ public class NavDrawerLauncher extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		recyclerViewAdapter.notifyDataSetChanged();
+		//getAsyncData();
+		//recyclerViewAdapter.notifyDataSetChanged();
 	}
 
 	private void addInitialTestData(int noOfItems) {
@@ -204,32 +191,6 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		return true;
 	}
 
-	/*@Override
-	public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-		int id = menuItem.getItemId();
-		switch (id) {
-
-			case R.id.nav_home:
-
-				break;
-
-			case R.id.nav_gallery:
-
-				Intent intentForBarChart = new Intent(this, BarChart.class);
-				startActivity(intentForBarChart);
-
-				break;
-			case R.id.nav_slideshow:
-				Intent intent = new Intent(this, PieChart.class);
-				startActivity(intent);
-				break;
-		}
-		DrawerLayout drawer = findViewById(R.id.drawer_layout);
-		drawer.closeDrawer(GravityCompat.START);
-		return true;
-
-	}*/
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -237,60 +198,41 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
-
-			return true;
+		switch (id) {
+			case R.id.action_settings:
+				break;
+			case R.id.delete_all:
+				db.deleteAll();
+				recyclerViewAdapter.notifyDataSetChanged();
+				break;
+			case R.id.export:
+				new AsyncWriteExport().execute();
+				break;
+			case R.id.categoryList:
+				Intent intentCategory = new Intent(this, CategoryRV.class);
+				startActivity(intentCategory);
+				break;
+			case R.id.accountList:
+				Intent intentAccount = new Intent(this, AccountRV.class);
+				startActivity(intentAccount);
+				break;
+			case R.id.trend:
+				Intent intentForBarChart = new Intent(this, BarChart.class);
+				startActivity(intentForBarChart);
+				break;
+			case R.id.distribution:
+				Intent intent = new Intent(this, PieChart.class);
+				startActivity(intent);
+				break;
 		}
-		if (id == R.id.delete_all) {
-			db.deleteAll();
-			recyclerViewAdapter.notifyDataSetChanged();
-			return true;
-		}
-		if (id == R.id.export) {
-			View v = findViewById(R.id.fab);
-			exportData(v);
-
-			return true;
-		}
-
-		if (id == R.id.categoryList) {
-			Intent intentCategory = new Intent(this, CategoryRV.class);
-			startActivity(intentCategory);
-
-			return true;
-		}
-
-		if (id == R.id.accountList) {
-			Intent intentAccount = new Intent(this, AccountRV.class);
-			startActivity(intentAccount);
-
-			return true;
-		}
-
-		if (id == R.id.trend) {
-			Intent intentForBarChart = new Intent(this, BarChart.class);
-			startActivity(intentForBarChart);
-
-			return true;
-		}
-
-		if (id == R.id.distribution) {
-			Intent intent = new Intent(this, PieChart.class);
-			startActivity(intent);
-
-			return true;
-		}
-
 
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void exportData(View view) {
-		//generate data
-		List<TransactionItem> transactionItemListForExport = db.getAllTransactions();
+	private void exportData() {
+
 		exportArrayList = new ArrayList<>();
-		exportArrayList.addAll(transactionItemListForExport);
+		exportArrayList.addAll(transactionItemArrayList);
 		StringBuilder data = new StringBuilder();
 		data.append("Index,Weekday,Day,Year,Amount,Account,Category,Note");
 		for (int i = 0; i < exportArrayList.size(); i++) {
@@ -328,20 +270,49 @@ public class NavDrawerLauncher extends AppCompatActivity {
 
 	}
 
-	private class AsyncDataFetch extends AsyncTask<Void,Void,List<TransactionItem>>{
+	private class AsyncDataFetch extends AsyncTask<Void, Void, List<TransactionItem>> {
 
 
 		@Override
 		protected List<TransactionItem> doInBackground(Void... voids) {
 			List<TransactionItem> listAsync = new ArrayList<>();
-			listAsync=db.getAllTransactions();
+			listAsync = db.getAllTransactions();
 			return listAsync;
 		}
 
 		@Override
 		protected void onPostExecute(List<TransactionItem> transactionItems) {
 			transactionItemArrayList.addAll(transactionItems);
+			recyclerViewAdapter.notifyDataSetChanged();
 		}
 	}
 
+	private class AsyncSetUpCatAct extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... voids) {
+			setUpCategory();
+			setUpAccount();
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void aVoid) {
+			Log.d(Util.TAG, "setup completed");
+		}
+	}
+
+	private class AsyncWriteExport extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... voids) {
+			exportData();
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void aVoid) {
+			Log.d(Util.TAG, "data exported");
+		}
+	}
 }
