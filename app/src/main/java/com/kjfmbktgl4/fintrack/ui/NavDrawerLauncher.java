@@ -163,8 +163,7 @@ public class NavDrawerLauncher extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		//getAsyncData();
-		//recyclerViewAdapter.notifyDataSetChanged();
+		recyclerViewAdapter.notifyDataSetChanged();
 	}
 
 	private void addInitialTestData(int noOfItems) {
@@ -202,8 +201,7 @@ public class NavDrawerLauncher extends AppCompatActivity {
 			case R.id.action_settings:
 				break;
 			case R.id.delete_all:
-				db.deleteAll();
-				recyclerViewAdapter.notifyDataSetChanged();
+				new AsyncDeleteAll().execute();
 				break;
 			case R.id.export:
 				new AsyncWriteExport().execute();
@@ -313,6 +311,22 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		@Override
 		protected void onPostExecute(Void aVoid) {
 			Log.d(Util.TAG, "data exported");
+		}
+	}
+
+	private class AsyncDeleteAll extends AsyncTask<Void, Void, Void> {
+
+
+		@Override
+		protected Void doInBackground(Void... voids) {
+			db.deleteAll();
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void aVoid) {
+			transactionItemArrayList.clear();
+			recyclerViewAdapter.notifyDataSetChanged();
 		}
 	}
 }
