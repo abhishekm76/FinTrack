@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import com.kjfmbktgl4.fintrack.BuildConfig;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.adapter.TransactionRecyclerViewAdapter;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
@@ -76,6 +78,9 @@ public class NavDrawerLauncher extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		executeStrictModePolicy();
+
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.content_main);
 
@@ -107,6 +112,19 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		setUpTransactionRV();
 		setUpCategory();
 		setUpAccount();
+	}
+
+	private void executeStrictModePolicy() {
+		if(BuildConfig.DEBUG){
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+					.detectAll()
+					.penaltyLog()
+					.build();
+			StrictMode.setThreadPolicy(policy);
+
+
+		}
+
 	}
 
 	private void clearSPref() {
