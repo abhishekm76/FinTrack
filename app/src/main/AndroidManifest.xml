@@ -9,26 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Splash"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.AddEditCategory" />
         <activity android:name=".ui.AddEditAccount" />
         <activity android:name=".ui.AccountRV" />
         <activity android:name=".ui.CategoryRV" />
-
         <activity android:name=".ui.BarChart" />
         <activity android:name=".ui.PieChart" />
-
-
         <activity android:name=".ui.EditTransaction" />
-        <activity
-            android:name=".ui.NavDrawerLauncher"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.NavDrawerLauncher"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
