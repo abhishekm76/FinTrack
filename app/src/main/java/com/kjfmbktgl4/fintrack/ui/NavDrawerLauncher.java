@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -162,6 +163,7 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		transactionItemArrayList = new ArrayList<>();
 		//DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
+
 
 		List<TransactionItem> transactionItemList = db.getAllTransactions();
 		transactionItemArrayList.addAll(transactionItemList);
@@ -323,6 +325,22 @@ public class NavDrawerLauncher extends AppCompatActivity {
 			e.printStackTrace();
 		}
 
+	}
+
+	private class AsyncDataFetch extends AsyncTask<Void,Void,List<TransactionItem>>{
+
+
+		@Override
+		protected List<TransactionItem> doInBackground(Void... voids) {
+			List<TransactionItem> listAsync = new ArrayList<>();
+			listAsync=db.getAllTransactions();
+			return listAsync;
+		}
+
+		@Override
+		protected void onPostExecute(List<TransactionItem> transactionItems) {
+			transactionItemArrayList.addAll(transactionItems);
+		}
 	}
 
 }
