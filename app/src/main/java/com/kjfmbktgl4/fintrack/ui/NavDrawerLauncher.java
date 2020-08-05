@@ -163,10 +163,11 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		transactionItemArrayList = new ArrayList<>();
 		//DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
+		AsyncDataFetch asyncDataFetch = new AsyncDataFetch();
+		asyncDataFetch.execute();
 
-
-		List<TransactionItem> transactionItemList = db.getAllTransactions();
-		transactionItemArrayList.addAll(transactionItemList);
+		//List<TransactionItem> transactionItemList = db.getAllTransactions();
+		//transactionItemArrayList.addAll(transactionItemList);
 		//setup adapter
 		recyclerViewAdapter = new TransactionRecyclerViewAdapter(NavDrawerLauncher.this, transactionItemArrayList);
 		recyclerView.setAdapter(recyclerViewAdapter);
