@@ -47,7 +47,7 @@ import java.util.Random;
 
 
 //// TODO: 04-08-2020 graphs axis is repeatig values in bar chart
-
+// todO test for null or empty values - eg Account chip for the transaction or empty category
 // TODO: 04-08-2020 after settign one date on teh graph the other buttons stop working??
 // TODO: 23-07-2020 navigation optimise
 // TODO: 23-07-2020 set up themes styles and colours

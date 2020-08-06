@@ -61,10 +61,10 @@
 -->
 
 
-    <color name="colorPrimaryDark">#81b9bf</color> <!--Color primary (dark)-->
-    <color name="colorPrimary">#dff6f9</color> <!--Color primary (light)-->
+    <color name="colorPrimaryDark">#6db5ca</color> <!--Color primary (dark)-->
+    <color name="colorPrimary">#b8d8e0</color> <!--Color primary (light)-->
 
-    <color name="colorAccent">#ff9800</color> <!--Color Accent-->
+    <color name="colorAccent">#ff7235</color> <!--Color Accent-->
 
     <color name="colorSecondaryDark">#babdbe</color> <!--Color secondary-->
     <color name="colorSecondary">#eceff1</color> <!--Color secondary variant-->
@@ -74,8 +74,8 @@
 
     <!--Color surface (light), color on error (light), -->
     <!--color on surface (dark), color on surface (dark)-->
-    <color name="colorBackgroundDark">#eceff1</color>
-    <color name="colorBackground">#ffffff</color>
+    <color name="colorBackgroundDark">#c9c2bd</color>
+    <color name="colorBackground">#fcf5ef</color>
 
     <color name="colorWhite">#ffffff</color> <!--Color surface (dark)-->
     <!--Color on secondary (light), color on background (light),-->
