@@ -61,8 +61,8 @@
 -->
 
 
-    <color name="colorPrimaryDark">#6db5ca</color> <!--Color primary (dark)-->
-    <color name="colorPrimary">#b8d8e0</color> <!--Color primary (light)-->
+    <color name="colorPrimaryDark">#E77F11</color> <!--Color primary (dark)-->
+    <color name="colorPrimary">#FF9C2E</color> <!--Color primary (light)-->
 
     <color name="colorAccent">#ff7235</color> <!--Color Accent-->
 
@@ -74,17 +74,19 @@
 
     <!--Color surface (light), color on error (light), -->
     <!--color on surface (dark), color on surface (dark)-->
-    <color name="colorBackgroundDark">#c9c2bd</color>
-    <color name="colorBackground">#fcf5ef</color>
+    <color name="colorBackgroundDark">#f2f2f2</color>
+    <color name="colorBackground">#Ffffff</color>
 
     <color name="colorWhite">#ffffff</color> <!--Color surface (dark)-->
     <!--Color on secondary (light), color on background (light),-->
     <!--color on surface (light)-->
     <color name="colorBlack">#000000</color>
 
-    <color name="primaryTextColor">#000000</color>
+    <color name="primaryTextColor">#D9000000</color>
+    <color name="emphasisTextColor">#D94A90E2</color>
+    <color name="subtitleTextColor">#828282</color>
 
-    <color name="secondaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#99828282</color>
 
 
     <!--    <color name="purple_200">#bb86fc</color> &lt;!&ndash;Color primary (dark)&ndash;&gt;

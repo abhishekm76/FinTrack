@@ -72,8 +72,7 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 			transAmount = itemView.findViewById(R.id.amountTV);
 			transDate = itemView.findViewById(R.id.dateTV);
 			transAccount = itemView.findViewById(R.id.accountTV);
-			catIcon = itemView.findViewById(R.id.catIV);
-			delIcon = itemView.findViewById(R.id.delIV);
+
 
 
 		}

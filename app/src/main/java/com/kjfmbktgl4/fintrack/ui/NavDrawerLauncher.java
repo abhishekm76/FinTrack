@@ -33,8 +33,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -157,6 +159,10 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		recyclerViewAdapter = new TransactionRecyclerViewAdapter(NavDrawerLauncher.this, transactionItemArrayList);
 		recyclerView.setAdapter(recyclerViewAdapter);
+		/*ItemDecoration itemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+		recyclerView.addItemDecoration(itemDecoration);*/
+
+
 
 	}
 
