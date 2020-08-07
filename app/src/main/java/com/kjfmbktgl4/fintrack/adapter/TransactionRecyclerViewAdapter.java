@@ -2,6 +2,9 @@ package com.kjfmbktgl4.fintrack.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
 import com.kjfmbktgl4.fintrack.ui.EditTransaction;
+import com.kjfmbktgl4.fintrack.util.DateConverters;
+import com.kjfmbktgl4.fintrack.util.Util;
 //import com.kjfmbktgl4.fintrack.ui.TransactionRV;
 
 import java.text.DateFormat;
@@ -45,10 +50,22 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 		holder.transNote.setText(transaction.getNoteOfTransaction());
 		holder.transAmount.setText(""+transaction.getAmountOfTransaction());
 
+
+
 		Date transactionDate = new Date(transaction.getDateOfTransaction());
 		String tranDate = DateFormat.getDateInstance(DateFormat.FULL).format(transactionDate);
+		int weekday = transactionDate.getDay();
 		holder.transDate.setText(tranDate);
 		holder.transAccount.setText(transaction.getAccountOfTransaction());
+
+		//coloru formats
+		Log.d(Util.TAG,"postion "+ position);
+		    int color= Util.getColorCode(weekday);
+		/*	holder.categoryName.setTextColor(color);
+			holder.transAmount.setTextColor(color);*/
+			holder.barVertical.setBackgroundColor(color);
+
+
 
 	}
 
@@ -61,6 +78,7 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 
 		public TextView categoryName, transNote, transAmount, transDate, transAccount;
 		public ImageView catIcon, delIcon;
+		public View barVertical;
 
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
@@ -72,6 +90,7 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 			transAmount = itemView.findViewById(R.id.amountTV);
 			transDate = itemView.findViewById(R.id.dateTV);
 			transAccount = itemView.findViewById(R.id.accountTV);
+			barVertical= itemView.findViewById(R.id.barVertical);
 
 
 
