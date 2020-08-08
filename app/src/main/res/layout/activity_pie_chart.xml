@@ -66,10 +66,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:background="@color/colorPrimary"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:text="@string/all_data"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite" />
+                 />
 
             <Button
                 android:id="@+id/btn_2018"
@@ -77,32 +76,30 @@
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:background="@color/colorPrimary"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:text="@string/thisyear"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"/>
+                 />
 
             <Button
                 android:id="@+id/btn_thisMonth"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:background="@color/colorPrimary"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:text="@string/this_month"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite" />
+  />
 
             <Button
                 android:id="@+id/btn_today"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:text="@string/today"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite" />
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:text="@string/today" />
 
         </LinearLayout>
 
@@ -113,8 +110,9 @@
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/piechart"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -128,8 +126,19 @@
                 android:text="SORRY !!!!"
                 android:textSize="18sp"
                 android:visibility="gone"
+                android:layout_weight="1"
 
                 />
+
+            <Switch
+                android:id="@+id/switch_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom|right"
+                android:text="Show Absolute Values"
+                android:padding="16dp" />
+
+
 
         </LinearLayout>
 

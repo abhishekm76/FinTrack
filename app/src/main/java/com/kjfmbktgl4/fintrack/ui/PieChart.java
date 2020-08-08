@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
 
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -37,6 +39,8 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 	private String startDateString, endDateString;
 	private TextInputEditText startDateET, endDateET;
 	private Boolean setDate = false;
+	private Boolean usePercent=true;
+	private Switch switchButton;
 	private Button allButton, yearButton, monthButton, refreshButton, todayButton;
 	com.github.mikephil.charting.charts.PieChart pieChart;
 
@@ -52,7 +56,7 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 		monthButton = findViewById(R.id.btn_thisMonth);
 		todayButton = findViewById(R.id.btn_today);
 		refreshButton = findViewById(R.id.refreshGraphs);
-
+		switchButton= findViewById(R.id.switch_percent);
 		allButton.setOnClickListener(this);
 		yearButton.setOnClickListener(this);
 		monthButton.setOnClickListener(this);
@@ -62,10 +66,25 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 		endDateET.setOnClickListener(this);
 
 
+
+
 		setStartAndEndDates();
 		setDatePickers();
 		dataArrayList = getDataForGraph();
 		drawPiechart(dataArrayList);
+
+		switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (isChecked) {
+					// The toggle is enabled
+					usePercent= false;
+				} else {
+					// The toggle is disabled
+					usePercent=true;
+				}
+			drawCustom();
+			}
+		});
 	}
 
 	private void setDatePickers() {
@@ -103,15 +122,21 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 		PieDataSet set = new PieDataSet(entries, "Spend by category");
 		PieData data = new PieData(set);
 		pieChart.setData(data);
-		set.setColors(ColorTemplate.MATERIAL_COLORS);
-		data.setValueFormatter(new PercentFormatter());
+		set.setColors(Util.colorArray);
+
 		data.setValueTextSize(13f);
-		data.setValueTextColor(Color.DKGRAY);
+
+		data.setValueTextColor(Color.WHITE);
+
+		data.setValueFormatter(new PercentFormatter(pieChart));
+		pieChart.setUsePercentValues(usePercent);
+
+		pieChart.getDescription().setEnabled(false);
 		pieChart.setDrawHoleEnabled(true);
-		pieChart.setCenterText("Total Expenses By Category");
+		pieChart.setCenterText("Details By Category");
 		pieChart.setCenterTextSize(18f);
 		pieChart.getLegend().setEnabled(false);
-		pieChart.setUsePercentValues(false);
+
 		pieChart.animateY(1500);
 		pieChart.invalidate();
 	}

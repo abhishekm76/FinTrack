@@ -71,8 +71,23 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 			setValuesToEdit();
 		} else {
 			setCurrentDate();
+			setDefaultSelection();
 		}
 		setCurrency();
+	}
+
+	private void setDefaultSelection() {
+		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
+		Chip chip = (Chip) chipGroup.getChildAt(0);
+		chip.setChecked(true);
+		chipGroup.setSingleSelection(true);
+
+		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
+		Chip chipAct = (Chip) chipGroupAccount.getChildAt(0);
+		chipAct.setChecked(true);
+		chipGroupAccount.setSingleSelection(true);
+
+
 	}
 
 	private void setValuesToEdit() {
@@ -130,7 +145,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 
 		for (String category : mcategoryName) {
-			Chip chip =	(Chip) getLayoutInflater().inflate(R.layout.single_chip_layout, chipGroup, false);
+			Chip chip = (Chip) getLayoutInflater().inflate(R.layout.single_chip_layout, chipGroup, false);
 			chip.setText(category);
 			chipGroup.addView(chip);
 			chipGroup.setSingleSelection(true);
@@ -140,7 +155,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		accountNames = Preferences.getArrayPrefs("AccountNames", this);
 		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
 		for (String accountName : accountNames) {
-			Chip chip =	(Chip) getLayoutInflater().inflate(R.layout.single_chip_layout, chipGroupAccount, false);
+			Chip chip = (Chip) getLayoutInflater().inflate(R.layout.single_chip_layout, chipGroupAccount, false);
 			chip.setText(accountName);
 			chipGroupAccount.addView(chip);
 			chipGroupAccount.setSingleSelection(true);
@@ -271,7 +286,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 	}
 
 	private void deleteEntry() {
-		Log.d(Util.TAG, "delete "+ id);
+		Log.d(Util.TAG, "delete " + id);
 		db.deleteOne(id);
 		Intent intent2 = new Intent(this, NavDrawerLauncher.class);
 		startActivity(intent2);

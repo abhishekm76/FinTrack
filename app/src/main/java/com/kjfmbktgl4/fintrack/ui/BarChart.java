@@ -20,6 +20,7 @@ import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
 import com.kjfmbktgl4.fintrack.model.PeriodTotal;
 import com.kjfmbktgl4.fintrack.util.DateConverters;
+import com.kjfmbktgl4.fintrack.util.Util;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -72,14 +73,34 @@ public class BarChart extends AppCompatActivity implements View.OnClickListener 
 			xAxisLabels.add(labelName);
 		}
 
-		BarDataSet set = new BarDataSet(entries, "Total Value Of Transactions By Period");
+		BarDataSet set = new BarDataSet(entries, "");
 		BarData data = new BarData(set);
-		data.setBarWidth(0.9f); // set custom bar width
+
+//		data.setBarWidth(0.7f); // set custom bar width
 		barChart.setData(data);
-		barChart.setFitBars(false); // make the x-axis fit exactly all bars
+		set.setColors(Util.colorArray,255);
+		//barChart.setFitBars(true); // make the x-axis fit exactly all bars
 		barChart.getDescription().setEnabled(false);
+		barChart.setVisibleXRangeMaximum(6);
 		barChart.setPinchZoom(true);
+		barChart.setDrawBorders(false);
+		barChart.setAutoScaleMinMaxEnabled(false);
+		barChart.setDrawGridBackground(false);
+		   // Hide the description
+		barChart.getAxisLeft().setDrawLabels(true);
+		barChart.getAxisRight().setDrawLabels(false);
+
+		barChart.getAxisLeft().setDrawGridLines(true);
+		barChart.getAxisRight().setDrawGridLines(false);
+
+		barChart.getAxisLeft().setDrawAxisLine(false);
+		barChart.getAxisRight().setDrawAxisLine(false);
+
+		barChart.getLegend().setEnabled(false);
+		barChart.animateY(500);
+
 		XAxis xAxis = barChart.getXAxis();
+		xAxis.setLabelCount(entries.size());
 		xAxis.setTextSize(10f);
 		xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 		xAxis.setTextColor(Color.DKGRAY);

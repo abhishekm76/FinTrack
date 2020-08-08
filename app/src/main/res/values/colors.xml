@@ -83,7 +83,7 @@
     <color name="colorBlack">#000000</color>
 
     <color name="primaryTextColor">#D9000000</color>
-    <color name="emphasisTextColor">#828282</color>
+    <color name="emphasisTextColor">#232F34</color>
     <color name="subtitleTextColor">#D9828282</color>
 
     <color name="secondaryTextColor">#99828282</color>
