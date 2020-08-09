@@ -65,7 +65,7 @@ import java.util.Random;
 //// TODO: 23-07-2020 check if prefsize causes an issue when there is no app data present
 // TODO: 24-07-2020 saving a transaction with no amount crashes the app
 // TODO: 24-07-2020 back sends us to a previous view of the home recycler view?? also category edit
-// TODO: 26-07-2020 graph by month is not correct for the entry of the first of the month 
+// TODO: 26-07-2020 graph by month is not correct for the entry of the first of the month - seems to be an issue with local time
 
 import static com.kjfmbktgl4.fintrack.util.Util.SPREFNAME;
 

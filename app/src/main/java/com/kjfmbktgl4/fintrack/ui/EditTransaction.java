@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +44,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 	TextInputEditText dateET, amountET, noteET;
 	Chip categoryChip, accountChip;
 	ChipGroup categoryChipGroup, accountChipGroup;
+	Boolean error = false;
 
 	String categoryName, accountName;
 	TextInputLayout amountTIL;
@@ -67,7 +69,6 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		amountTIL = findViewById(R.id.amountTIL);
 		categoryChipGroup = findViewById(R.id.catChipGroup);
 		accountChipGroup = findViewById(R.id.actChipGroup);
-
 
 
 		Toolbar toolbar = findViewById(R.id.toolbar);
@@ -181,12 +182,11 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 				} else {
 					updateTransaction();
 				}
-				Intent intent = new Intent(this, NavDrawerLauncher.class);
-				startActivity(intent);
+				startPrevAct();
+
 				break;
 			case R.id.buttoncancel:
-				Intent intent1 = new Intent(this, NavDrawerLauncher.class);
-				startActivity(intent1);
+				startPrevAct();
 				break;
 
 			case R.id.editTextDate:
@@ -197,35 +197,35 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 
 	}
 
-	private void updateTransaction() {
-		TransactionItem transaction = new TransactionItem();
-		//transaction.setNameCategoryOfTransaction("Food");
-		transaction.setNoteOfTransaction(String.valueOf(noteET.getText()));
-		transaction.setAmountOfTransaction(Long.parseLong(String.valueOf(amountET.getText())));
-		transaction.setId(id);
-		transaction.setDateOfTransaction(DateConverters.dateStringToLong(dateET.getText().toString()));
-
-/*
-		try {
-			Date transDate = DateFormat.getDateInstance().parse(String.valueOf(dateET.getText()));
-			transaction.setDateOfTransaction(transDate.getTime());
-		} catch (ParseException e) {
-			e.printStackTrace();
+	private void startPrevAct() {
+		if (!error) {
+			Intent intent = new Intent(this, NavDrawerLauncher.class);
+			startActivity(intent);
 		}
-*/
 
-		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
-		Chip selChip = findViewById(chipGroup.getCheckedChipId());
-		String selChipString = String.valueOf(selChip.getText());
-		transaction.setNameCategoryOfTransaction(selChipString);
+	}
 
-		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
-		Chip selChipAccount = findViewById(chipGroupAccount.getCheckedChipId());
-		String selChipStringAccount = String.valueOf(selChipAccount.getText());
-		transaction.setAccountOfTransaction(selChipStringAccount);
+	private void updateTransaction() {
+		checkForErrors();
+		if(!error) {
+			TransactionItem transaction = new TransactionItem();
+			//transaction.setNameCategoryOfTransaction("Food");
+			transaction.setNoteOfTransaction(String.valueOf(noteET.getText()));
+			transaction.setAmountOfTransaction(Long.parseLong(String.valueOf(amountET.getText())));
+			transaction.setId(id);
+			transaction.setDateOfTransaction(DateConverters.dateStringToLong(dateET.getText().toString()));
+			ChipGroup chipGroup = findViewById(R.id.catChipGroup);
+			Chip selChip = findViewById(chipGroup.getCheckedChipId());
+			String selChipString = String.valueOf(selChip.getText());
+			transaction.setNameCategoryOfTransaction(selChipString);
 
-		db.updateTransaction(transaction);
+			ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
+			Chip selChipAccount = findViewById(chipGroupAccount.getCheckedChipId());
+			String selChipStringAccount = String.valueOf(selChipAccount.getText());
+			transaction.setAccountOfTransaction(selChipStringAccount);
 
+			db.updateTransaction(transaction);
+		}
 	}
 
 	public void pickerShow() {
@@ -248,31 +248,40 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 	}
 
 	private void saveNewTransacton() {
+		checkForErrors();
+		if(!error) {
+			TransactionItem transaction = new TransactionItem();
+			int id = categoryChipGroup.getCheckedChipId();
+			if (id != -1) {
+				categoryChip = findViewById(categoryChipGroup.getCheckedChipId());
+				transaction.setNameCategoryOfTransaction(String.valueOf(categoryChip.getText()));
+			}
 
-		TransactionItem transaction = new TransactionItem();
-		int id = categoryChipGroup.getCheckedChipId();
-		if (id != -1) {
-			categoryChip = findViewById(categoryChipGroup.getCheckedChipId());
-			transaction.setNameCategoryOfTransaction(String.valueOf(categoryChip.getText()));
+			transaction.setNoteOfTransaction(String.valueOf(noteET.getText()));
+			transaction.setAmountOfTransaction(Long.parseLong(String.valueOf(amountET.getText())));
+			transaction.setDateOfTransaction(DateConverters.dateStringToLong(dateET.getText().toString()));
+			int idAccount = accountChipGroup.getCheckedChipId();
+			if (idAccount != -1) {
+				accountChip = findViewById(accountChipGroup.getCheckedChipId());
+				transaction.setAccountOfTransaction(String.valueOf(accountChip.getText()));
+			}
+			db.addTransaction(transaction);
+			db.close();
 		}
-		transaction.setNoteOfTransaction(String.valueOf(noteET.getText()));
-		transaction.setAmountOfTransaction(Long.parseLong(String.valueOf(amountET.getText())));
-		transaction.setDateOfTransaction(DateConverters.dateStringToLong(dateET.getText().toString()));
 
-		/*try {
-			Date transDate = DateFormat.getDateInstance().parse(dateET.getText().toString());
-			transaction.setDateOfTransaction(transDate.getTime());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}*/
 
-		int idAccount = accountChipGroup.getCheckedChipId();
-		if (idAccount != -1) {
-			accountChip = findViewById(accountChipGroup.getCheckedChipId());
-			transaction.setAccountOfTransaction(String.valueOf(accountChip.getText()));
+	}
+
+	private void checkForErrors() {
+
+		if (TextUtils.isEmpty(amountET.getText())) {
+			amountTIL.setError("Please enter an amount");
+			error = true;
+		} else {
+			error = false;
 		}
-		db.addTransaction(transaction);
-		db.close();
+
+
 	}
 
 	@Override
