@@ -23,9 +23,7 @@
         <activity android:name=".ui.BarChart" />
         <activity android:name=".ui.PieChart" />
         <activity android:name=".ui.EditTransaction" />
-
-        <activity android:name=".ui.NavDrawerLauncher"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.NavDrawerLauncher" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
