@@ -34,6 +34,7 @@
     <string name="select_a_category_for_the_transaction">Select a category for the transaction</string>
     <string name="select_an_account_for_the_transaction">Select an account for the transaction</string>
     <string name="enter_a_start_date">Enter a start date</string>
+    <string name="this_month1">This Month</string>
     <string-array name="category_array">
         <item>Rent</item>
         <item>Food</item>
