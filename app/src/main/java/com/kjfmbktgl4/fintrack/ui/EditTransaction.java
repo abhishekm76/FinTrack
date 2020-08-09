@@ -24,6 +24,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
+import com.kjfmbktgl4.fintrack.util.DateConverters;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
 
@@ -196,12 +197,16 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		transaction.setNoteOfTransaction(String.valueOf(noteET.getText()));
 		transaction.setAmountOfTransaction(Long.parseLong(String.valueOf(amountET.getText())));
 		transaction.setId(id);
+		transaction.setDateOfTransaction(DateConverters.dateStringToLong(dateET.getText().toString()));
+
+/*
 		try {
 			Date transDate = DateFormat.getDateInstance().parse(String.valueOf(dateET.getText()));
 			transaction.setDateOfTransaction(transDate.getTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+*/
 
 		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 		Chip selChip = findViewById(chipGroup.getCheckedChipId());
@@ -246,13 +251,14 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		}
 		transaction.setNoteOfTransaction(String.valueOf(noteET.getText()));
 		transaction.setAmountOfTransaction(Long.parseLong(String.valueOf(amountET.getText())));
+		transaction.setDateOfTransaction(DateConverters.dateStringToLong(dateET.getText().toString()));
 
-		try {
+		/*try {
 			Date transDate = DateFormat.getDateInstance().parse(dateET.getText().toString());
 			transaction.setDateOfTransaction(transDate.getTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		int idAccount = accountChipGroup.getCheckedChipId();
 		if (idAccount != -1) {

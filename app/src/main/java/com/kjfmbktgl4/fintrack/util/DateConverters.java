@@ -36,6 +36,17 @@ public class DateConverters {
 		}
 		return null;
 	}
+	public static Long dateStringToLong(String dateString){
+		try {
+			Date setDate = DateFormat.getDateInstance().parse(dateString.toString());
+			Long dateinmillis = setDate.getTime();
+
+			return dateinmillis;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public static String getcurrentDateInMilLs(){
 		Calendar cal1 = Calendar.getInstance();
