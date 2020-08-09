@@ -189,15 +189,19 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 		switch (pView.getId()) {
 			case R.id.btn_all:
 				drawAllData();
+				setDate=false;
 				break;
 			case R.id.btn_2018:
 				drawThisYear();
+				setDate=false;
 				break;
 			case R.id.btn_thisMonth:
 				drawThisMonth();
+				setDate=false;
 				break;
 			case R.id.btn_today:
 				drawToday();
+				setDate=false;
 				break;
 			case R.id.refreshGraphs:
 				drawCustom();
@@ -233,10 +237,12 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 						String setDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(cldr.getTime());
 						EditText setDateET = (EditText) pView;
 						setDateET.setText(setDate);
+
 					}
 				}, year, month, day);
 		picker.show();
 
 
 	}
+
 }
