@@ -179,5 +179,15 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ImageButton
+            android:id="@+id/imageButtonDel"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="9dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNote"
+            app:srcCompat="@drawable/ic_outline_delete_24" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

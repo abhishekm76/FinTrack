@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -41,6 +42,7 @@ import java.util.Locale;
 public class EditTransaction extends AppCompatActivity implements View.OnClickListener {
 	Button saveButton;
 	Button cancelButton;
+	ImageButton delButton;
 	TextInputEditText dateET, amountET, noteET;
 	Chip categoryChip, accountChip;
 	ChipGroup categoryChipGroup, accountChipGroup;
@@ -69,7 +71,8 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		amountTIL = findViewById(R.id.amountTIL);
 		categoryChipGroup = findViewById(R.id.catChipGroup);
 		accountChipGroup = findViewById(R.id.actChipGroup);
-
+		delButton = findViewById(R.id.imageButtonDel);
+		delButton.setOnClickListener(this);
 
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
@@ -183,7 +186,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 				} else {
 					updateTransaction();
 				}
-				if(!error) {
+				if (!error) {
 					startPrevAct();
 				}
 				break;
@@ -195,21 +198,23 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 				//case R.id.dateTIL:
 				pickerShow();
 				break;
+
+			case R.id.imageButtonDel:
+				deleteEntry();
+				startPrevAct();
+				break;
 		}
 
 	}
 
 	private void startPrevAct() {
-
-			Intent intent = new Intent(this, NavDrawerLauncher.class);
-			startActivity(intent);
-
-
+		Intent intent = new Intent(this, NavDrawerLauncher.class);
+		startActivity(intent);
 	}
 
 	private void updateTransaction() {
 		checkForErrors();
-		if(!error) {
+		if (!error) {
 			TransactionItem transaction = new TransactionItem();
 			//transaction.setNameCategoryOfTransaction("Food");
 			transaction.setNoteOfTransaction(String.valueOf(noteET.getText()));
@@ -251,7 +256,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 
 	private void saveNewTransacton() {
 		checkForErrors();
-		if(!error) {
+		if (!error) {
 			TransactionItem transaction = new TransactionItem();
 			int id = categoryChipGroup.getCheckedChipId();
 			if (id != -1) {
@@ -311,7 +316,6 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 	private void deleteEntry() {
 		Log.d(Util.TAG, "delete " + id);
 		db.deleteOne(id);
-		Intent intent2 = new Intent(this, NavDrawerLauncher.class);
-		startActivity(intent2);
+
 	}
 }
