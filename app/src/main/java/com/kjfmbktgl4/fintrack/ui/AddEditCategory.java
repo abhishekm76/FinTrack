@@ -95,7 +95,7 @@ public class AddEditCategory extends AppCompatActivity implements View.OnClickLi
 	}
 
 	private void checkErrors() {
-		mIsError = TextUtils.isEmpty(mEditedCategory);
+		mIsError = TextUtils.isEmpty(mEditedCategory)|| TextUtils.isEmpty(mEditedCategory.trim());
 	}
 
 }

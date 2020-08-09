@@ -43,7 +43,7 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 		maccountNameList = Preferences.getArrayPrefs("AccountNames", this);
 		mAccountToEdit = getIntent().getStringExtra("AccountName");
 		mIsNew = getIntent().getBooleanExtra("isNew", false);
-		editTIL=findViewById(R.id.ediTextTIL);
+		editTIL = findViewById(R.id.ediTextTIL);
 		setInitialValues();
 	}
 
@@ -59,7 +59,9 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 			case R.id.button_SaveDF:
 				mEditedAccount = accountName.getText().toString();
 				saveEditedName();
-				if(!mIsError){goBackToPrevActivity();}
+				if (!mIsError) {
+					goBackToPrevActivity();
+				}
 				break;
 			case R.id.button_cancelDF:
 				goBackToPrevActivity();
@@ -71,10 +73,12 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 
 
 	}
-private void goBackToPrevActivity(){
-	Intent intent = new Intent(this, AccountRV.class);
-	startActivity(intent);
-}
+
+	private void goBackToPrevActivity() {
+		Intent intent = new Intent(this, AccountRV.class);
+		startActivity(intent);
+	}
+
 	private void deleteItem() {
 		maccountNameList.remove(mAccountToEdit);
 		Preferences.setArrayPrefs("AccountNames", maccountNameList, this);
@@ -89,11 +93,14 @@ private void goBackToPrevActivity(){
 				maccountNameList.add(mEditedAccount);
 			}
 			Preferences.setArrayPrefs("AccountNames", maccountNameList, this);
+		}else	{
+			editTIL.setError("Please enter an account name");
 		}
 	}
 
 	private void checkForError() {
-		mIsError = TextUtils.isEmpty(mEditedAccount);
-		editTIL.setError("Please enter an account name");
+		mIsError = TextUtils.isEmpty(mEditedAccount) || TextUtils.isEmpty(mEditedAccount.trim());
+
+
 	}
 }
