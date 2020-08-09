@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
@@ -22,8 +24,9 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 	Button save, cancel;
 	ImageButton deleteButton;
 	EditText accountName;
+	TextInputLayout editTIL;
 	private String mAccountToEdit, mEditedAccount;
-	boolean mIsNew;
+	boolean mIsNew, mIsError;
 	private List<String> maccountNameList;
 
 	@Override
@@ -40,6 +43,7 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 		maccountNameList = Preferences.getArrayPrefs("AccountNames", this);
 		mAccountToEdit = getIntent().getStringExtra("AccountName");
 		mIsNew = getIntent().getBooleanExtra("isNew", false);
+		editTIL=findViewById(R.id.ediTextTIL);
 		setInitialValues();
 	}
 
@@ -55,28 +59,41 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 			case R.id.button_SaveDF:
 				mEditedAccount = accountName.getText().toString();
 				saveEditedName();
+				if(!mIsError){goBackToPrevActivity();}
 				break;
 			case R.id.button_cancelDF:
+				goBackToPrevActivity();
 				break;
 			case R.id.imageButton_delDF:
 				deleteItem();
+				goBackToPrevActivity();
 		}
-		Intent intent = new Intent(this, AccountRV.class);
-		startActivity(intent);
+
 
 	}
-
+private void goBackToPrevActivity(){
+	Intent intent = new Intent(this, AccountRV.class);
+	startActivity(intent);
+}
 	private void deleteItem() {
 		maccountNameList.remove(mAccountToEdit);
 		Preferences.setArrayPrefs("AccountNames", maccountNameList, this);
 	}
 
 	private void saveEditedName() {
-		if (!mIsNew) {
-			Collections.replaceAll(maccountNameList, mAccountToEdit, mEditedAccount);
-		} else {
-			maccountNameList.add(mEditedAccount);
+		checkForError();
+		if (!mIsError) {
+			if (!mIsNew) {
+				Collections.replaceAll(maccountNameList, mAccountToEdit, mEditedAccount);
+			} else {
+				maccountNameList.add(mEditedAccount);
+			}
+			Preferences.setArrayPrefs("AccountNames", maccountNameList, this);
 		}
-		Preferences.setArrayPrefs("AccountNames", maccountNameList, this);
+	}
+
+	private void checkForError() {
+		mIsError = TextUtils.isEmpty(mEditedAccount);
+		editTIL.setError("Please enter an account name");
 	}
 }

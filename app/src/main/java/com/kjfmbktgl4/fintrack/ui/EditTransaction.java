@@ -182,8 +182,9 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 				} else {
 					updateTransaction();
 				}
-				startPrevAct();
-
+				if(!error) {
+					startPrevAct();
+				}
 				break;
 			case R.id.buttoncancel:
 				startPrevAct();
@@ -198,10 +199,10 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 	}
 
 	private void startPrevAct() {
-		if (!error) {
+
 			Intent intent = new Intent(this, NavDrawerLauncher.class);
 			startActivity(intent);
-		}
+
 
 	}
 
