@@ -54,7 +54,7 @@ public class AccountRVAdapter extends RecyclerView.Adapter<AccountRVAdapter.View
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
 			maccountNameTV = itemView.findViewById(R.id.categoryNameTV);
-			mdeleteIconIV = itemView.findViewById(R.id.deleteCategoryIV);
+			/*mdeleteIconIV = itemView.findViewById(R.id.deleteCategoryIV);*/
 			itemView.setOnClickListener(this);
 		}
 

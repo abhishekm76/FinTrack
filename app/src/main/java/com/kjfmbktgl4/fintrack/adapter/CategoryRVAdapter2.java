@@ -56,7 +56,7 @@ public class CategoryRVAdapter2 extends RecyclerView.Adapter<CategoryRVAdapter2.
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
 			mCategoryName = itemView.findViewById(R.id.categoryNameTV);
-			mdeleteIV = itemView.findViewById(R.id.deleteCategoryIV);
+			/*mdeleteIV = itemView.findViewById(R.id.deleteCategoryIV);*/
 			itemView.setOnClickListener(this);
 
 		}

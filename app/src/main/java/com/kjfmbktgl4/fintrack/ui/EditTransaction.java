@@ -111,6 +111,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		String tranDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(transactionDate);
 		dateET.setText(tranDate);
 
+
 		categoryName = transactionItem.getNameCategoryOfTransaction();
 		accountName = transactionItem.getAccountOfTransaction();
 
