@@ -48,7 +48,7 @@ import java.util.List;
 import java.util.Random;
 
 
-//// TODO: 09-08-2020 new items dont go to the start of th elist
+
 // todO test for null or empty values - eg Account chip for the transaction or empty category
 //// TODO: 09-08-2020  confirm delete dialog
 // TODO: 23-07-2020 navigation optimise

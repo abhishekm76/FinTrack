@@ -86,7 +86,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		//Select all contacts
-		String selectAll = "SELECT * FROM " + Util.TABLE_NAME + " ORDER BY " + Util.TRAN_DATE + " DESC ";
+		String selectAll = "SELECT * FROM " + Util.TABLE_NAME + " ORDER BY " + Util.TRAN_DATE + " DESC "+"," +Util.TRAN_ID+" DESC";
 		Cursor cursor = db.rawQuery(selectAll, null);
 
 		//Loop through our data
