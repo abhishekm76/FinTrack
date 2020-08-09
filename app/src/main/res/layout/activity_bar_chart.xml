@@ -19,31 +19,44 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_margin="2dp">
 
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dateTIL"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/selectStartDateForBar"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:background="@color/colorWhite"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:focusable="false"
                 android:hint="@string/start_date"
                 android:inputType="date" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dateTIL2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/selectEndDateForBar"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:background="@color/colorWhite"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:focusable="false"
                 android:hint="@string/end_date"
                 android:inputType="date" />
-
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <Button

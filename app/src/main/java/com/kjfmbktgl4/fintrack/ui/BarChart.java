@@ -125,12 +125,15 @@ public class BarChart extends AppCompatActivity implements View.OnClickListener 
 		switch (pView.getId()) {
 			case R.id.btn_all:
 				drawAllData();
+				setDate = false;
 				break;
 			case R.id.btn_2018:
 				drawThisYear();
+				setDate = false;
 				break;
 			case R.id.btn_thisMonth:
 				drawThisMonth();
+				setDate = false;
 				break;
 			case R.id.refreshGraphs:
 				drawCustom();
@@ -188,7 +191,7 @@ public class BarChart extends AppCompatActivity implements View.OnClickListener 
 
 
 	private void drawThisMonth () {
-		startDateString = DateConverters.getFirstOfMonth();
+		startDateString = DateConverters.getFirstOf3PrevMonth();
 		endDateString = DateConverters.getcurrentDateInMilLs();
 
 	}

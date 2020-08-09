@@ -91,4 +91,16 @@ public class DateConverters {
 		String firstDateString= String.valueOf(DateConverters.dateToLong(firstDate));
 		return firstDateString;
 	}
+	public static String getFirstOf3PrevMonth(){
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH,-2);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MILLISECOND,0);
+		Date firstDate = cal.getTime();
+		String firstDateString= String.valueOf(DateConverters.dateToLong(firstDate));
+		return firstDateString;
+	}
 }

@@ -16,7 +16,7 @@
 
     <string name="all_data">All data</string>
     <string name="thisyear">This Year</string>
-    <string name="this_month">This Month</string>
+    <string name="this_month">Past 3 Months</string>
     <string name="today">This Week</string>
     <string name="delete_all_data">Delete all data</string>
     <string name="cancel">Cancel</string>
