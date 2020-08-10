@@ -1,6 +1,7 @@
 package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class AddEditCategory extends AppCompatActivity implements View.OnClickLi
 		mCategoryToEdit = getIntent().getStringExtra("CategoryName");
 		mIsNew = getIntent().getBooleanExtra("isNew", false);
 		editTextTIL=findViewById(R.id.ediTextTIL);
+		setUpToolbar();
 		setInitialValues();
 	}
 
@@ -92,6 +94,15 @@ public class AddEditCategory extends AppCompatActivity implements View.OnClickLi
 		}else{
 			editTextTIL.setError("Please enter a category name");
 		}
+	}
+	private void setUpToolbar() {
+		Toolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle("FinTrack");
+		getSupportActionBar().setSubtitle("Category Details");
+
 	}
 
 	private void checkErrors() {

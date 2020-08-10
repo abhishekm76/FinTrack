@@ -1,10 +1,12 @@
 package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -15,6 +17,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
@@ -54,6 +57,7 @@ public class BarChart extends AppCompatActivity implements View.OnClickListener 
 		monthButton.setOnClickListener(this);
 		refreshButton.setOnClickListener(this);
 
+		setUpToolbar();
 		drawThisYear();
 		setDatePickers();
 		dataList = getDataForGraph();
@@ -78,7 +82,7 @@ public class BarChart extends AppCompatActivity implements View.OnClickListener 
 
 //		data.setBarWidth(0.7f); // set custom bar width
 		barChart.setData(data);
-		set.setColors(Util.colorArray,255);
+		set.setColors(Util.colorArray, 255);
 		//barChart.setFitBars(true); // make the x-axis fit exactly all bars
 		barChart.getDescription().setEnabled(false);
 		barChart.setVisibleXRangeMaximum(6);
@@ -86,7 +90,7 @@ public class BarChart extends AppCompatActivity implements View.OnClickListener 
 		barChart.setDrawBorders(false);
 		barChart.setAutoScaleMinMaxEnabled(false);
 		barChart.setDrawGridBackground(false);
-		   // Hide the description
+		// Hide the description
 		barChart.getAxisLeft().setDrawLabels(true);
 		barChart.getAxisRight().setDrawLabels(false);
 
@@ -115,7 +119,7 @@ public class BarChart extends AppCompatActivity implements View.OnClickListener 
 	private List<PeriodTotal> getDataForGraph() {
 		DatabaseHandler db = new DatabaseHandler(BarChart.this);
 		//List<PeriodTotal> periodTotalList = db.getTransactionsByPeriod();
-		List<PeriodTotal> periodTotalList=db.getTransactionsByPeriodFiltered(startDateString,endDateString);
+		List<PeriodTotal> periodTotalList = db.getTransactionsByPeriodFiltered(startDateString, endDateString);
 
 		return periodTotalList;
 	}
@@ -154,6 +158,16 @@ public class BarChart extends AppCompatActivity implements View.OnClickListener 
 		}
 	}
 
+	private void setUpToolbar() {
+		Toolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle("FinTrack");
+		getSupportActionBar().setSubtitle("Trend Graph");
+
+	}
+
 	private void setDatePickers() {
 		String startDate = DateConverters.longStringToDateString(startDateString);
 		startDateET.setText(startDate);
@@ -182,27 +196,33 @@ public class BarChart extends AppCompatActivity implements View.OnClickListener 
 
 	}
 
-	private void drawCustom () {
+	private void drawCustom() {
 		startDateString = DateConverters.dateStringToLongString(startDateET.getText().toString());
 		endDateString = DateConverters.dateStringToLongString(endDateET.getText().toString());
-		dataList = getDataForGraph();
-		drawGraph(dataList);
+
+		if (DateConverters.isStartBeforeEnd(startDateString, endDateString)) {
+			dataList = getDataForGraph();
+			drawGraph(dataList);
+		} else {
+			Snackbar.make(startDateET, "Please select a start date that is before the end date", Snackbar.LENGTH_LONG).show();
+			Log.d(Util.TAG, "custom " + startDateString + " " + endDateString);
+		}
 	}
 
 
-	private void drawThisMonth () {
+	private void drawThisMonth() {
 		startDateString = DateConverters.getFirstOf3PrevMonth();
 		endDateString = DateConverters.getcurrentDateInMilLs();
 
 	}
 
-	private void drawThisYear () {
+	private void drawThisYear() {
 		startDateString = DateConverters.getFirstOfCurrentYearInMills();
 		endDateString = DateConverters.getcurrentDateInMilLs();
 
 	}
 
-	private void drawAllData () {
+	private void drawAllData() {
 		startDateString = DateConverters.getEpochStart();
 		endDateString = DateConverters.getcurrentDateInMilLs();
 	}

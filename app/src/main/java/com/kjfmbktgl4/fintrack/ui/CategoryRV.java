@@ -2,6 +2,7 @@ package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,10 +38,21 @@ public class CategoryRV extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		mContext = this;
 		setContentView(R.layout.activity_simplelist_r_v);
+		setUpToolbar();
 		checkUpdatedCategory();
 		getAllData();
 		setUpRecyclerView();
 		setUpFab();
+	}
+
+	private void setUpToolbar() {
+		Toolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle("FinTrack");
+		getSupportActionBar().setSubtitle("Categories");
+
 	}
 
 	@Override

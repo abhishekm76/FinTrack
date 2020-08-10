@@ -1,6 +1,7 @@
 package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 		mAccountToEdit = getIntent().getStringExtra("AccountName");
 		mIsNew = getIntent().getBooleanExtra("isNew", false);
 		editTIL = findViewById(R.id.ediTextTIL);
+		setUpToolbar();
 		setInitialValues();
 	}
 
@@ -83,7 +85,15 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 		maccountNameList.remove(mAccountToEdit);
 		Preferences.setArrayPrefs("AccountNames", maccountNameList, this);
 	}
+	private void setUpToolbar() {
+		Toolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle("FinTrack");
+		getSupportActionBar().setSubtitle("Account Details");
+
+	}
 	private void saveEditedName() {
 		checkForError();
 		if (!mIsError) {

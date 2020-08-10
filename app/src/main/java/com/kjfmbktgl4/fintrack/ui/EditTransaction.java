@@ -71,11 +71,15 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		amountTIL = findViewById(R.id.amountTIL);
 		categoryChipGroup = findViewById(R.id.catChipGroup);
 		accountChipGroup = findViewById(R.id.actChipGroup);
-		delButton = findViewById(R.id.imageButtonDel);
-		delButton.setOnClickListener(this);
+
 
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle("FinTrack");
+		getSupportActionBar().setSubtitle("Transaction Details");
+
 
 		createCategoryViews();
 		if (!isNew) {
@@ -199,10 +203,6 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 				pickerShow();
 				break;
 
-			case R.id.imageButtonDel:
-				deleteEntry();
-				startPrevAct();
-				break;
 		}
 
 	}
@@ -222,14 +222,24 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 			transaction.setId(id);
 			transaction.setDateOfTransaction(DateConverters.dateStringToLong(dateET.getText().toString()));
 			ChipGroup chipGroup = findViewById(R.id.catChipGroup);
-			Chip selChip = findViewById(chipGroup.getCheckedChipId());
-			String selChipString = String.valueOf(selChip.getText());
-			transaction.setNameCategoryOfTransaction(selChipString);
+
+			if (chipGroup.getCheckedChipId() == -1) {
+				transaction.setNameCategoryOfTransaction("Others");
+			} else {
+				Chip selChip = findViewById(chipGroup.getCheckedChipId());
+				String selChipString = String.valueOf(selChip.getText());
+				transaction.setNameCategoryOfTransaction(selChipString);
+			}
 
 			ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
-			Chip selChipAccount = findViewById(chipGroupAccount.getCheckedChipId());
-			String selChipStringAccount = String.valueOf(selChipAccount.getText());
-			transaction.setAccountOfTransaction(selChipStringAccount);
+
+			if (chipGroupAccount.getCheckedChipId() == -1) {
+				transaction.setAccountOfTransaction("Others");
+			} else {
+				Chip selChipAccount = findViewById(chipGroupAccount.getCheckedChipId());
+				String selChipStringAccount = String.valueOf(selChipAccount.getText());
+				transaction.setAccountOfTransaction(selChipStringAccount);
+			}
 
 			db.updateTransaction(transaction);
 		}
@@ -262,7 +272,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 			if (id != -1) {
 				categoryChip = findViewById(categoryChipGroup.getCheckedChipId());
 				transaction.setNameCategoryOfTransaction(String.valueOf(categoryChip.getText()));
-			}
+			} else transaction.setNameCategoryOfTransaction("Others");
 
 			transaction.setNoteOfTransaction(String.valueOf(noteET.getText()));
 			transaction.setAmountOfTransaction(Long.parseLong(String.valueOf(amountET.getText())));
@@ -271,7 +281,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 			if (idAccount != -1) {
 				accountChip = findViewById(accountChipGroup.getCheckedChipId());
 				transaction.setAccountOfTransaction(String.valueOf(accountChip.getText()));
-			}
+			} else transaction.setAccountOfTransaction("Others");
 			db.addTransaction(transaction);
 			db.close();
 		}

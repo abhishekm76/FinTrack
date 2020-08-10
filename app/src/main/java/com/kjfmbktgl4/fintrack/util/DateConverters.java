@@ -1,5 +1,6 @@
 package com.kjfmbktgl4.fintrack.util;
 
+import java.lang.reflect.GenericDeclaration;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.time.OffsetDateTime;
@@ -44,8 +45,9 @@ public class DateConverters {
 			return dateinmillis;
 		} catch (ParseException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+
 	}
 
 	public static String getcurrentDateInMilLs(){
@@ -113,5 +115,13 @@ public class DateConverters {
 		Date firstDate = cal.getTime();
 		String firstDateString= String.valueOf(DateConverters.dateToLong(firstDate));
 		return firstDateString;
+	}
+	public static boolean isStartBeforeEnd(String startDate, String endDate){
+		Long start= Long.parseLong(startDate);
+		Long end= Long.parseLong(endDate);
+
+/*		Long start = dateStringToLong(startDate);
+		Long end = dateStringToLong(endDate);*/
+		return start<end;
 	}
 }

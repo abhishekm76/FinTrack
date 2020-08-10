@@ -1,6 +1,7 @@
 package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,11 +35,20 @@ public class AccountRV extends AppCompatActivity implements View.OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_simplelist_r_v);
 		mContext=this;
+		setUpToolbar();
 		getAllData();
 		setUpRecyclerView();
 		setUpFab();
 	}
+	private void setUpToolbar() {
+		Toolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle("FinTrack");
+		getSupportActionBar().setSubtitle("Accounts");
+
+	}
 	private void setUpFab() {
 		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(this);

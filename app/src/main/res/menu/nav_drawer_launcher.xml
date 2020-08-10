@@ -5,36 +5,46 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        android:icon="@drawable/ic_baseline_settings_24"/>
     <item
         android:id="@+id/delete_all"
         android:title="@string/delete_all_data"
         android:orderInCategory="200"
+        android:icon="@drawable/ic_outline_delete_outline_24"
         app:showAsAction="never"
         />
     <item android:title="Export data"
         android:id="@+id/export"
         android:orderInCategory="300"
+        android:icon="@drawable/ic_baseline_import_export_24"
         app:showAsAction="never"
         />
     <item android:title="Category"
         android:id="@+id/categoryList"
         android:orderInCategory="400"
         app:showAsAction="never"
+        android:icon="@drawable/ic_baseline_playlist_add_24"
         />
     <item android:title="Accounts"
         android:id="@+id/accountList"
         android:orderInCategory="500"
+        android:icon="@drawable/ic_outline_account_balance_24"
         app:showAsAction="never"
         />
+
+    <group>
     <item android:title="Trends"
         android:id="@+id/trend"
         android:orderInCategory="600"
-        app:showAsAction="never"
+        android:icon="@drawable/ic_outline_bar_chart_24"
+        app:showAsAction="ifRoom|withText"
         />
     <item android:title="Distribution"
         android:id="@+id/distribution"
         android:orderInCategory="700"
-        app:showAsAction="never"
+        app:showAsAction="ifRoom|withText"
+        android:icon="@drawable/ic_baseline_pie_chart_24"
         />
+    </group>
 </menu>

@@ -1,6 +1,7 @@
 package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
@@ -39,7 +41,7 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 	private String startDateString, endDateString;
 	private TextInputEditText startDateET, endDateET;
 	private Boolean setDate = false;
-	private Boolean usePercent=true;
+	private Boolean usePercent = true;
 	private Switch switchButton;
 	private Button allButton, yearButton, monthButton, refreshButton, todayButton;
 	com.github.mikephil.charting.charts.PieChart pieChart;
@@ -56,7 +58,7 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 		monthButton = findViewById(R.id.btn_thisMonth);
 		todayButton = findViewById(R.id.btn_today);
 		refreshButton = findViewById(R.id.refreshGraphs);
-		switchButton= findViewById(R.id.switch_percent);
+		switchButton = findViewById(R.id.switch_percent);
 		allButton.setOnClickListener(this);
 		yearButton.setOnClickListener(this);
 		monthButton.setOnClickListener(this);
@@ -66,8 +68,7 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 		endDateET.setOnClickListener(this);
 
 
-
-
+		setUpToolbar();
 		setStartAndEndDates();
 		setDatePickers();
 		dataArrayList = getDataForGraph();
@@ -77,12 +78,12 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
 					// The toggle is enabled
-					usePercent= false;
+					usePercent = false;
 				} else {
 					// The toggle is disabled
-					usePercent=true;
+					usePercent = true;
 				}
-			drawCustom();
+				drawCustom();
 			}
 		});
 	}
@@ -92,6 +93,16 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 		startDateET.setText(startDate);
 		String endDate = DateConverters.longStringToDateString(endDateString);
 		endDateET.setText(endDate);
+	}
+
+	private void setUpToolbar() {
+		Toolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle("FinTrack");
+		getSupportActionBar().setSubtitle("Distribution Graph");
+
 	}
 
 	private void setStartAndEndDates() {
@@ -177,11 +188,17 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 	public void drawCustom() {
 		// set start and end dates to cover custom period
 
+
 		startDateString = DateConverters.dateStringToLongString(startDateET.getText().toString());
 		endDateString = DateConverters.dateStringToLongString(endDateET.getText().toString());
-		dataArrayList = getDataForGraph();
-		drawPiechart(dataArrayList);
-		Log.d(Util.TAG, "custom " + startDateString + " " + endDateString);
+
+		if (DateConverters.isStartBeforeEnd(startDateString, endDateString)) {
+			dataArrayList = getDataForGraph();
+			drawPiechart(dataArrayList);
+		}
+		else{
+		Snackbar.make(startDateET, "Please select a start date that is before the end date" , Snackbar.LENGTH_LONG).show();
+		Log.d(Util.TAG, "custom " + startDateString + " " + endDateString);}
 	}
 
 	@Override
@@ -189,19 +206,19 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 		switch (pView.getId()) {
 			case R.id.btn_all:
 				drawAllData();
-				setDate=false;
+				setDate = false;
 				break;
 			case R.id.btn_2018:
 				drawThisYear();
-				setDate=false;
+				setDate = false;
 				break;
 			case R.id.btn_thisMonth:
 				drawThisMonth();
-				setDate=false;
+				setDate = false;
 				break;
 			case R.id.btn_today:
 				drawToday();
-				setDate=false;
+				setDate = false;
 				break;
 			case R.id.refreshGraphs:
 				drawCustom();
