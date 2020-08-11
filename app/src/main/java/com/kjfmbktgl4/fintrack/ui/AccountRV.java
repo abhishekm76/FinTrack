@@ -2,6 +2,7 @@ package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,6 +63,9 @@ public class AccountRV extends AppCompatActivity implements View.OnClickListener
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		mRecyclerviewAdapter = new AccountRVAdapter(mAccountName,mContext);
 		recyclerView.setAdapter(mRecyclerviewAdapter);
+
+		DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+		recyclerView.addItemDecoration(mDividerItemDecoration);
 	}
 
 	private void getAllData() {

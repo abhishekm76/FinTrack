@@ -3,6 +3,7 @@ package com.kjfmbktgl4.fintrack.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -85,6 +86,10 @@ public class CategoryRV extends AppCompatActivity {
 
 		recyclerviewAdapter = new CategoryRVAdapter2(mcategoryList, mContext);
 		recyclerView.setAdapter(recyclerviewAdapter);
+
+		DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+		recyclerView.addItemDecoration(mDividerItemDecoration);
+
 	}
 
 	private void getAllData() {

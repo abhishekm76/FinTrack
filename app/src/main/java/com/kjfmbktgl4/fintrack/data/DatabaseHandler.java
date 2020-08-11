@@ -212,7 +212,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		String ordr = Util.TRAN_DATE;
 
 
-		String firstQ = "strftime('%m-%Y', " + "datetime(" + Util.TRAN_DATE + "/1000, 'unixepoch')) as " + Util.PERIODNAME;
+		String firstQ = "strftime('%m-%Y', " + "datetime(" + Util.TRAN_DATE + "/1000, 'unixepoch', 'localtime')) as " + Util.PERIODNAME;
 		String thirdQ = "SUM(" + Util.TRAN_AMOUNT + ") as " + Util.PERIODTOTAL;
 		String[] noteColumns = {
 				firstQ,
