@@ -1,12 +1,14 @@
 package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -47,6 +50,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 	Chip categoryChip, accountChip;
 	ChipGroup categoryChipGroup, accountChipGroup;
 	Boolean error = false;
+	ImageButton delIV;
 
 	String categoryName, accountName;
 	TextInputLayout amountTIL;
@@ -68,6 +72,9 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 		cancelButton.setOnClickListener(this);
 		dateET = findViewById(R.id.editTextDate);
 		dateET.setOnClickListener(this);
+		delIV=findViewById(R.id.imageButton_delDF);
+		delIV.setOnClickListener(this);
+
 		amountTIL = findViewById(R.id.amountTIL);
 		categoryChipGroup = findViewById(R.id.catChipGroup);
 		accountChipGroup = findViewById(R.id.actChipGroup);
@@ -202,6 +209,9 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 				//case R.id.dateTIL:
 				pickerShow();
 				break;
+			case R.id.imageButton_delDF:
+				deleteAlertDialog();
+				break;
 
 		}
 
@@ -301,7 +311,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 
 	}
 
-	@Override
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (!isNew) {
 			getMenuInflater().inflate(R.menu.simple_delete, menu);
@@ -321,11 +331,34 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
+	}*/
 
 	private void deleteEntry() {
 		Log.d(Util.TAG, "delete " + id);
 		db.deleteOne(id);
 
+	}
+
+	private void deleteAlertDialog(){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setMessage("Are you sure you want to delete this entry?");
+		alertDialogBuilder.setPositiveButton("yes",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						deleteEntry();
+						startPrevAct();
+					}
+				});
+
+		alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				/*finish();*/
+			}
+		});
+
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
 	}
 }

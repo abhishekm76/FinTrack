@@ -1,8 +1,10 @@
 package com.kjfmbktgl4.fintrack.ui;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -65,8 +67,8 @@ public class AddEditCategory extends AppCompatActivity implements View.OnClickLi
 				goBackToPrevActivity();
 				break;
 			case R.id.imageButton_delDF:
-				deleteItem();
-				goBackToPrevActivity();
+				deleteAlertDialog();
+				break;
 		}
 
 
@@ -108,5 +110,26 @@ public class AddEditCategory extends AppCompatActivity implements View.OnClickLi
 	private void checkErrors() {
 		mIsError = TextUtils.isEmpty(mEditedCategory)|| TextUtils.isEmpty(mEditedCategory.trim());
 	}
+	private void deleteAlertDialog(){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setMessage("Are you sure you want to delete this entry?");
+		alertDialogBuilder.setPositiveButton("yes",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						deleteItem();
+						goBackToPrevActivity();
+					}
+				});
 
+		alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				/*finish();*/
+			}
+		});
+
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
 }

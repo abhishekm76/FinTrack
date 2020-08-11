@@ -1,6 +1,7 @@
 package com.kjfmbktgl4.fintrack.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -27,6 +28,7 @@ import com.kjfmbktgl4.fintrack.util.Util;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -62,7 +64,6 @@ import java.util.Random;
 // TODO: 23-07-2020 when delete all and restart the chip labels disapper
 //// TODO: 23-07-2020 check if prefsize causes an issue when there is no app data present
 // TODO: 24-07-2020 back sends us to a previous view of the home recycler view?? also category edit
-// TODO: 26-07-2020 graph by month is not correct for the entry of the first of the month - seems to be an issue with local time
 
 import static com.kjfmbktgl4.fintrack.util.Util.SPREFNAME;
 
@@ -210,7 +211,7 @@ public class NavDrawerLauncher extends AppCompatActivity {
 			case R.id.action_settings:
 				break;
 			case R.id.delete_all:
-				new AsyncDeleteAll().execute();
+				deleteAlertDialog();
 				break;
 			case R.id.export:
 				new AsyncWriteExport().execute();
@@ -235,6 +236,29 @@ public class NavDrawerLauncher extends AppCompatActivity {
 
 		return super.onOptionsItemSelected(item);
 	}
+	private void deleteAlertDialog(){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setMessage("This will delete all data, are you sure you want to delete all the data?");
+				alertDialogBuilder.setPositiveButton("yes",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								new AsyncDeleteAll().execute();
+							}
+						});
+
+		alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				/*finish();*/
+			}
+		});
+
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
+
+
 
 	private void exportData() {
 
@@ -338,4 +362,5 @@ public class NavDrawerLauncher extends AppCompatActivity {
 			recyclerViewAdapter.notifyDataSetChanged();
 		}
 	}
+
 }
