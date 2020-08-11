@@ -20,6 +20,7 @@
         android:id="@+id/cat_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:padding="8dp"
         android:background="@color/design_default_color_surface"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

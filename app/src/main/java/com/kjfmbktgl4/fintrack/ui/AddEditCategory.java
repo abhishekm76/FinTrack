@@ -3,6 +3,7 @@ package com.kjfmbktgl4.fintrack.ui;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -72,6 +73,11 @@ public class AddEditCategory extends AppCompatActivity implements View.OnClickLi
 		}
 
 
+	}
+
+	@Override
+	public void onBackPressed(){
+		NavUtils.navigateUpFromSameTask(this);
 	}
 	private void goBackToPrevActivity(){
 			Intent intent = new Intent(this, CategoryRV.class);

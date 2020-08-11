@@ -65,7 +65,7 @@
     <color name="colorPrimary">#FF9C2E</color> <!--Color primary (light)-->
 
     <color name="colorAccent">#FF9C2E</color> <!--Color Accent-->
-    <color name="colorAccentLight">#FFB74D</color> <!--Color Accent-->
+    <color name="colorAccentLight">#FFE0B2</color> <!--Color Accent-->
 
     <color name="colorSecondaryDark">#babdbe</color> <!--Color secondary-->
     <color name="colorSecondary">#eceff1</color> <!--Color secondary variant-->

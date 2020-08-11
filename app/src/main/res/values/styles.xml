@@ -14,10 +14,12 @@
         <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"></style>
     -->
 
-    <style name="AppTheme.PopupOverlay" parent="Theme.MaterialComponents.Light.DarkActionBar">
-
-
+    <style name="MyThemeOverlay_Toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+       <!-- <item name="android:textColorPrimary">@color/colorWhite</item>-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorWhite</item>
     </style>
+
 
     <style name="Widget.FinTrack.TextView" parent="@android:style/Widget.DeviceDefault.TextView">
         <item name="android:textColor">@color/primaryTextColor</item>

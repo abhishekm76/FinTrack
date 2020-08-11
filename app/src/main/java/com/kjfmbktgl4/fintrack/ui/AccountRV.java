@@ -2,6 +2,7 @@ package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,6 +55,10 @@ public class AccountRV extends AppCompatActivity implements View.OnClickListener
 		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(this);
 
+	}
+	@Override
+	public void onBackPressed(){
+		NavUtils.navigateUpFromSameTask(this);
 	}
 
 	private void setUpRecyclerView() {

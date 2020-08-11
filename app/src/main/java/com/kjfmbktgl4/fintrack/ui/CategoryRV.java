@@ -3,6 +3,7 @@ package com.kjfmbktgl4.fintrack.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,7 +56,10 @@ public class CategoryRV extends AppCompatActivity {
 		getSupportActionBar().setSubtitle("Categories");
 
 	}
-
+	@Override
+	public void onBackPressed(){
+		NavUtils.navigateUpFromSameTask(this);
+	}
 	@Override
 	protected void onResume() {
 		super.onResume();

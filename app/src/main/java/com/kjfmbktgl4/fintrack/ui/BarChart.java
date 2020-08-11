@@ -2,6 +2,7 @@ package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 
 import android.app.DatePickerDialog;
 import android.graphics.Color;
@@ -214,6 +215,10 @@ public class BarChart extends AppCompatActivity implements View.OnClickListener 
 		startDateString = DateConverters.getFirstOf3PrevMonth();
 		endDateString = DateConverters.getcurrentDateInMilLs();
 
+	}
+	@Override
+	public void onBackPressed(){
+		NavUtils.navigateUpFromSameTask(this);
 	}
 
 	private void drawThisYear() {

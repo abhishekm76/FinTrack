@@ -2,6 +2,7 @@ package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 
 import android.app.DatePickerDialog;
 import android.graphics.Color;
@@ -199,6 +200,10 @@ public class PieChart extends AppCompatActivity implements View.OnClickListener 
 		else{
 		Snackbar.make(startDateET, "Please select a start date that is before the end date" , Snackbar.LENGTH_LONG).show();
 		Log.d(Util.TAG, "custom " + startDateString + " " + endDateString);}
+	}
+	@Override
+	public void onBackPressed(){
+		NavUtils.navigateUpFromSameTask(this);
 	}
 
 	@Override

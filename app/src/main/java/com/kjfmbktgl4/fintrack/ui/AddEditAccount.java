@@ -3,6 +3,7 @@ package com.kjfmbktgl4.fintrack.ui;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -55,6 +56,10 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 		if (!mIsNew) {
 			accountName.setText(mAccountToEdit);
 		}
+	}
+	@Override
+	public void onBackPressed(){
+		NavUtils.navigateUpFromSameTask(this);
 	}
 
 	@Override

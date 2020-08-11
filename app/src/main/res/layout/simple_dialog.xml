@@ -10,10 +10,11 @@
     <Button
         android:id="@+id/button_SaveDF"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/save_changes"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton_delDF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ediTextTIL" />
 
@@ -21,10 +22,11 @@
         android:id="@+id/button_cancelDF"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/cancel"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton_delDF"
         app:layout_constraintEnd_toStartOf="@+id/button_SaveDF"
         app:layout_constraintTop_toBottomOf="@+id/ediTextTIL" />
 
@@ -35,12 +37,13 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textheading">
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/editTextDF"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:backgroundTint="@color/colorWhite"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:ems="10"
@@ -53,18 +56,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textheading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/edit_a_category"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageButton
         android:id="@+id/imageButton_delDF"
         android:layout_width="48dp"
@@ -72,9 +63,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
+        android:backgroundTint="@color/colorWhite"
         android:contentDescription="@string/delete"
         android:padding="10dp"
         android:scaleType="fitCenter"
+        android:tint="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ediTextTIL"
         app:srcCompat="@drawable/ic_outline_delete_24" />
