@@ -25,13 +25,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class AddEditAccount extends AppCompatActivity /*implements View.OnClickListener*/ {
-	Button save, cancel;
+	/*Button save, cancel;
 	ImageButton deleteButton;
 	EditText accountName;
 	TextInputLayout editTIL;
 	private String mAccountToEdit, mEditedAccount;
 	boolean mIsNew, mIsError;
-	private List<String> maccountNameList;
+	private List<String> maccountNameList;*/
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

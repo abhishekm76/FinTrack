@@ -21,7 +21,7 @@ import com.kjfmbktgl4.fintrack.util.Preferences;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountRV extends AppCompatActivity implements View.OnClickListener {
+public class AccountRV extends AppCompatActivity /*implements View.OnClickListener*/ {
 	Context mContext;
 	public List<Accounts> mAccountName;
 	private AccountRVAdapter mRecyclerviewAdapter;
@@ -29,7 +29,7 @@ public class AccountRV extends AppCompatActivity implements View.OnClickListener
 	@Override
 	protected void onResume() {
 		super.onResume();
-		mRecyclerviewAdapter.notifyDataSetChanged();
+		//mRecyclerviewAdapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -37,21 +37,29 @@ public class AccountRV extends AppCompatActivity implements View.OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_simplelist_r_v);
 		mContext=this;
-		setUpToolbar();
-		getAllData();
+
+		if (savedInstanceState == null) {
+			AccountRVFragment fragment = new AccountRVFragment();
+			//fragment.setArguments(getIntent().getExtras());
+			getSupportFragmentManager()
+					.beginTransaction()
+					.add(R.id.container_fragment_accountrv, fragment)
+					.commit();
+		}
+		/*getAllData();
 		setUpRecyclerView();
-		setUpFab();
+		setUpFab();*/
 	}
-	private void setUpToolbar() {
+	public void setUpToolbar() {
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle("FinTrack");
 		getSupportActionBar().setSubtitle("Accounts");
-
 	}
-	private void setUpFab() {
+
+
+	/*private void setUpFab() {
 		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(this);
 
@@ -89,5 +97,5 @@ public class AccountRV extends AppCompatActivity implements View.OnClickListener
 		Intent intent = new Intent(this,AddEditAccount.class);
 		intent.putExtra("isNew",true);
 		startActivity(intent);
-	}
+	}*/
 }
