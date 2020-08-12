@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,22 +17,20 @@ import android.widget.ImageButton;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.kjfmbktgl4.fintrack.R;
-import com.kjfmbktgl4.fintrack.util.Preferences;
-import com.kjfmbktgl4.fintrack.util.Util;
+import com.kjfmbktgl4.fintrack.model.Accounts;
+import com.kjfmbktgl4.fintrack.viewmodel.AccountsViewModel;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 public class AddEditAccount extends AppCompatActivity implements View.OnClickListener {
 	Button save, cancel;
 	ImageButton deleteButton;
-	EditText accountName;
+	Accounts accountSelected, accountEdited;
+	EditText mAccountNameEditText;
 	TextInputLayout editTIL;
-	private String mAccountToEdit, mEditedAccount;
+	private String mStringAccountToEdit, mStringEditedAccountName;
 	boolean mIsNew, mIsError;
-	private List<String> maccountNameList;
+	private ArrayList<Accounts> maccountNameList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,21 +39,41 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 		save = findViewById(R.id.button_SaveDF);
 		cancel = findViewById(R.id.button_cancelDF);
 		deleteButton = findViewById(R.id.imageButton_delDF);
-		accountName = findViewById(R.id.editTextDF);
+		mAccountNameEditText = findViewById(R.id.editTextDF);
 		save.setOnClickListener(this);
 		cancel.setOnClickListener(this);
 		deleteButton.setOnClickListener(this);
-		maccountNameList = Preferences.getArrayPrefs("AccountNames", this);
-		mAccountToEdit = getIntent().getStringExtra("AccountName");
+		//maccountNameList = Preferences.getArrayPrefs("AccountNames", this);
+		mStringAccountToEdit = getIntent().getStringExtra("AccountName");
 		mIsNew = getIntent().getBooleanExtra("isNew", false);
 		editTIL = findViewById(R.id.ediTextTIL);
-		setUpToolbar();
+
+
+
+		final AccountsViewModel ViewModel = new ViewModelProvider(this).get(AccountsViewModel.class);
+		ArrayList<Accounts> maccountNameList = ViewModel.getmAccountName();
+
+		setUpViewModel();
+		createAccount();
 		setInitialValues();
+		setUpToolbar();
+
 	}
 
+	private void createAccount() {
+		accountSelected= new Accounts();
+		if (!mIsNew) {
+			accountEdited=new Accounts();
+		}
+	}
+
+	private void setUpViewModel() {
+
+	}
 	private void setInitialValues() {
 		if (!mIsNew) {
-			accountName.setText(mAccountToEdit);
+			accountSelected.setStringaccountName(mStringAccountToEdit);
+			mAccountNameEditText.setText(mStringAccountToEdit);
 		}
 	}
 	@Override
@@ -66,8 +85,9 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 	public void onClick(View pView) {
 		switch (pView.getId()) {
 			case R.id.button_SaveDF:
-				mEditedAccount = accountName.getText().toString();
-				saveEditedName();
+				mStringEditedAccountName = mAccountNameEditText.getText().toString();
+				accountEdited.setStringaccountName(mStringEditedAccountName);
+				saveEditedName1();
 				if (!mIsError) {
 					goBackToPrevActivity();
 				}
@@ -89,8 +109,8 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 	}
 
 	private void deleteItem() {
-		maccountNameList.remove(mAccountToEdit);
-		Preferences.setArrayPrefs("AccountNames", maccountNameList, this);
+		maccountNameList.remove(mStringAccountToEdit);
+		//this will need to be uneditedPreferences.setArrayPrefs("AccountNames", maccountNameList, this);
 	}
 	private void setUpToolbar() {
 		Toolbar toolbar = findViewById(R.id.toolbar);
@@ -101,22 +121,25 @@ public class AddEditAccount extends AppCompatActivity implements View.OnClickLis
 		getSupportActionBar().setSubtitle("Account Details");
 
 	}
-	private void saveEditedName() {
+	private void saveEditedName1() {
+
 		checkForError();
 		if (!mIsError) {
 			if (!mIsNew) {
-				Collections.replaceAll(maccountNameList, mAccountToEdit, mEditedAccount);
+				int index = maccountNameList.indexOf(accountSelected);
+				maccountNameList.set(index, accountEdited);
+				//Collections.replaceAll(maccountNameList, mAccountToEdit, mEditedAccount);
 			} else {
-				maccountNameList.add(mEditedAccount);
+				maccountNameList.add(accountSelected);
 			}
-			Preferences.setArrayPrefs("AccountNames", maccountNameList, this);
+			//this will need to be uncommentedPreferences.setArrayPrefs("AccountNames", maccountNameList, this);
 		}else	{
 			editTIL.setError("Please enter an account name");
 		}
 	}
 
 	private void checkForError() {
-		mIsError = TextUtils.isEmpty(mEditedAccount) || TextUtils.isEmpty(mEditedAccount.trim());
+		mIsError = TextUtils.isEmpty(mStringEditedAccountName) || TextUtils.isEmpty(mStringEditedAccountName.trim());
 
 
 	}

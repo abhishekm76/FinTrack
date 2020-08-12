@@ -51,6 +51,7 @@ import java.util.Random;
 
 
 // TODO: 23-07-2020 navigation optimise
+//// TODO: 12-08-2020 view model?
 // TODO: 11-08-2020 add settings
 // TODO: 23-07-2020 add income options
 // TODO: 23-07-2020 recyclerview search

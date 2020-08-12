@@ -3,6 +3,9 @@ package com.kjfmbktgl4.fintrack.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +20,7 @@ import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.adapter.AccountRVAdapter;
 import com.kjfmbktgl4.fintrack.model.Accounts;
 import com.kjfmbktgl4.fintrack.util.Preferences;
+import com.kjfmbktgl4.fintrack.viewmodel.AccountsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +29,7 @@ public class AccountRV extends AppCompatActivity implements View.OnClickListener
 	Context mContext;
 	public List<Accounts> mAccountName;
 	private AccountRVAdapter mRecyclerviewAdapter;
+
 
 	@Override
 	protected void onResume() {
@@ -38,10 +43,18 @@ public class AccountRV extends AppCompatActivity implements View.OnClickListener
 		setContentView(R.layout.activity_simplelist_r_v);
 		mContext=this;
 		setUpToolbar();
-		getAllData();
+		setUpViewModel();
+		//getAllData();
 		setUpRecyclerView();
 		setUpFab();
+
 	}
+
+	private void setUpViewModel() {
+		final AccountsViewModel ViewModel = new ViewModelProvider(this).get(AccountsViewModel.class);
+		mAccountName=ViewModel.getmAccountName();
+	}
+
 	private void setUpToolbar() {
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
