@@ -23,8 +23,8 @@ import java.util.List;
 
 public class AccountRV extends AppCompatActivity /*implements View.OnClickListener*/ {
 	Context mContext;
-	public List<Accounts> mAccountName;
-	private AccountRVAdapter mRecyclerviewAdapter;
+/*	public List<Accounts> mAccountName;
+	private AccountRVAdapter mRecyclerviewAdapter;*/
 
 	@Override
 	protected void onResume() {
