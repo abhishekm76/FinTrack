@@ -1,30 +1,32 @@
 package com.kjfmbktgl4.fintrack.ui;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NavUtils;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.textfield.TextInputLayout;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.util.Preferences;
-import com.kjfmbktgl4.fintrack.util.Util;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class AddEditAccount extends AppCompatActivity /*implements View.OnClickListener*/ {
+public class AddEditAccountFragment extends Fragment implements View.OnClickListener {
 	Button save, cancel;
 	ImageButton deleteButton;
 	EditText accountName;
@@ -33,47 +35,55 @@ public class AddEditAccount extends AppCompatActivity /*implements View.OnClickL
 	boolean mIsNew, mIsError;
 	private List<String> maccountNameList;
 
+	@Nullable
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_add_edit_simplelist);
+	public View onCreateView(@NonNull LayoutInflater inflater,
+	                         @Nullable ViewGroup container,
+	                         @Nullable Bundle savedInstanceState) {
 
-		if (savedInstanceState == null) {
-			AddEditAccountFragment fragment = new AddEditAccountFragment();
-			fragment.setArguments(getIntent().getExtras());
-
-			getSupportFragmentManager()
-					.beginTransaction()
-					.add(R.id.container_fragment_addeditaccount, fragment)
-					.commit();
-		}
+		Bundle bundle = getArguments();
+		mAccountToEdit = bundle.getString("AccountName");
+		mIsNew = bundle.getBoolean("isNew", false);
 
 
-		/*save = findViewById(R.id.button_SaveDF);
-		cancel = findViewById(R.id.button_cancelDF);
-		deleteButton = findViewById(R.id.imageButton_delDF);
-		accountName = findViewById(R.id.editTextDF);
+		View v = inflater.inflate(R.layout.add_edit_simple_fragment,container,false);
+		save = v.findViewById(R.id.button_SaveDF);
+		cancel = v.findViewById(R.id.button_cancelDF);
+		deleteButton = v.findViewById(R.id.imageButton_delDF);
+		accountName = v.findViewById(R.id.editTextDF);
+		editTIL = v.findViewById(R.id.ediTextTIL);
+
+
+
+		return v;
+		/*return super.onCreateView(inflater, container, savedInstanceState);*/
+	}
+
+	@Override
+	public void onViewCreated(@NonNull View view,
+	                          @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+
+		maccountNameList = Preferences.getArrayPrefs("AccountNames", getContext());
 		save.setOnClickListener(this);
 		cancel.setOnClickListener(this);
 		deleteButton.setOnClickListener(this);
-		maccountNameList = Preferences.getArrayPrefs("AccountNames", this);
-		mAccountToEdit = getIntent().getStringExtra("AccountName");
-		mIsNew = getIntent().getBooleanExtra("isNew", false);
-		editTIL = findViewById(R.id.ediTextTIL);
 		setUpToolbar();
-		setInitialValues();*/
+		setInitialValues();
+
+
 	}
 
-	/*private void setInitialValues() {
+	private void setInitialValues() {
 		if (!mIsNew) {
 			accountName.setText(mAccountToEdit);
 		}
 	}
-	@Override
+	/*@Override
 	public void onBackPressed(){
 		NavUtils.navigateUpFromSameTask(this);
 	}
-
+*/
 	@Override
 	public void onClick(View pView) {
 		switch (pView.getId()) {
@@ -93,27 +103,23 @@ public class AddEditAccount extends AppCompatActivity /*implements View.OnClickL
 		}
 
 
-	}*/
-
-	public void goBackToPrevActivity() {
-		Intent intent = new Intent(this, AccountRV.class);
-		startActivity(intent);
 	}
-	public void setUpToolbar() {
-		Toolbar toolbar = findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setTitle("FinTrack");
-		getSupportActionBar().setSubtitle("Account Details");
+	private void goBackToPrevActivity() {
+		/*Intent intent = new Intent(this, AccountRV.class);
+		startActivity(intent);*/
+		((AddEditAccount)getActivity()).goBackToPrevActivity();
 
 	}
 
-	/*private void deleteItem() {
+	private void deleteItem() {
 		maccountNameList.remove(mAccountToEdit);
-		Preferences.setArrayPrefs("AccountNames", maccountNameList, this);
+		Preferences.setArrayPrefs("AccountNames", maccountNameList, getContext());
 	}
+	private void setUpToolbar() {
+		((AddEditAccount)getActivity()).setUpToolbar();
 
+	}
 	private void saveEditedName() {
 		checkForError();
 		if (!mIsError) {
@@ -122,7 +128,7 @@ public class AddEditAccount extends AppCompatActivity /*implements View.OnClickL
 			} else {
 				maccountNameList.add(mEditedAccount);
 			}
-			Preferences.setArrayPrefs("AccountNames", maccountNameList, this);
+			Preferences.setArrayPrefs("AccountNames", maccountNameList, getContext());
 		}else	{
 			editTIL.setError("Please enter an account name");
 		}
@@ -134,7 +140,7 @@ public class AddEditAccount extends AppCompatActivity /*implements View.OnClickL
 
 	}
 	private void deleteAlertDialog(){
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
 		alertDialogBuilder.setMessage("Are you sure you want to delete this entry?");
 		alertDialogBuilder.setPositiveButton("yes",
 				new DialogInterface.OnClickListener() {
@@ -148,11 +154,11 @@ public class AddEditAccount extends AppCompatActivity /*implements View.OnClickL
 		alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				*//*finish();*//*
+				/*finish();*/
 			}
 		});
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
-	}*/
+	}
 }
