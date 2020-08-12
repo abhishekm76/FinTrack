@@ -98,7 +98,6 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 	@Override
 	public void onClick(View pView) {
 		Intent intent = new Intent(getContext(), AddEditAccount.class);
-
 		intent.putExtra("Type", "Account");
 		switch (pView.getId()) {
 			case R.id.fab:

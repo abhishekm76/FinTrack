@@ -23,6 +23,7 @@ import java.util.List;
 
 public class AccountRV extends AppCompatActivity /*implements View.OnClickListener*/ {
 	Context mContext;
+	//private AccountRVAdapter mRecyclerviewAdapter;
 /*	public List<Accounts> mAccountName;
 	private AccountRVAdapter mRecyclerviewAdapter;*/
 
@@ -37,6 +38,7 @@ public class AccountRV extends AppCompatActivity /*implements View.OnClickListen
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_simplelist_r_v);
 		mContext=this;
+		//mRecyclerviewAdapter.notifyDataSetChanged();
 
 		if (savedInstanceState == null) {
 			AccountRVFragment fragment = new AccountRVFragment();

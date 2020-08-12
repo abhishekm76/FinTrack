@@ -69,7 +69,7 @@ public class AccountRVAdapter extends RecyclerView.Adapter<AccountRVAdapter.View
 			Intent intent = new Intent(mContext, AddEditAccount.class);
 			intent.putExtra("Type",mtypeOfData);
 			intent.putExtra("AccountName", AccountNameToEdit);
-			intent.putExtra("testing","some shit");
+
 
 			mContext.startActivity(intent);
 		}

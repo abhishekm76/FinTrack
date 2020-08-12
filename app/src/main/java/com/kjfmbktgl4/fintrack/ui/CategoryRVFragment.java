@@ -91,7 +91,7 @@ public class CategoryRVFragment extends Fragment implements View.OnClickListener
 
 	@Override
 	public void onClick(View pView) {
-		Intent intent = new Intent(getActivity(), AddEditCategory.class);
+		Intent intent = new Intent(getActivity(), AddEditAccount.class);
 		intent.putExtra("Type", "Category");
 		switch (pView.getId()) {
 			case R.id.fab:
