@@ -25,7 +25,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class AddEditAccount extends AppCompatActivity /*implements View.OnClickListener*/ {
+	String mType;
 	/*Button save, cancel;
+
 	ImageButton deleteButton;
 	EditText accountName;
 	TextInputLayout editTIL;
@@ -41,12 +43,16 @@ public class AddEditAccount extends AppCompatActivity /*implements View.OnClickL
 		if (savedInstanceState == null) {
 			AddEditAccountFragment fragment = new AddEditAccountFragment();
 			fragment.setArguments(getIntent().getExtras());
-
 			getSupportFragmentManager()
 					.beginTransaction()
 					.add(R.id.container_fragment_addeditaccount, fragment)
 					.commit();
 		}
+
+		Intent intent = getIntent();
+		String mType = intent.getStringExtra("Type");
+		String testval = intent.getStringExtra("testing");
+
 
 
 		/*save = findViewById(R.id.button_SaveDF);

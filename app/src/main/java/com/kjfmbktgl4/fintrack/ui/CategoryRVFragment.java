@@ -71,7 +71,7 @@ public class CategoryRVFragment extends Fragment implements View.OnClickListener
 	private void setUpRecyclerView() {
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-		mRecyclerviewAdapter = new AccountRVAdapter(mAccountName,mContext);
+		mRecyclerviewAdapter = new AccountRVAdapter(mAccountName,mContext,"Category");
 		recyclerView.setAdapter(mRecyclerviewAdapter);
 
 		DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
@@ -91,7 +91,7 @@ public class CategoryRVFragment extends Fragment implements View.OnClickListener
 
 	@Override
 	public void onClick(View pView) {
-		Intent intent = new Intent(getActivity(), AddEditAccount.class);
+		Intent intent = new Intent(getActivity(), AddEditCategory.class);
 		intent.putExtra("Type", "Category");
 		switch (pView.getId()) {
 			case R.id.fab:

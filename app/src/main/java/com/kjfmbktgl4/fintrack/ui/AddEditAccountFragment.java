@@ -44,6 +44,7 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 		Bundle bundle = getArguments();
 		mAccountToEdit = bundle.getString("AccountName");
 		mType = bundle.getString("Type");
+		if(mType==null){mType="Account";}
 		mIsNew = bundle.getBoolean("isNew", false);
 
 
@@ -65,7 +66,12 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 	                          @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		maccountNameList = Preferences.getArrayPrefs("AccountNames", getContext());
+		if(mType=="Category") {
+			maccountNameList = Preferences.getArrayPrefs("CategoryNames", getContext());
+		}else if (mType=="Account"){
+			maccountNameList = Preferences.getArrayPrefs("AccountNames", getContext());
+		}
+
 		save.setOnClickListener(this);
 		cancel.setOnClickListener(this);
 		deleteButton.setOnClickListener(this);
@@ -110,10 +116,15 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 		/*Intent intent = new Intent(this, AccountRV.class);
 		startActivity(intent);*/
 		if (mType.equals("Account")){
-			((AddEditAccount)getActivity()).goBackToPrevActivity();
+			Intent intent = new Intent(getContext(), AccountRV.class);
+			startActivity(intent);
+
 		}else{
 			if (mType.equals("Category")){
-				((AddEditCategory)getActivity()).goBackToPrevActivity();;
+				//((AddEditCategory)getActivity()).goBackToPrevActivity();
+				Intent intent = new Intent(getContext(), CategoryRV.class);
+				startActivity(intent);
+
 			}
 		}
 
@@ -135,7 +146,7 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 		}
 	}
 	private void setUpToolbar() {
-		((AddEditAccount)getActivity()).setUpToolbar();
+		//((AddEditAccount)getActivity()).setUpToolbar();
 
 	}
 	private void saveEditedName() {

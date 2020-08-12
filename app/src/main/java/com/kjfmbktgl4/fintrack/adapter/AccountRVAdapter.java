@@ -22,10 +22,14 @@ public class AccountRVAdapter extends RecyclerView.Adapter<AccountRVAdapter.View
 	public TextView maccountNameTV;
 	public ImageView mdeleteIconIV;
 	Context mContext;
+	String mtypeOfData;
 
-	public AccountRVAdapter(List<Accounts> pAccountsList, Context pContext) {
+	public AccountRVAdapter(List<Accounts> pAccountsList, Context pContext, String ptypeOfData) {
 		mAccountsList = pAccountsList;
 		mContext = pContext;
+		mtypeOfData=ptypeOfData;
+
+
 	}
 
 	@NonNull
@@ -63,7 +67,10 @@ public class AccountRVAdapter extends RecyclerView.Adapter<AccountRVAdapter.View
 			Accounts accountClicked = mAccountsList.get(getAdapterPosition());
 			String AccountNameToEdit = accountClicked.getStringaccountName();
 			Intent intent = new Intent(mContext, AddEditAccount.class);
+			intent.putExtra("Type",mtypeOfData);
 			intent.putExtra("AccountName", AccountNameToEdit);
+			intent.putExtra("testing","some shit");
+
 			mContext.startActivity(intent);
 		}
 	}
