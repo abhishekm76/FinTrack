@@ -79,7 +79,7 @@ public class AddEditCategory extends AppCompatActivity implements View.OnClickLi
 	public void onBackPressed(){
 		NavUtils.navigateUpFromSameTask(this);
 	}
-	private void goBackToPrevActivity(){
+	public void goBackToPrevActivity(){
 			Intent intent = new Intent(this, CategoryRV.class);
 			startActivity(intent);
 

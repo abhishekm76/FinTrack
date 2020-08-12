@@ -31,7 +31,7 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 	ImageButton deleteButton;
 	EditText accountName;
 	TextInputLayout editTIL;
-	private String mAccountToEdit, mEditedAccount;
+	private String mAccountToEdit, mEditedAccount,mType;
 	boolean mIsNew, mIsError;
 	private List<String> maccountNameList;
 
@@ -43,6 +43,7 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 
 		Bundle bundle = getArguments();
 		mAccountToEdit = bundle.getString("AccountName");
+		mType = bundle.getString("Type");
 		mIsNew = bundle.getBoolean("isNew", false);
 
 
@@ -108,13 +109,30 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 	private void goBackToPrevActivity() {
 		/*Intent intent = new Intent(this, AccountRV.class);
 		startActivity(intent);*/
-		((AddEditAccount)getActivity()).goBackToPrevActivity();
+		if (mType.equals("Account")){
+			((AddEditAccount)getActivity()).goBackToPrevActivity();
+		}else{
+			if (mType.equals("Category")){
+				((AddEditCategory)getActivity()).goBackToPrevActivity();;
+			}
+		}
+
+
+
+
 
 	}
 
 	private void deleteItem() {
 		maccountNameList.remove(mAccountToEdit);
+
+		if (mType.equals("Account")){
 		Preferences.setArrayPrefs("AccountNames", maccountNameList, getContext());
+		}else{
+			if (mType.equals("Category")){
+				Preferences.setArrayPrefs("CategoryNames", maccountNameList, getContext());
+			}
+		}
 	}
 	private void setUpToolbar() {
 		((AddEditAccount)getActivity()).setUpToolbar();
@@ -128,9 +146,20 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 			} else {
 				maccountNameList.add(mEditedAccount);
 			}
-			Preferences.setArrayPrefs("AccountNames", maccountNameList, getContext());
+
+			if (mType.equals("Account")){
+				Preferences.setArrayPrefs("AccountNames", maccountNameList, getContext());
+			}else{
+				if (mType.equals("Category")){
+					Preferences.setArrayPrefs("CategoryNames", maccountNameList, getContext());
+				}
+			}
+
+
+
+			/*Preferences.setArrayPrefs("AccountNames", maccountNameList, getContext());*/
 		}else	{
-			editTIL.setError("Please enter an account name");
+			editTIL.setError("Please enter a name");
 		}
 	}
 

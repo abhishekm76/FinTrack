@@ -40,7 +40,7 @@ public class AccountRV extends AppCompatActivity /*implements View.OnClickListen
 
 		if (savedInstanceState == null) {
 			AccountRVFragment fragment = new AccountRVFragment();
-			//fragment.setArguments(getIntent().getExtras());
+			fragment.setArguments(getIntent().getExtras());
 			getSupportFragmentManager()
 					.beginTransaction()
 					.add(R.id.container_fragment_accountrv, fragment)

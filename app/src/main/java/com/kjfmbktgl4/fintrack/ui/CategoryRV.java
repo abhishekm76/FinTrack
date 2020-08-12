@@ -38,25 +38,35 @@ public class CategoryRV extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mContext = this;
 		setContentView(R.layout.activity_simplelist_r_v);
+
+		mContext=this;
+
+		if (savedInstanceState == null) {
+			CategoryRVFragment fragment = new CategoryRVFragment();
+			fragment.setArguments(getIntent().getExtras());
+			getSupportFragmentManager()
+					.beginTransaction()
+					.add(R.id.container_fragment_accountrv, fragment)
+					.commit();
+		}
+
 		setUpToolbar();
-		checkUpdatedCategory();
+		/*checkUpdatedCategory();
 		getAllData();
 		setUpRecyclerView();
-		setUpFab();
+		setUpFab();*/
 	}
 
-	private void setUpToolbar() {
+	public void setUpToolbar() {
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle("FinTrack");
 		getSupportActionBar().setSubtitle("Categories");
 
 	}
-	@Override
+	/*@Override
 	public void onBackPressed(){
 		NavUtils.navigateUpFromSameTask(this);
 	}
@@ -106,6 +116,6 @@ public class CategoryRV extends AppCompatActivity {
 			mcategoryList.add(category);
 		}
 
-	}
+	}*/
 
 }
