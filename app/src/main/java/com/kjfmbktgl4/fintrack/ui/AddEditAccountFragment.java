@@ -1,5 +1,6 @@
 package com.kjfmbktgl4.fintrack.ui;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import java.util.List;
 
 public class AddEditAccountFragment extends Fragment implements View.OnClickListener {
 	Button save, cancel;
+	Context mContext;
 	ImageButton deleteButton;
 	EditText accountName;
 	TextInputLayout editTIL;
@@ -65,11 +67,11 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 	public void onViewCreated(@NonNull View view,
 	                          @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-
-		if(mType=="Category") {
-			maccountNameList = Preferences.getArrayPrefs("CategoryNames", getContext());
-		}else if (mType=="Account"){
-			maccountNameList = Preferences.getArrayPrefs("AccountNames", getContext());
+		mContext=getContext();
+		if(mType.equals("Category")) {
+			maccountNameList = Preferences.getArrayPrefs("CategoryNames", mContext);
+		}else if (mType.equals("Account")){
+			maccountNameList = Preferences.getArrayPrefs("AccountNames", mContext);
 		}
 
 		save.setOnClickListener(this);
