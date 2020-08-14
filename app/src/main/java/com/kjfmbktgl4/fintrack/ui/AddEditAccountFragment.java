@@ -33,7 +33,7 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 	ImageButton deleteButton;
 	EditText accountName;
 	TextInputLayout editTIL;
-	private String mAccountToEdit, mEditedAccount,mType;
+	private String mAccountToEdit, mEditedAccount, mType;
 	boolean mIsNew, mIsError;
 	private List<String> maccountNameList;
 
@@ -46,18 +46,15 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 		Bundle bundle = getArguments();
 		mAccountToEdit = bundle.getString("AccountName");
 		mType = bundle.getString("Type");
-		if(mType==null){mType="Account";}
+		if (mType == null) {
+			mType = "Account";
+		}
 		mIsNew = bundle.getBoolean("isNew", false);
-
-
-		View v = inflater.inflate(R.layout.add_edit_simple_fragment,container,false);
+		View v = inflater.inflate(R.layout.add_edit_simple_fragment, container, false);
 		save = v.findViewById(R.id.button_SaveDF);
 		cancel = v.findViewById(R.id.button_cancelDF);
 		deleteButton = v.findViewById(R.id.imageButton_delDF);
 		accountName = v.findViewById(R.id.editTextDF);
-		editTIL = v.findViewById(R.id.ediTextTIL);
-
-
 
 		return v;
 		/*return super.onCreateView(inflater, container, savedInstanceState);*/
@@ -67,20 +64,24 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 	public void onViewCreated(@NonNull View view,
 	                          @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		mContext=getContext();
-		if(mType.equals("Category")) {
+		mContext = getContext();
+		if (mType.equals("Category")) {
 			maccountNameList = Preferences.getArrayPrefs("CategoryNames", mContext);
-		}else if (mType.equals("Account")){
+		} else if (mType.equals("Account")) {
 			maccountNameList = Preferences.getArrayPrefs("AccountNames", mContext);
 		}
 
 		save.setOnClickListener(this);
 		cancel.setOnClickListener(this);
 		deleteButton.setOnClickListener(this);
-		setUpToolbar();
 		setInitialValues();
+		setUpToolbar();
 
 
+	}
+
+	private void setUpToolbar() {
+		((AddEditAccount)getActivity()).setUpToolbar(mType+ " Details");
 	}
 
 	private void setInitialValues() {
@@ -88,6 +89,7 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 			accountName.setText(mAccountToEdit);
 		}
 	}
+
 	/*@Override
 	public void onBackPressed(){
 		NavUtils.navigateUpFromSameTask(this);
@@ -117,21 +119,16 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 	private void goBackToPrevActivity() {
 		/*Intent intent = new Intent(this, AccountRV.class);
 		startActivity(intent);*/
-		if (mType.equals("Account")){
+		if (mType.equals("Account")) {
 			Intent intent = new Intent(getContext(), AccountRV.class);
+			intent.putExtra("Type", mType);
 			startActivity(intent);
-
-		}else{
-			if (mType.equals("Category")){
-				//((AddEditCategory)getActivity()).goBackToPrevActivity();
-				Intent intent = new Intent(getContext(), CategoryRV.class);
-				startActivity(intent);
-
-			}
+		} else {
+			//((AddEditCategory)getActivity()).goBackToPrevActivity();
+			Intent intent = new Intent(getContext(), AccountRV.class);
+			intent.putExtra("Type", mType);
+			startActivity(intent);
 		}
-
-
-
 
 
 	}
@@ -139,18 +136,17 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 	private void deleteItem() {
 		maccountNameList.remove(mAccountToEdit);
 
-		if (mType.equals("Account")){
-		Preferences.setArrayPrefs("AccountNames", maccountNameList, getContext());
-		}else{
-			if (mType.equals("Category")){
+		if (mType.equals("Account")) {
+			Preferences.setArrayPrefs("AccountNames", maccountNameList, getContext());
+		} else {
+			if (mType.equals("Category")) {
 				Preferences.setArrayPrefs("CategoryNames", maccountNameList, getContext());
 			}
 		}
 	}
-	private void setUpToolbar() {
-		//((AddEditAccount)getActivity()).setUpToolbar();
 
-	}
+
+
 	private void saveEditedName() {
 		checkForError();
 		if (!mIsError) {
@@ -160,10 +156,10 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 				maccountNameList.add(mEditedAccount);
 			}
 
-			if (mType.equals("Account")){
+			if (mType.equals("Account")) {
 				Preferences.setArrayPrefs("AccountNames", maccountNameList, getContext());
-			}else{
-				if (mType.equals("Category")){
+			} else {
+				if (mType.equals("Category")) {
 					Preferences.setArrayPrefs("CategoryNames", maccountNameList, getContext());
 				}
 			}
@@ -171,7 +167,7 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 
 
 			/*Preferences.setArrayPrefs("AccountNames", maccountNameList, getContext());*/
-		}else	{
+		} else {
 			editTIL.setError("Please enter a name");
 		}
 	}
@@ -181,7 +177,8 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 
 
 	}
-	private void deleteAlertDialog(){
+
+	private void deleteAlertDialog() {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
 		alertDialogBuilder.setMessage("Are you sure you want to delete this entry?");
 		alertDialogBuilder.setPositiveButton("yes",
@@ -193,7 +190,7 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 					}
 				});
 
-		alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+		alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				/*finish();*/

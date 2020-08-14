@@ -62,13 +62,15 @@ import java.util.Random;
 // TODO: 23-07-2020 adjsut resize to show input while entering it
 // TODO: 23-07-2020 when delete all and restart the chip labels disapper
 //// TODO: 23-07-2020 check if prefsize causes an issue when there is no app data present
-
+//// TODO: 14-08-2020 check recyclerview scrolling issues
+// TODO: 14-08-2020 fragment oncreateview getting called twice?
 
 import static com.kjfmbktgl4.fintrack.util.Util.SPREFNAME;
 
 public class NavDrawerLauncher extends AppCompatActivity {
 	private AppBarConfiguration mAppBarConfiguration;
 	private RecyclerView recyclerView;
+	private String mType;
 	//private DatabaseHandler db;
 	private final DatabaseHandler db = new DatabaseHandler(NavDrawerLauncher.this);
 	private TransactionRecyclerViewAdapter recyclerViewAdapter;
@@ -216,11 +218,15 @@ public class NavDrawerLauncher extends AppCompatActivity {
 				new AsyncWriteExport().execute();
 				break;
 			case R.id.categoryList:
-				Intent intentCategory = new Intent(this, CategoryRV.class);
+				mType = "Category";
+				Intent intentCategory = new Intent(this, AccountRV.class);
+				intentCategory.putExtra("Type",mType);
 				startActivity(intentCategory);
 				break;
 			case R.id.accountList:
+				mType = "Account";
 				Intent intentAccount = new Intent(this, AccountRV.class);
+				intentAccount.putExtra("Type",mType);
 				startActivity(intentAccount);
 				break;
 			case R.id.trend:

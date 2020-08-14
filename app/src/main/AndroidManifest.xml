@@ -16,10 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.AddEditCategory" android:parentActivityName=".ui.CategoryRV" />
         <activity android:name=".ui.AddEditAccount" android:parentActivityName=".ui.AccountRV" />
         <activity android:name=".ui.AccountRV" android:parentActivityName=".ui.NavDrawerLauncher" />
-        <activity android:name=".ui.CategoryRV" android:parentActivityName=".ui.NavDrawerLauncher"/>
         <activity android:name=".ui.BarChart" android:parentActivityName=".ui.NavDrawerLauncher"/>
         <activity android:name=".ui.PieChart" android:parentActivityName=".ui.NavDrawerLauncher"/>
         <activity android:name=".ui.EditTransaction"

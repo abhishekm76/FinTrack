@@ -35,6 +35,7 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 	private AccountRVAdapter mRecyclerviewAdapter;
 	FloatingActionButton fab;
 	RecyclerView recyclerView;
+	String mType;
 
 
 	@Nullable
@@ -42,6 +43,10 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 	public View onCreateView(@NonNull LayoutInflater inflater,
 	                         @Nullable ViewGroup container,
 	                         @Nullable Bundle savedInstanceState) {
+
+		Bundle bundle = getArguments();
+		mType = bundle.getString("Type");
+
 		View v =  inflater.inflate(R.layout.account_rv_fragment,container,false);
 		fab=v.findViewById(R.id.fab);
 		recyclerView = v.findViewById(R.id.cat_recyclerview);
@@ -77,7 +82,7 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 	private void setUpRecyclerView() {
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-		mRecyclerviewAdapter = new AccountRVAdapter(mAccountName,mContext,"Account");
+		mRecyclerviewAdapter = new AccountRVAdapter(mAccountName,mContext,mType);
 		recyclerView.setAdapter(mRecyclerviewAdapter);
 
 		DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
@@ -87,7 +92,13 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 	private void getAllData() {
 		List<String> accountNameString;
 		mAccountName = new ArrayList<Accounts>();
-		accountNameString = Preferences.getArrayPrefs("AccountNames",mContext);
+
+		if(mType.equals("Account")) {
+			accountNameString = Preferences.getArrayPrefs("AccountNames", mContext);
+		} else {
+			accountNameString = Preferences.getArrayPrefs("CategoryNames", mContext);
+		}
+
 		for (String accountNameItem : accountNameString){
 			Accounts account = new Accounts();
 			account.setStringaccountName(accountNameItem);
@@ -98,7 +109,7 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 	@Override
 	public void onClick(View pView) {
 		Intent intent = new Intent(getContext(), AddEditAccount.class);
-		intent.putExtra("Type", "Account");
+		intent.putExtra("Type", mType);
 		switch (pView.getId()) {
 			case R.id.fab:
 				intent.putExtra("isNew", true);

@@ -48,10 +48,9 @@ public class AddEditAccount extends AppCompatActivity /*implements View.OnClickL
 					.add(R.id.container_fragment_addeditaccount, fragment)
 					.commit();
 		}
-
 		Intent intent = getIntent();
 		String mType = intent.getStringExtra("Type");
-		String testval = intent.getStringExtra("testing");
+
 
 
 
@@ -103,15 +102,15 @@ public class AddEditAccount extends AppCompatActivity /*implements View.OnClickL
 
 	public void goBackToPrevActivity() {
 		Intent intent = new Intent(this, AccountRV.class);
+		intent.putExtra("Type",mType);
 		startActivity(intent);
 	}
-	public void setUpToolbar() {
+	public void setUpToolbar(String pSubTitle) {
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle("FinTrack");
-		getSupportActionBar().setSubtitle("Account Details");
+		getSupportActionBar().setSubtitle(pSubTitle);
 
 	}
 
