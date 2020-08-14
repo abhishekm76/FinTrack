@@ -1,31 +1,25 @@
 package com.kjfmbktgl4.fintrack.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NavUtils;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kjfmbktgl4.fintrack.R;
@@ -36,61 +30,70 @@ import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class EditTransaction extends AppCompatActivity /*implements View.OnClickListener*/ {
+public class EditTransactionFragment extends Fragment implements View.OnClickListener {
+
 	Button saveButton;
 	Button cancelButton;
 	ImageButton delButton;
 	TextInputEditText dateET, amountET, noteET;
-	Chip categoryChip, accountChip;
+	Chip categoryChip, accountChip, selChipCategory, selChipAccount;
 	ChipGroup categoryChipGroup, accountChipGroup;
 	Boolean error = false;
 	ImageButton delIV;
+	DatabaseHandler db;
 
 	String categoryName, accountName;
 	TextInputLayout amountTIL;
 	public boolean isNew = false;
 	int id;
-	private final DatabaseHandler db = new DatabaseHandler(EditTransaction.this);
+
+
+	@Nullable
+	@Override
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+		Bundle bundle = getArguments();
+		isNew = bundle.getBoolean("isNew", false);
+		id = bundle.getInt("id", 0);
+/*
+		Intent intent = getIntent();
+		id = intent.getIntExtra("id", 0);
+*/
+
+
+		View v = inflater.inflate(R.layout.add_edit_trans_fragment, container, false);
+
+		amountET = v.findViewById(R.id.editTextAmount);
+		noteET = v.findViewById(R.id.editTextNote);
+		saveButton = v.findViewById(R.id.buttonsave);
+		cancelButton = v.findViewById(R.id.buttoncancel);
+		dateET = v.findViewById(R.id.editTextDate);
+		delIV = v.findViewById(R.id.imageButton_delDF);
+		amountTIL = v.findViewById(R.id.amountTIL);
+		categoryChipGroup = v.findViewById(R.id.catChipGroup);
+		accountChipGroup = v.findViewById(R.id.actChipGroup);
+		selChipCategory = v.findViewById(categoryChipGroup.getCheckedChipId());
+		selChipAccount = v.findViewById(accountChipGroup.getCheckedChipId());
+
+
+		return v;
+	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		//isNew = getIntent().getBooleanExtra("isNew", false);
-		setContentView(R.layout.add_edit_trans);
-
-		if (savedInstanceState == null) {
-			EditTransactionFragment fragment = new EditTransactionFragment();
-			fragment.setArguments(getIntent().getExtras());
-			getSupportFragmentManager()
-					.beginTransaction()
-					.add(R.id.container_addedittrans, fragment)
-					.commit();
-		}
-
-
-/*		amountET = findViewById(R.id.editTextAmount);
-		noteET = findViewById(R.id.editTextNote);
-		saveButton = findViewById(R.id.buttonsave);
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		saveButton.setOnClickListener(this);
-		cancelButton = findViewById(R.id.buttoncancel);
 		cancelButton.setOnClickListener(this);
-		dateET = findViewById(R.id.editTextDate);
 		dateET.setOnClickListener(this);
-		delIV=findViewById(R.id.imageButton_delDF);
 		delIV.setOnClickListener(this);
 
-		amountTIL = findViewById(R.id.amountTIL);
-		categoryChipGroup = findViewById(R.id.catChipGroup);
-		accountChipGroup = findViewById(R.id.actChipGroup);
-
-
+		db = new DatabaseHandler(getActivity());
 		createCategoryViews();
 
 		if (!isNew) {
@@ -99,36 +102,25 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 			setCurrentDate();
 			setDefaultSelection();
 		}
-		setCurrency();*/
+		setCurrency();
 	}
 
-	public void setUpToolbar(){
-		Toolbar toolbar = findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
+	private void setDefaultSelection() {
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setTitle("FinTrack");
-		getSupportActionBar().setSubtitle("Transaction Details");
-
-	}
-
-	/*private void setDefaultSelection() {
-		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
-		Chip chip = (Chip) chipGroup.getChildAt(0);
+		Chip chip = (Chip) categoryChipGroup.getChildAt(0);
 		chip.setChecked(true);
-		chipGroup.setSingleSelection(true);
+		categoryChipGroup.setSingleSelection(true);
 
-		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
-		Chip chipAct = (Chip) chipGroupAccount.getChildAt(0);
+
+		Chip chipAct = (Chip) accountChipGroup.getChildAt(0);
 		chipAct.setChecked(true);
-		chipGroupAccount.setSingleSelection(true);
+		accountChipGroup.setSingleSelection(true);
 
 
 	}
 
 	private void setValuesToEdit() {
-		Intent intent = getIntent();
-		id = intent.getIntExtra("id", 0);
+
 		TransactionItem transactionItem = new TransactionItem();
 		transactionItem = db.getOneTransaction(id);
 
@@ -143,23 +135,23 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 		categoryName = transactionItem.getNameCategoryOfTransaction();
 		accountName = transactionItem.getAccountOfTransaction();
 
-		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
-		for (int i = 0; i < chipGroup.getChildCount(); i++) {
-			Chip chip = (Chip) chipGroup.getChildAt(i);
+
+		for (int i = 0; i < categoryChipGroup.getChildCount(); i++) {
+			Chip chip = (Chip) categoryChipGroup.getChildAt(i);
 			if (categoryName.equals(chip.getText())) {
 				chip.setChecked(true);
 			}
 		}
-		chipGroup.setSingleSelection(true);
+		categoryChipGroup.setSingleSelection(true);
 
-		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
-		for (int i = 0; i < chipGroupAccount.getChildCount(); i++) {
-			Chip chip = (Chip) chipGroupAccount.getChildAt(i);
+
+		for (int i = 0; i < accountChipGroup.getChildCount(); i++) {
+			Chip chip = (Chip) accountChipGroup.getChildAt(i);
 			if (accountName.equals(chip.getText())) {
 				chip.setChecked(true);
 			}
 		}
-		chipGroupAccount.setSingleSelection(true);
+		accountChipGroup.setSingleSelection(true);
 	}
 
 	private void setCurrency() {
@@ -177,25 +169,25 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 
 	private void createCategoryViews() {
 		List<String> mcategoryName;
-		mcategoryName = Preferences.getArrayPrefs("CategoryNames", this);
+		mcategoryName = Preferences.getArrayPrefs("CategoryNames", getContext());
 		Log.d(Util.TAG, "Category Names " + mcategoryName.size());
-		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
+
 
 		for (String category : mcategoryName) {
-			Chip chip = (Chip) getLayoutInflater().inflate(R.layout.single_chip_layout, chipGroup, false);
+			Chip chip = (Chip) getLayoutInflater().inflate(R.layout.single_chip_layout, categoryChipGroup, false);
 			chip.setText(category);
-			chipGroup.addView(chip);
-			chipGroup.setSingleSelection(true);
+			categoryChipGroup.addView(chip);
+			categoryChipGroup.setSingleSelection(true);
 		}
 
 		List<String> accountNames;
-		accountNames = Preferences.getArrayPrefs("AccountNames", this);
-		ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
+		accountNames = Preferences.getArrayPrefs("AccountNames", getContext());
+
 		for (String accountName : accountNames) {
-			Chip chip = (Chip) getLayoutInflater().inflate(R.layout.single_chip_layout, chipGroupAccount, false);
+			Chip chip = (Chip) getLayoutInflater().inflate(R.layout.single_chip_layout, accountChipGroup, false);
 			chip.setText(accountName);
-			chipGroupAccount.addView(chip);
-			chipGroupAccount.setSingleSelection(true);
+			accountChipGroup.addView(chip);
+			accountChipGroup.setSingleSelection(true);
 		}
 
 	}
@@ -229,14 +221,14 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 
 		}
 
-	}*/
+	}
 
-	public void startPrevAct() {
-		Intent intent = new Intent(this, NavDrawerLauncher.class);
+	private void startPrevAct() {
+		Intent intent = new Intent(getContext(), NavDrawerLauncher.class);
 		startActivity(intent);
 	}
 
-	/*private void updateTransaction() {
+	private void updateTransaction() {
 		checkForErrors();
 		if (!error) {
 			TransactionItem transaction = new TransactionItem();
@@ -245,22 +237,21 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 			transaction.setAmountOfTransaction(Long.parseLong(String.valueOf(amountET.getText())));
 			transaction.setId(id);
 			transaction.setDateOfTransaction(DateConverters.dateStringToLong(dateET.getText().toString()));
-			ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 
-			if (chipGroup.getCheckedChipId() == -1) {
+
+			if (categoryChipGroup.getCheckedChipId() == -1) {
 				transaction.setNameCategoryOfTransaction("Others");
 			} else {
-				Chip selChip = findViewById(chipGroup.getCheckedChipId());
-				String selChipString = String.valueOf(selChip.getText());
+				//Chip selChipCategory = v.findViewById(categoryChipGroup.getCheckedChipId());
+				String selChipString = String.valueOf(selChipCategory.getText());
 				transaction.setNameCategoryOfTransaction(selChipString);
 			}
 
-			ChipGroup chipGroupAccount = findViewById(R.id.actChipGroup);
 
-			if (chipGroupAccount.getCheckedChipId() == -1) {
+			if (accountChipGroup.getCheckedChipId() == -1) {
 				transaction.setAccountOfTransaction("Others");
 			} else {
-				Chip selChipAccount = findViewById(chipGroupAccount.getCheckedChipId());
+				//Chip selChipAccount = v.findViewById(accountChipGroup.getCheckedChipId());
 				String selChipStringAccount = String.valueOf(selChipAccount.getText());
 				transaction.setAccountOfTransaction(selChipStringAccount);
 			}
@@ -275,7 +266,7 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 		int month = cldr.get(Calendar.MONTH);
 		int year = cldr.get(Calendar.YEAR);
 		// date picker dialog
-		DatePickerDialog picker = new DatePickerDialog(EditTransaction.this,
+		DatePickerDialog picker = new DatePickerDialog(getContext(),
 				new DatePickerDialog.OnDateSetListener() {
 					@Override
 					public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -294,8 +285,9 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 			TransactionItem transaction = new TransactionItem();
 			int id = categoryChipGroup.getCheckedChipId();
 			if (id != -1) {
-				categoryChip = findViewById(categoryChipGroup.getCheckedChipId());
-				transaction.setNameCategoryOfTransaction(String.valueOf(categoryChip.getText()));
+				selChipCategory =(Chip)categoryChipGroup.getChildAt(id);
+
+				transaction.setNameCategoryOfTransaction((selChipCategory.getText().toString()));
 			} else transaction.setNameCategoryOfTransaction("Others");
 
 			transaction.setNoteOfTransaction(String.valueOf(noteET.getText()));
@@ -303,8 +295,8 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 			transaction.setDateOfTransaction(DateConverters.dateStringToLong(dateET.getText().toString()));
 			int idAccount = accountChipGroup.getCheckedChipId();
 			if (idAccount != -1) {
-				accountChip = findViewById(accountChipGroup.getCheckedChipId());
-				transaction.setAccountOfTransaction(String.valueOf(accountChip.getText()));
+				selChipAccount =(Chip)accountChipGroup.getChildAt(id);
+				transaction.setAccountOfTransaction((selChipAccount.getText().toString()));
 			} else transaction.setAccountOfTransaction("Others");
 			db.addTransaction(transaction);
 			db.close();
@@ -325,36 +317,14 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 
 	}
 
-	*//*@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		if (!isNew) {
-			getMenuInflater().inflate(R.menu.simple_delete, menu);
-		}
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.delete) {
-			deleteEntry();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}*//*
-
 	private void deleteEntry() {
 		Log.d(Util.TAG, "delete " + id);
 		db.deleteOne(id);
 
 	}
 
-	private void deleteAlertDialog(){
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+	private void deleteAlertDialog() {
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
 		alertDialogBuilder.setMessage("Are you sure you want to delete this entry?");
 		alertDialogBuilder.setPositiveButton("yes",
 				new DialogInterface.OnClickListener() {
@@ -365,18 +335,14 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 					}
 				});
 
-		alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+		alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				*//*finish();*//*
+				/*finish();*/
 			}
 		});
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
-	}*/
-	@Override
-	public void onBackPressed(){
-		NavUtils.navigateUpFromSameTask(this);
 	}
 }
