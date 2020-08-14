@@ -1,17 +1,21 @@
 package com.kjfmbktgl4.fintrack.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NavUtils;
-
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
+import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -31,52 +35,50 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class BarChart extends AppCompatActivity /*implements View.OnClickListener*/ {
-	/*com.github.mikephil.charting.charts.BarChart barChart;
+public class BarChartFragment extends Fragment implements View.OnClickListener {
+	com.github.mikephil.charting.charts.BarChart barChart;
 	private List<PeriodTotal> dataList;
 	private String startDateString, endDateString;
 	private TextInputEditText startDateET, endDateET;
 	private Boolean setDate = false;
-	private Button allButton, yearButton, monthButton, refreshButton;*/
+	private Button allButton, yearButton, monthButton, refreshButton;
+
+	@Nullable
+	@Override
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View v = inflater.inflate(R.layout.fragment_bar_chart,container,false);
+		barChart = v.findViewById(R.id.barChart);
+		startDateET = v.findViewById(R.id.selectStartDateForBar);
+		endDateET = v.findViewById(R.id.selectEndDateForBar);
+		allButton = v.findViewById(R.id.btn_all);
+		yearButton = v.findViewById(R.id.btn_2018);
+		monthButton = v.findViewById(R.id.btn_thisMonth);
+		refreshButton = v.findViewById(R.id.refreshGraphs);
+
+
+		return v;
+	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_bar_chart);
-
-		if (savedInstanceState == null) {
-			BarChartFragment fragment = new BarChartFragment();
-			/*fragment.setArguments(getIntent().getExtras());*/
-			getSupportFragmentManager()
-					.beginTransaction()
-					.add(R.id.container_barChart, fragment)
-					.commit();
-		}
-
-/*		barChart = findViewById(R.id.barChart);
-		startDateET = findViewById(R.id.selectStartDateForBar);
-		endDateET = findViewById(R.id.selectEndDateForBar);
-		allButton = findViewById(R.id.btn_all);
-		yearButton = findViewById(R.id.btn_2018);
-		monthButton = findViewById(R.id.btn_thisMonth);
-		refreshButton = findViewById(R.id.refreshGraphs);
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
 		startDateET.setOnClickListener(this);
 		endDateET.setOnClickListener(this);
 		allButton.setOnClickListener(this);
 		yearButton.setOnClickListener(this);
 		monthButton.setOnClickListener(this);
-		refreshButton.setOnClickListener(this);*/
+		refreshButton.setOnClickListener(this);
 
-		//setUpToolbar();
-/*		drawThisYear();
+		setUpToolbar();
+		drawThisYear();
 		setDatePickers();
 		dataList = getDataForGraph();
-		drawGraph(dataList);*/
+		drawGraph(dataList);
 
+		super.onViewCreated(view, savedInstanceState);
 	}
 
-/*	private void drawGraph(List<PeriodTotal> dataList) {
+	private void drawGraph(List<PeriodTotal> dataList) {
 		List<BarEntry> entries = new ArrayList<>();
 		ArrayList<String> xAxisLabels = new ArrayList<>();
 		Float index;
@@ -128,7 +130,7 @@ public class BarChart extends AppCompatActivity /*implements View.OnClickListene
 	}
 
 	private List<PeriodTotal> getDataForGraph() {
-		DatabaseHandler db = new DatabaseHandler(BarChart.this);
+		DatabaseHandler db = new DatabaseHandler(getContext());
 		//List<PeriodTotal> periodTotalList = db.getTransactionsByPeriod();
 		List<PeriodTotal> periodTotalList = db.getTransactionsByPeriodFiltered(startDateString, endDateString);
 
@@ -167,18 +169,14 @@ public class BarChart extends AppCompatActivity /*implements View.OnClickListene
 			drawGraph(dataList);
 
 		}
-	}*/
+	}
 
-	public void setUpToolbar(String pSubtitle) {
-		Toolbar toolbar = findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setTitle("FinTrack");
-		getSupportActionBar().setSubtitle(pSubtitle);
+	private void setUpToolbar() {
+		((BarChart)getActivity()).setUpToolbar("Trend Graph");
 
 	}
 
-	/*private void setDatePickers() {
+	private void setDatePickers() {
 		String startDate = DateConverters.longStringToDateString(startDateString);
 		startDateET.setText(startDate);
 		String endDate = DateConverters.longStringToDateString(endDateString);
@@ -191,7 +189,7 @@ public class BarChart extends AppCompatActivity /*implements View.OnClickListene
 		int month = cldr.get(Calendar.MONTH);
 		int year = cldr.get(Calendar.YEAR);
 		// date picker dialog
-		DatePickerDialog picker = new DatePickerDialog(BarChart.this,
+		DatePickerDialog picker = new DatePickerDialog(getContext(),
 				new DatePickerDialog.OnDateSetListener() {
 					@Override
 					public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -225,10 +223,10 @@ public class BarChart extends AppCompatActivity /*implements View.OnClickListene
 		endDateString = DateConverters.getcurrentDateInMilLs();
 
 	}
-	@Override
+	/*@Override
 	public void onBackPressed(){
 		NavUtils.navigateUpFromSameTask(this);
-	}
+	}*/
 
 	private void drawThisYear() {
 		startDateString = DateConverters.getFirstOfCurrentYearInMills();
@@ -239,6 +237,6 @@ public class BarChart extends AppCompatActivity /*implements View.OnClickListene
 	private void drawAllData() {
 		startDateString = DateConverters.getEpochStart();
 		endDateString = DateConverters.getcurrentDateInMilLs();
-	}*/
+	}
 
 }
