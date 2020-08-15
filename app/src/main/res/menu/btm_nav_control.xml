@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mainFragment"
+        android:icon="@drawable/ic_baseline_playlist_add_24"
+        android:title="Home" />
+    <item
+        android:id="@+id/barChartFragment"
+        android:icon="@drawable/ic_outline_bar_chart_24"
+        android:title="BarChart" />
+    <item
+        android:id="@+id/pieChartFragment"
+        android:icon="@drawable/ic_baseline_pie_chart_24"
+        android:title="PieChart" />
+    <item
+
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="Settings" />
+</menu>

@@ -172,7 +172,7 @@ public class BarChartFragment extends Fragment implements View.OnClickListener {
 	}
 
 	private void setUpToolbar() {
-		((BarChart)getActivity()).setUpToolbar("Trend Graph");
+//		((BarChart)getActivity()).setUpToolbar("Trend Graph");
 
 	}
 

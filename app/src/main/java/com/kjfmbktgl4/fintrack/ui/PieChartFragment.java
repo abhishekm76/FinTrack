@@ -74,7 +74,7 @@ public class PieChartFragment extends Fragment implements View.OnClickListener {
 		endDateET.setOnClickListener(this);
 		switchSetUp();
 
-		setUpToolbar();
+		//setUpToolbar();
 		setStartAndEndDates();
 		setDatePickers();
 		dataArrayList = getDataForGraph();

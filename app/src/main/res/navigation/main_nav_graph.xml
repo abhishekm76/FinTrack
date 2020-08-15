@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.kjfmbktgl4.fintrack.ui.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_pieChartFragment"
+            app:destination="@id/pieChartFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_barChartFragment"
+            app:destination="@id/barChartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editTransactionFragment"
+        android:name="com.kjfmbktgl4.fintrack.ui.EditTransactionFragment"
+        android:label="EditTransactionFragment" />
+    <fragment
+        android:id="@+id/barChartFragment"
+        android:name="com.kjfmbktgl4.fintrack.ui.BarChartFragment"
+        android:label="BarChartFragment" >
+        <action
+            android:id="@+id/action_barChartFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pieChartFragment"
+        android:name="com.kjfmbktgl4.fintrack.ui.PieChartFragment"
+        android:label="PieChartFragment" >
+        <action
+            android:id="@+id/action_pieChartFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+</navigation>
