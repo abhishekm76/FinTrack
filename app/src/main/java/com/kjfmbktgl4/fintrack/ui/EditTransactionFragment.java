@@ -36,7 +36,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class EditTransactionFragment extends Fragment implements View.OnClickListener {
+public class EditTransactionFragment extends Fragment implements View.OnClickListener, ChipGroup.OnCheckedChangeListener {
 
 	Button saveButton;
 	Button cancelButton;
@@ -81,6 +81,8 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		selChipCategory = v.findViewById(categoryChipGroup.getCheckedChipId());
 		selChipAccount = v.findViewById(accountChipGroup.getCheckedChipId());
 
+		categoryChipGroup.setOnCheckedChangeListener(this);
+		accountChipGroup.setOnCheckedChangeListener(this);
 
 		return v;
 	}
@@ -120,7 +122,6 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	}
 
 	private void setValuesToEdit() {
-
 		TransactionItem transactionItem = new TransactionItem();
 		transactionItem = db.getOneTransaction(id);
 
@@ -178,6 +179,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 			chip.setText(category);
 			categoryChipGroup.addView(chip);
 			categoryChipGroup.setSingleSelection(true);
+			categoryChipGroup.setSelectionRequired(true);
 		}
 
 		List<String> accountNames;
@@ -188,6 +190,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 			chip.setText(accountName);
 			accountChipGroup.addView(chip);
 			accountChipGroup.setSingleSelection(true);
+			accountChipGroup.setSelectionRequired(true);
 		}
 
 	}
@@ -238,22 +241,29 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 			transaction.setId(id);
 			transaction.setDateOfTransaction(DateConverters.dateStringToLong(dateET.getText().toString()));
 
-
 			if (categoryChipGroup.getCheckedChipId() == -1) {
 				transaction.setNameCategoryOfTransaction("Others");
 			} else {
-				//Chip selChipCategory = v.findViewById(categoryChipGroup.getCheckedChipId());
+				int id = categoryChipGroup.getCheckedChipId();
+				//selChipCategory =(Chip)categoryChipGroup.getChildAt(id-1-(categoryChipGroup.getChildCount()));
+				transaction.setNameCategoryOfTransaction((selChipCategory.getText().toString()));
+
+				/*//Chip selChipCategory = v.findViewById(categoryChipGroup.getCheckedChipId());
 				String selChipString = String.valueOf(selChipCategory.getText());
-				transaction.setNameCategoryOfTransaction(selChipString);
+				transaction.setNameCategoryOfTransaction(selChipString);*/
 			}
 
 
 			if (accountChipGroup.getCheckedChipId() == -1) {
 				transaction.setAccountOfTransaction("Others");
 			} else {
+				int id1 = accountChipGroup.getCheckedChipId();
+				//selChipAccount =(Chip)accountChipGroup.getChildAt(id1-1);
+				transaction.setAccountOfTransaction((selChipAccount.getText().toString()));
+
 				//Chip selChipAccount = v.findViewById(accountChipGroup.getCheckedChipId());
-				String selChipStringAccount = String.valueOf(selChipAccount.getText());
-				transaction.setAccountOfTransaction(selChipStringAccount);
+				//String selChipStringAccount = String.valueOf(selChipAccount.getText());
+				//transaction.setAccountOfTransaction(selChipStringAccount);
 			}
 
 			db.updateTransaction(transaction);
@@ -285,7 +295,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 			TransactionItem transaction = new TransactionItem();
 			int id = categoryChipGroup.getCheckedChipId();
 			if (id != -1) {
-				selChipCategory =(Chip)categoryChipGroup.getChildAt(id);
+				//selChipCategory =(Chip)categoryChipGroup.getChildAt(id-1);
 
 				transaction.setNameCategoryOfTransaction((selChipCategory.getText().toString()));
 			} else transaction.setNameCategoryOfTransaction("Others");
@@ -295,7 +305,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 			transaction.setDateOfTransaction(DateConverters.dateStringToLong(dateET.getText().toString()));
 			int idAccount = accountChipGroup.getCheckedChipId();
 			if (idAccount != -1) {
-				selChipAccount =(Chip)accountChipGroup.getChildAt(id);
+			//	selChipAccount =(Chip)accountChipGroup.getChildAt(id-1);
 				transaction.setAccountOfTransaction((selChipAccount.getText().toString()));
 			} else transaction.setAccountOfTransaction("Others");
 			db.addTransaction(transaction);
@@ -344,5 +354,21 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
+	}
+
+	@Override
+	public void onCheckedChanged(ChipGroup pChipGroup, int pI) {
+
+		if(pChipGroup.getId()==(categoryChipGroup.getId())) {
+			selChipCategory = getView().findViewById(pI);
+			Log.d(Util.TAG,"Here in chip checked change cat"+selChipCategory.getText().toString());
+		}else{
+			selChipAccount = getView().findViewById(pI);
+			Log.d(Util.TAG,"Here in chip checked change act"+selChipAccount.getText().toString());
+		}
+
+		/*
+		Log.d(Util.TAG,"Here in chip checked change act"+selChipAccount.getText());*/
+
 	}
 }
