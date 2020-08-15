@@ -8,6 +8,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
 
 
+<!--
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/NavRV"
@@ -20,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include3"
         tools:listitem="@layout/transaction_rv_row" />
+-->
 
   <!--  <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -45,7 +47,7 @@
     <!--</com.google.android.material.appbar.AppBarLayout>-->
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,7 +57,7 @@
         app:tint="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_outline_add_24" />
+        app:srcCompat="@drawable/ic_outline_add_24" />-->
 
 
     <include
@@ -67,8 +69,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <FrameLayout
+        android:id="@+id/container_mainrecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include3">
 
-
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
