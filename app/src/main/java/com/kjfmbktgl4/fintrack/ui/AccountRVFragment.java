@@ -117,4 +117,5 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 		}
 		startActivity(intent);
 	}
+
 }

@@ -126,6 +126,8 @@ public class NavDrawerLauncher extends AppCompatActivity {
 			StrictMode.setThreadPolicy(policy);
 
 
+		}else{
+
 		}
 
 	}
@@ -141,6 +143,8 @@ public class NavDrawerLauncher extends AppCompatActivity {
 			Resources res = getResources();
 			account_array = Arrays.asList(res.getStringArray(R.array.account_array));
 			Preferences.setArrayPrefs("AccountNames", account_array, this);
+		} else{
+
 		}
 	}
 
@@ -154,6 +158,9 @@ public class NavDrawerLauncher extends AppCompatActivity {
 			mcategoryName = Arrays.asList(res.getStringArray(R.array.category_array));
 			Preferences.setArrayPrefs("CategoryNames", mcategoryName, this);
 			Log.d(Util.TAG, "writing new sp again in navdl: " + mcategoryName.size());
+		}
+		else{
+
 		}
 	}
 

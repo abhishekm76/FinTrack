@@ -40,6 +40,15 @@ public class AccountRVAdapter extends RecyclerView.Adapter<AccountRVAdapter.View
 		return vh;
 	
 	}
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		return position;
+	}
 
 	@Override
 	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
