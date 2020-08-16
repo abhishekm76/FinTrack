@@ -21,12 +21,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.kjfmbktgl4.fintrack.BuildConfig;
+
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.adapter.TransactionRecyclerViewAdapter;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
@@ -53,6 +56,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 	public List<TransactionItem> transactionItemArrayList;
 	public List<TransactionItem> exportArrayList;
 	FloatingActionButton fab;
+	NavController mNavController;
 
 	@Nullable
 	@Override
@@ -73,6 +77,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 		setUpTransactionRV();
 		new AsyncSetUpCatAct().execute();
 
+		mNavController= NavHostFragment.findNavController(this);
+
 		//RV methods
 		//addInitialTestData(5);
 		//clearSPref(); //use to test sharedPref by deleting it completely
@@ -80,10 +86,13 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 	}
 
 	private void setUpFab() {
+		MainFragmentDirections.ActionMainFragmentToEditTransactionFragment action = MainFragmentDirections.actionMainFragmentToEditTransactionFragment();
+		action.setIsNew(true);
+		mNavController.navigate(action);
 
-				Intent intent = new Intent(getContext(), EditTransaction.class);
+				/*Intent intent = new Intent(getContext(), EditTransaction.class);
 				intent.putExtra("isNew", true);
-				startActivity(intent);
+				startActivity(intent);*/
 
 	}
 
@@ -93,20 +102,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 		asyncDataFetch.execute();
 	}
 
-	private void executeStrictModePolicy() {
-		if (BuildConfig.DEBUG) {
-			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-					.detectAll()
-					.penaltyLog()
-					.build();
-			StrictMode.setThreadPolicy(policy);
-
-
-		}else{
-
-		}
-
-	}
 
 	private void clearSPref() {
 		Preferences.clearPrefs(getContext());
@@ -145,7 +140,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-		recyclerViewAdapter = new TransactionRecyclerViewAdapter(getContext(), transactionItemArrayList);
+		recyclerViewAdapter = new TransactionRecyclerViewAdapter(getContext(), transactionItemArrayList,mNavController);
 		recyclerView.setAdapter(recyclerViewAdapter);
 		/*ItemDecoration itemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
 		recyclerView.addItemDecoration(itemDecoration);*/

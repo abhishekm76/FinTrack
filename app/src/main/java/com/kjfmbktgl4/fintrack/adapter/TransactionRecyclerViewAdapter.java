@@ -12,12 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
 import com.kjfmbktgl4.fintrack.ui.EditTransaction;
+import com.kjfmbktgl4.fintrack.ui.MainFragmentDirections;
 import com.kjfmbktgl4.fintrack.util.DateConverters;
 import com.kjfmbktgl4.fintrack.util.Util;
 //import com.kjfmbktgl4.fintrack.ui.TransactionRV;
@@ -29,10 +31,12 @@ import java.util.List;
 public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<TransactionRecyclerViewAdapter.ViewHolder> {
 	private Context context;
 	private List<TransactionItem> transactionItemList;
+	private NavController mNavController;
 
-	public TransactionRecyclerViewAdapter(Context context, List<TransactionItem> transactionItemList) {
+	public TransactionRecyclerViewAdapter(Context context, List<TransactionItem> transactionItemList, NavController pNavController) {
 		this.context = context;
 		this.transactionItemList = transactionItemList;
+		this.mNavController=pNavController;
 	}
 
 	@NonNull
@@ -101,10 +105,18 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 
 			int position = getAdapterPosition();
 			TransactionItem transactionItem = transactionItemList.get(position);
+
+			MainFragmentDirections.ActionMainFragmentToEditTransactionFragment action = MainFragmentDirections.actionMainFragmentToEditTransactionFragment();
+			action.setIsNew(false);
+			action.setIdTransaction(transactionItem.getId());
+			mNavController.navigate(action);
+
+/*
 			Intent intent = new Intent(context, EditTransaction.class);
 
 			intent.putExtra("id", transactionItem.getId());
 			context.startActivity(intent);
+*/
 
 		}
 	}

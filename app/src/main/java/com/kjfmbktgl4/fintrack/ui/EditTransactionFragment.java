@@ -58,9 +58,6 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-		Bundle bundle = getArguments();
-		isNew = bundle.getBoolean("isNew", false);
-		id = bundle.getInt("id", 0);
 /*
 		Intent intent = getIntent();
 		id = intent.getIntExtra("id", 0);
@@ -96,6 +93,17 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		delIV.setOnClickListener(this);
 
 		db = new DatabaseHandler(getActivity());
+		isNew = EditTransactionFragmentArgs.fromBundle(getArguments()).getIsNew();
+		id = EditTransactionFragmentArgs.fromBundle(getArguments()).getIdTransaction();
+
+/*
+		Bundle bundle = getArguments();
+		isNew = bundle.getBoolean("isNew", false);
+		id = bundle.getInt("id", 0);
+*/
+
+
+
 		createCategoryViews();
 
 		if (!isNew) {
@@ -227,7 +235,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	}
 
 	private void startPrevAct() {
-		Intent intent = new Intent(getContext(), NavDrawerLauncher.class);
+		Intent intent = new Intent(getContext(), MainActivity.class);
 		startActivity(intent);
 	}
 

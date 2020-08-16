@@ -14,7 +14,7 @@
         android:icon="@drawable/ic_baseline_pie_chart_24"
         android:title="PieChart" />
     <item
-
+        android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="Settings" />
 </menu>

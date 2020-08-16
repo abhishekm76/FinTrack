@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        app:titleTextColor="@color/colorWhite"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
         android:theme="@style/MyThemeOverlay_Toolbar"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_nav_graph"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
     app:startDestination="@id/mainFragment">
 
     <fragment
@@ -13,11 +15,29 @@
         <action
             android:id="@+id/action_mainFragment_to_barChartFragment"
             app:destination="@id/barChartFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_editTransactionFragment"
+            app:destination="@id/editTransactionFragment" />
     </fragment>
     <fragment
         android:id="@+id/editTransactionFragment"
         android:name="com.kjfmbktgl4.fintrack.ui.EditTransactionFragment"
-        android:label="EditTransactionFragment" />
+        android:label="EditTransactionFragment" >
+        <action
+            android:id="@+id/action_editTransactionFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="isNew"
+            app:argType="boolean"
+            android:defaultValue="true" />
+        <argument
+            android:name="idTransaction"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
     <fragment
         android:id="@+id/barChartFragment"
         android:name="com.kjfmbktgl4.fintrack.ui.BarChartFragment"
@@ -32,6 +52,15 @@
         android:label="PieChartFragment" >
         <action
             android:id="@+id/action_pieChartFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.kjfmbktgl4.fintrack.ui.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
 </navigation>
