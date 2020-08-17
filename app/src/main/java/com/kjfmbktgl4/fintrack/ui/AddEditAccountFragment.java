@@ -81,7 +81,7 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 	}
 
 	private void setUpToolbar() {
-		((AddEditAccount)getActivity()).setUpToolbar(mType+ " Details");
+		//((AddEditAccount)getActivity()).setUpToolbar(mType+ " Details");
 	}
 
 	private void setInitialValues() {

@@ -62,5 +62,31 @@
         <action
             android:id="@+id/action_settingsFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_accountRVFragment"
+            app:destination="@id/accountRVFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountRVFragment"
+        android:name="com.kjfmbktgl4.fintrack.ui.AccountRVFragment"
+        android:label="AccountRVFragment" >
+        <action
+            android:id="@+id/action_accountRVFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_accountRVFragment_to_addEditAccountFragment"
+            app:destination="@id/addEditAccountFragment" />
+        <argument
+            android:name="mType"
+            app:argType="string"
+            android:defaultValue="Category" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditAccountFragment"
+        android:name="com.kjfmbktgl4.fintrack.ui.AddEditAccountFragment"
+        android:label="AddEditAccountFragment" >
+        <action
+            android:id="@+id/action_addEditAccountFragment_to_accountRVFragment"
+            app:destination="@id/accountRVFragment" />
     </fragment>
 </navigation>

@@ -71,7 +71,7 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 	}
 
 	private void setUpToolbar() {
-		((AccountRV)getActivity()).setUpToolbar();
+		//((AccountRV)getActivity()).setUpToolbar();
 	}
 
 /*	@Override
