@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +38,7 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 	FloatingActionButton fab;
 	RecyclerView recyclerView;
 	String mType;
+	NavController mNavController;
 
 
 	@Nullable
@@ -44,9 +47,7 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 	                         @Nullable ViewGroup container,
 	                         @Nullable Bundle savedInstanceState) {
 
-		Bundle bundle = getArguments();
-		mType = bundle.getString("Type");
-
+		mType = AccountRVFragmentArgs.fromBundle(getArguments()).getMType();
 		View v =  inflater.inflate(R.layout.account_rv_fragment,container,false);
 		fab=v.findViewById(R.id.fab);
 		recyclerView = v.findViewById(R.id.cat_recyclerview);
@@ -58,6 +59,7 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 	                          @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		mContext=getContext();
+		mNavController= NavHostFragment.findNavController(this);
 		fab.setOnClickListener(this);
 		setUpToolbar();
 		getAllData();
@@ -82,7 +84,7 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 	private void setUpRecyclerView() {
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-		mRecyclerviewAdapter = new AccountRVAdapter(mAccountName,mContext,mType);
+		mRecyclerviewAdapter = new AccountRVAdapter(mAccountName,mContext,mType,mNavController);
 		recyclerView.setAdapter(mRecyclerviewAdapter);
 
 		DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
@@ -112,10 +114,15 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 		intent.putExtra("Type", mType);
 		switch (pView.getId()) {
 			case R.id.fab:
-				intent.putExtra("isNew", true);
+				AccountRVFragmentDirections.ActionAccountRVFragmentToAddEditAccountFragment action = AccountRVFragmentDirections.actionAccountRVFragmentToAddEditAccountFragment();
+				action.setIsNew(true);
+				action.setTextToEdit(" ");
+				mNavController.navigate(action);
+				//intent.putExtra("isNew", true);
 				break;
 		}
-		startActivity(intent);
+		//startActivity(intent);
+
 	}
 
 }

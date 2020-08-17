@@ -88,5 +88,17 @@
         <action
             android:id="@+id/action_addEditAccountFragment_to_accountRVFragment"
             app:destination="@id/accountRVFragment" />
+        <argument
+            android:name="TextToEdit"
+            app:argType="string"
+            android:defaultValue=" " />
+        <argument
+            android:name="mType"
+            app:argType="string"
+            android:defaultValue="Category" />
+        <argument
+            android:name="isNew"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>

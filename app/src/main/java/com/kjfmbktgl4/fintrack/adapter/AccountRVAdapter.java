@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.model.Accounts;
+import com.kjfmbktgl4.fintrack.ui.AccountRVFragmentDirections;
 import com.kjfmbktgl4.fintrack.ui.AddEditAccount;
 
 import java.util.List;
@@ -23,12 +25,13 @@ public class AccountRVAdapter extends RecyclerView.Adapter<AccountRVAdapter.View
 	public ImageView mdeleteIconIV;
 	Context mContext;
 	String mtypeOfData;
+	NavController mNavController;
 
-	public AccountRVAdapter(List<Accounts> pAccountsList, Context pContext, String ptypeOfData) {
+	public AccountRVAdapter(List<Accounts> pAccountsList, Context pContext, String ptypeOfData,NavController pNavController) {
 		mAccountsList = pAccountsList;
 		mContext = pContext;
 		mtypeOfData=ptypeOfData;
-
+		mNavController=pNavController;
 
 	}
 
@@ -75,12 +78,20 @@ public class AccountRVAdapter extends RecyclerView.Adapter<AccountRVAdapter.View
 		public void onClick(View pView) {
 			Accounts accountClicked = mAccountsList.get(getAdapterPosition());
 			String AccountNameToEdit = accountClicked.getStringaccountName();
+
+			AccountRVFragmentDirections.ActionAccountRVFragmentToAddEditAccountFragment action = AccountRVFragmentDirections.actionAccountRVFragmentToAddEditAccountFragment();
+			action.setMType(mtypeOfData);
+			action.setTextToEdit(AccountNameToEdit);
+			mNavController.navigate(action);
+
+/*
 			Intent intent = new Intent(mContext, AddEditAccount.class);
 			intent.putExtra("Type",mtypeOfData);
 			intent.putExtra("AccountName", AccountNameToEdit);
 
 
 			mContext.startActivity(intent);
+*/
 		}
 	}
 }

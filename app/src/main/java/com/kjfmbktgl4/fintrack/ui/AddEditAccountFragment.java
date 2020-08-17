@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.kjfmbktgl4.fintrack.R;
@@ -36,6 +38,7 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 	private String mAccountToEdit, mEditedAccount, mType;
 	boolean mIsNew, mIsError;
 	private List<String> maccountNameList;
+	NavController mNavController;
 
 	@Nullable
 	@Override
@@ -43,13 +46,21 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 	                         @Nullable ViewGroup container,
 	                         @Nullable Bundle savedInstanceState) {
 
-		Bundle bundle = getArguments();
+	//		Bundle bundle = getArguments();
+		mAccountToEdit = AddEditAccountFragmentArgs.fromBundle(getArguments()).getTextToEdit();
+		mType = AddEditAccountFragmentArgs.fromBundle(getArguments()).getMType();
+		mIsNew=AddEditAccountFragmentArgs.fromBundle(getArguments()).getIsNew();
+		mNavController= NavHostFragment.findNavController(this);
+
+/*
+
 		mAccountToEdit = bundle.getString("AccountName");
 		mType = bundle.getString("Type");
+*/
 		if (mType == null) {
 			mType = "Account";
 		}
-		mIsNew = bundle.getBoolean("isNew", false);
+		//mIsNew = bundle.getBoolean("isNew", false);
 		View v = inflater.inflate(R.layout.add_edit_simple_fragment, container, false);
 		save = v.findViewById(R.id.button_SaveDF);
 		cancel = v.findViewById(R.id.button_cancelDF);
@@ -119,7 +130,17 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 	private void goBackToPrevActivity() {
 		/*Intent intent = new Intent(this, AccountRV.class);
 		startActivity(intent);*/
-		if (mType.equals("Account")) {
+		AddEditAccountFragmentDirections.ActionAddEditAccountFragmentToAccountRVFragment action = AddEditAccountFragmentDirections.actionAddEditAccountFragmentToAccountRVFragment();
+		action.setMType(mType);
+		mNavController.navigate(action);
+
+
+
+		/*if (mType.equals("Account")) {
+
+
+
+
 			Intent intent = new Intent(getContext(), AccountRV.class);
 			intent.putExtra("Type", mType);
 			startActivity(intent);
@@ -128,7 +149,7 @@ public class AddEditAccountFragment extends Fragment implements View.OnClickList
 			Intent intent = new Intent(getContext(), AccountRV.class);
 			intent.putExtra("Type", mType);
 			startActivity(intent);
-		}
+		}*/
 
 
 	}
