@@ -259,6 +259,6 @@ public class PieChartFragment extends Fragment implements View.OnClickListener {
 	}
 
 	private void setUpToolbar() {
-		((PieChart)getActivity()).setUpToolbar("Distribution Graph");
+	//	((PieChart)getActivity()).setUpToolbar("Distribution Graph");
 	}
 }

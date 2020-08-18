@@ -174,6 +174,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 		}
 	}
 
+/*
 	@Override
 	public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -222,6 +223,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
 		return super.onOptionsItemSelected(item);
 	}
+*/
 	private void deleteAlertDialog(){
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
 		alertDialogBuilder.setMessage("This will delete all data, are you sure you want to delete all the data?");

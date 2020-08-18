@@ -1,3 +1,4 @@
+/*
 package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.annotation.NonNull;
@@ -43,7 +44,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class EditTransaction extends AppCompatActivity /*implements View.OnClickListener*/ {
+public class EditTransaction extends AppCompatActivity */
+/*implements View.OnClickListener*//*
+ {
 	Button saveButton;
 	Button cancelButton;
 	ImageButton delButton;
@@ -75,6 +78,7 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 		}
 
 
+*/
 /*		amountET = findViewById(R.id.editTextAmount);
 		noteET = findViewById(R.id.editTextNote);
 		saveButton = findViewById(R.id.buttonsave);
@@ -99,7 +103,8 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 			setCurrentDate();
 			setDefaultSelection();
 		}
-		setCurrency();*/
+		setCurrency();*//*
+
 	}
 
 	public void setUpToolbar(){
@@ -112,7 +117,8 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 
 	}
 
-	/*private void setDefaultSelection() {
+	*/
+/*private void setDefaultSelection() {
 		ChipGroup chipGroup = findViewById(R.id.catChipGroup);
 		Chip chip = (Chip) chipGroup.getChildAt(0);
 		chip.setChecked(true);
@@ -229,14 +235,16 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 
 		}
 
-	}*/
+	}*//*
+
 
 	public void startPrevAct() {
 		Intent intent = new Intent(this, NavDrawerLauncher.class);
 		startActivity(intent);
 	}
 
-	/*private void updateTransaction() {
+	*/
+/*private void updateTransaction() {
 		checkForErrors();
 		if (!error) {
 			TransactionItem transaction = new TransactionItem();
@@ -325,7 +333,9 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 
 	}
 
-	*//*@Override
+	*//*
+*/
+/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (!isNew) {
 			getMenuInflater().inflate(R.menu.simple_delete, menu);
@@ -346,6 +356,8 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 		}
 		return super.onOptionsItemSelected(item);
 	}*//*
+*/
+/*
 
 	private void deleteEntry() {
 		Log.d(Util.TAG, "delete " + id);
@@ -368,15 +380,20 @@ public class EditTransaction extends AppCompatActivity /*implements View.OnClick
 		alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				*//*finish();*//*
+				*//*
+*/
+/*finish();*//*
+*/
+/*
 			}
 		});
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
-	}*/
+	}*//*
+
 	@Override
 	public void onBackPressed(){
 		NavUtils.navigateUpFromSameTask(this);
 	}
-}
+}*/

@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
-import com.kjfmbktgl4.fintrack.ui.EditTransaction;
+//import com.kjfmbktgl4.fintrack.ui.EditTransaction;
 import com.kjfmbktgl4.fintrack.ui.MainFragmentDirections;
 import com.kjfmbktgl4.fintrack.util.DateConverters;
 import com.kjfmbktgl4.fintrack.util.Util;

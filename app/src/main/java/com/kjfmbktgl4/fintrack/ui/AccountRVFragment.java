@@ -110,12 +110,13 @@ public class AccountRVFragment extends Fragment implements View.OnClickListener 
 
 	@Override
 	public void onClick(View pView) {
-		Intent intent = new Intent(getContext(), AddEditAccount.class);
-		intent.putExtra("Type", mType);
+		//Intent intent = new Intent(getContext(), AddEditAccount.class);
+		//intent.putExtra("Type", mType);
 		switch (pView.getId()) {
 			case R.id.fab:
 				AccountRVFragmentDirections.ActionAccountRVFragmentToAddEditAccountFragment action = AccountRVFragmentDirections.actionAccountRVFragmentToAddEditAccountFragment();
 				action.setIsNew(true);
+				action.setMType(mType);
 				action.setTextToEdit(" ");
 				mNavController.navigate(action);
 				//intent.putExtra("isNew", true);

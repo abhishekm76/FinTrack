@@ -1,3 +1,4 @@
+/*
 package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,8 +37,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class PieChart extends AppCompatActivity /*implements View.OnClickListener */{
-	/*private ArrayList<CategoryTotals> dataArrayList;
+public class PieChart extends AppCompatActivity */
+/*implements View.OnClickListener *//*
+{
+	*/
+/*private ArrayList<CategoryTotals> dataArrayList;
 	private ArrayList<CategoryTotals> transactionItemArrayListByCategory = new ArrayList<>();
 	private String startDateString, endDateString;
 	private TextInputEditText startDateET, endDateET;
@@ -45,7 +49,8 @@ public class PieChart extends AppCompatActivity /*implements View.OnClickListene
 	private Boolean usePercent = true;
 	private Switch switchButton;
 	private Button allButton, yearButton, monthButton, refreshButton, todayButton;
-	com.github.mikephil.charting.charts.PieChart pieChart;*/
+	com.github.mikephil.charting.charts.PieChart pieChart;*//*
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,9 @@ public class PieChart extends AppCompatActivity /*implements View.OnClickListene
 
 		if (savedInstanceState == null) {
 			PieChartFragment fragment = new PieChartFragment();
-			/*fragment.setArguments(getIntent().getExtras());*/
+			*/
+/*fragment.setArguments(getIntent().getExtras());*//*
+
 			getSupportFragmentManager()
 					.beginTransaction()
 					.add(R.id.container_pieChart, fragment)
@@ -62,7 +69,8 @@ public class PieChart extends AppCompatActivity /*implements View.OnClickListene
 		}
 
 	}
-	/*	pieChart = findViewById(R.id.piechart);
+	*/
+/*	pieChart = findViewById(R.id.piechart);
 		startDateET = findViewById(R.id.selectStartDateForPie);
 		endDateET = findViewById(R.id.selectEndDateForPie);
 		allButton = findViewById(R.id.btn_all);
@@ -105,7 +113,8 @@ public class PieChart extends AppCompatActivity /*implements View.OnClickListene
 		startDateET.setText(startDate);
 		String endDate = DateConverters.longStringToDateString(endDateString);
 		endDateET.setText(endDate);
-	}*/
+	}*//*
+
 
 	public void setUpToolbar(String pSubtitle) {
 		Toolbar toolbar = findViewById(R.id.toolbar);
@@ -117,7 +126,8 @@ public class PieChart extends AppCompatActivity /*implements View.OnClickListene
 
 	}
 
-	/*private void setStartAndEndDates() {
+	*/
+/*private void setStartAndEndDates() {
 		if (startDateString == null || endDateString == null) {
 			//Date endDate=Calendar.getInstance().getTime();
 			endDateString = DateConverters.getcurrentDateInMilLs();
@@ -276,6 +286,7 @@ public class PieChart extends AppCompatActivity /*implements View.OnClickListene
 		picker.show();
 
 
-	}*/
+	}*//*
 
-}
+
+}*/

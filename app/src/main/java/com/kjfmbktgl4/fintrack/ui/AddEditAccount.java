@@ -1,3 +1,4 @@
+/*
 package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AlertDialog;
@@ -24,16 +25,20 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class AddEditAccount extends AppCompatActivity /*implements View.OnClickListener*/ {
+public class AddEditAccount extends AppCompatActivity */
+/*implements View.OnClickListener*//*
+ {
 	String mType;
-	/*Button save, cancel;
+	*/
+/*Button save, cancel;
 
 	ImageButton deleteButton;
 	EditText accountName;
 	TextInputLayout editTIL;
 	private String mAccountToEdit, mEditedAccount;
 	boolean mIsNew, mIsError;
-	private List<String> maccountNameList;*/
+	private List<String> maccountNameList;*//*
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,8 @@ public class AddEditAccount extends AppCompatActivity /*implements View.OnClickL
 
 
 
-		/*save = findViewById(R.id.button_SaveDF);
+		*/
+/*save = findViewById(R.id.button_SaveDF);
 		cancel = findViewById(R.id.button_cancelDF);
 		deleteButton = findViewById(R.id.imageButton_delDF);
 		accountName = findViewById(R.id.editTextDF);
@@ -66,10 +72,12 @@ public class AddEditAccount extends AppCompatActivity /*implements View.OnClickL
 		mIsNew = getIntent().getBooleanExtra("isNew", false);
 		editTIL = findViewById(R.id.ediTextTIL);
 		setUpToolbar();
-		setInitialValues();*/
+		setInitialValues();*//*
+
 	}
 
-	/*private void setInitialValues() {
+	*/
+/*private void setInitialValues() {
 		if (!mIsNew) {
 			accountName.setText(mAccountToEdit);
 		}
@@ -98,7 +106,8 @@ public class AddEditAccount extends AppCompatActivity /*implements View.OnClickL
 		}
 
 
-	}*/
+	}*//*
+
 
 	public void goBackToPrevActivity() {
 		Intent intent = new Intent(this, AccountRV.class);
@@ -114,7 +123,8 @@ public class AddEditAccount extends AppCompatActivity /*implements View.OnClickL
 
 	}
 
-	/*private void deleteItem() {
+	*/
+/*private void deleteItem() {
 		maccountNameList.remove(mAccountToEdit);
 		Preferences.setArrayPrefs("AccountNames", maccountNameList, this);
 	}
@@ -153,11 +163,16 @@ public class AddEditAccount extends AppCompatActivity /*implements View.OnClickL
 		alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				*//*finish();*//*
+				*//*
+*/
+/*finish();*//*
+*/
+/*
 			}
 		});
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
-	}*/
-}
+	}*//*
+
+}*/

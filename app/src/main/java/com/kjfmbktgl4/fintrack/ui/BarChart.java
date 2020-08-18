@@ -1,3 +1,4 @@
+/*
 package com.kjfmbktgl4.fintrack.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,13 +32,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class BarChart extends AppCompatActivity /*implements View.OnClickListener*/ {
-	/*com.github.mikephil.charting.charts.BarChart barChart;
+public class BarChart extends AppCompatActivity */
+/*implements View.OnClickListener*//*
+ {
+	*/
+/*com.github.mikephil.charting.charts.BarChart barChart;
 	private List<PeriodTotal> dataList;
 	private String startDateString, endDateString;
 	private TextInputEditText startDateET, endDateET;
 	private Boolean setDate = false;
-	private Button allButton, yearButton, monthButton, refreshButton;*/
+	private Button allButton, yearButton, monthButton, refreshButton;*//*
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +51,16 @@ public class BarChart extends AppCompatActivity /*implements View.OnClickListene
 
 		if (savedInstanceState == null) {
 			BarChartFragment fragment = new BarChartFragment();
-			/*fragment.setArguments(getIntent().getExtras());*/
+			*/
+/*fragment.setArguments(getIntent().getExtras());*//*
+
 			getSupportFragmentManager()
 					.beginTransaction()
 					.add(R.id.container_barChart, fragment)
 					.commit();
 		}
 
+*/
 /*		barChart = findViewById(R.id.barChart);
 		startDateET = findViewById(R.id.selectStartDateForBar);
 		endDateET = findViewById(R.id.selectEndDateForBar);
@@ -66,16 +74,20 @@ public class BarChart extends AppCompatActivity /*implements View.OnClickListene
 		allButton.setOnClickListener(this);
 		yearButton.setOnClickListener(this);
 		monthButton.setOnClickListener(this);
-		refreshButton.setOnClickListener(this);*/
+		refreshButton.setOnClickListener(this);*//*
+
 
 		//setUpToolbar();
+*/
 /*		drawThisYear();
 		setDatePickers();
 		dataList = getDataForGraph();
-		drawGraph(dataList);*/
+		drawGraph(dataList);*//*
+
 
 	}
 
+*/
 /*	private void drawGraph(List<PeriodTotal> dataList) {
 		List<BarEntry> entries = new ArrayList<>();
 		ArrayList<String> xAxisLabels = new ArrayList<>();
@@ -167,7 +179,8 @@ public class BarChart extends AppCompatActivity /*implements View.OnClickListene
 			drawGraph(dataList);
 
 		}
-	}*/
+	}*//*
+
 
 	public void setUpToolbar(String pSubtitle) {
 		Toolbar toolbar = findViewById(R.id.toolbar);
@@ -178,7 +191,8 @@ public class BarChart extends AppCompatActivity /*implements View.OnClickListene
 
 	}
 
-	/*private void setDatePickers() {
+	*/
+/*private void setDatePickers() {
 		String startDate = DateConverters.longStringToDateString(startDateString);
 		startDateET.setText(startDate);
 		String endDate = DateConverters.longStringToDateString(endDateString);
@@ -239,6 +253,7 @@ public class BarChart extends AppCompatActivity /*implements View.OnClickListene
 	private void drawAllData() {
 		startDateString = DateConverters.getEpochStart();
 		endDateString = DateConverters.getcurrentDateInMilLs();
-	}*/
+	}*//*
 
-}
+
+}*/

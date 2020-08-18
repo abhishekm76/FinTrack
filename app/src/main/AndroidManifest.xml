@@ -19,12 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<!--
         <activity
             android:name=".ui.AddEditAccount"
             android:parentActivityName=".ui.AccountRV" />
-        <activity
-            android:name=".ui.AccountRV"
-            android:parentActivityName=".ui.NavDrawerLauncher" />
         <activity
             android:name=".ui.BarChart"
             android:parentActivityName=".ui.NavDrawerLauncher" />
@@ -35,6 +33,7 @@
             android:name=".ui.EditTransaction"
             android:parentActivityName=".ui.NavDrawerLauncher" />
         <activity android:name=".ui.NavDrawerLauncher" />
+-->
 
         <provider
             android:name="androidx.core.content.FileProvider"

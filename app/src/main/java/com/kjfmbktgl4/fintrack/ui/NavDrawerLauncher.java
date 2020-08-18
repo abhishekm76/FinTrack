@@ -1,3 +1,4 @@
+/*
 package com.kjfmbktgl4.fintrack.ui;
 
 import android.content.Context;
@@ -51,7 +52,6 @@ import java.util.Random;
 
 
 // TODO: 23-07-2020 navigation optimise
-//// TODO: 15-08-2020 convert to fragment
 //// TODO: 15-08-2020 add view model
 // TODO: 11-08-2020 add settings
 // TODO: 23-07-2020 add income options
@@ -96,6 +96,7 @@ public class NavDrawerLauncher extends AppCompatActivity {
 
 		setUpToolbar();
 
+*/
 /*		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -104,16 +105,19 @@ public class NavDrawerLauncher extends AppCompatActivity {
 				intent.putExtra("isNew", true);
 				startActivity(intent);
 			}
-		});*/
+		});*//*
+
 
 		//RV methods
 		//addInitialTestData(5);
 		//clearSPref(); //use to test sharedPref by deleting it completely
+*/
 /*
 		getAsyncData();
 		setUpTransactionRV();
 		new AsyncSetUpCatAct().execute();
-*/
+*//*
+
 
 	}
 
@@ -125,7 +129,8 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		getSupportActionBar().setSubtitle("Home");
 	}
 
-	/*private void getAsyncData() {
+	*/
+/*private void getAsyncData() {
 		transactionItemArrayList = new ArrayList<>();
 		AsyncDataFetch asyncDataFetch = new AsyncDataFetch();
 		asyncDataFetch.execute();
@@ -185,8 +190,12 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		recyclerViewAdapter = new TransactionRecyclerViewAdapter(NavDrawerLauncher.this, transactionItemArrayList);
 		recyclerView.setAdapter(recyclerViewAdapter);
-		*//*ItemDecoration itemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+		*//*
+*/
+/*ItemDecoration itemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
 		recyclerView.addItemDecoration(itemDecoration);*//*
+*/
+/*
 
 
 
@@ -276,7 +285,11 @@ public class NavDrawerLauncher extends AppCompatActivity {
 		alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				*//*finish();*//*
+				*//*
+*/
+/*finish();*//*
+*/
+/*
 			}
 		});
 
@@ -387,6 +400,7 @@ public class NavDrawerLauncher extends AppCompatActivity {
 			transactionItemArrayList.clear();
 			recyclerViewAdapter.notifyDataSetChanged();
 		}
-	}*/
+	}*//*
 
-}
+
+}*/
