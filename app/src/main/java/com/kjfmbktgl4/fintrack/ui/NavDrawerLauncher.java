@@ -66,7 +66,7 @@ import java.util.Random;
 //// TODO: 23-07-2020 check if prefsize causes an issue when there is no app data present
 //// TODO: 14-08-2020 check recyclerview scrolling issues
 // TODO: 14-08-2020 fragment oncreateview getting called twice?
-// TODO: 18-08-2020 navigate up is broken for addign new categories     
+// TODO: 18-08-2020 navigate up is broken for addign new categories
 
 import static com.kjfmbktgl4.fintrack.util.Util.SPREFNAME;
 

@@ -1,5 +1,6 @@
 package com.kjfmbktgl4.fintrack.ui;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -71,8 +72,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
-		setHasOptionsMenu(true);
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -98,9 +99,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 	@Override
 	public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
 		inflater.inflate(R.menu.recycler_search,menu);
-		MenuItem item=menu.findItem(R.id.action_search);
-		SearchView searchView = (SearchView) item.getActionView();
-		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+		MenuItem item = menu.findItem(R.id.action_search);
+		SearchView lSearchView = (SearchView) item.getActionView();
+		lSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 			@Override
 			public boolean onQueryTextSubmit(String query) {
 				return false;
@@ -108,9 +109,14 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
 			@Override
 			public boolean onQueryTextChange(String newText) {
+				recyclerViewAdapter.getFilter().filter(newText);
+
 				return false;
 			}
 		});
+
+
+
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 

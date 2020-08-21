@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,17 +27,31 @@ import com.kjfmbktgl4.fintrack.util.Util;
 //import com.kjfmbktgl4.fintrack.ui.TransactionRV;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<TransactionRecyclerViewAdapter.ViewHolder> {
+public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<TransactionRecyclerViewAdapter.ViewHolder> implements Filterable {
 	private Context context;
 	private List<TransactionItem> transactionItemList;
+	private List<TransactionItem> mtransactionItemListAll;
 	private NavController mNavController;
 
 	public TransactionRecyclerViewAdapter(Context context, List<TransactionItem> transactionItemList, NavController pNavController) {
 		this.context = context;
 		this.transactionItemList = transactionItemList;
+
+		mtransactionItemListAll = new ArrayList<>();
+		for(TransactionItem item:transactionItemList){
+			//mtransactionItemListAll.add(item.clone());
+		}
+
+		//mtransactionItemListAll.addAll(transactionItemList);
+
+
+		//mtransactionItemListAll=transactionItemList;
 		this.mNavController=pNavController;
 	}
 
@@ -77,6 +93,47 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 	public int getItemCount() {
 		return transactionItemList.size();
 	}
+
+	@Override
+	public Filter getFilter() {
+
+		return filter;
+	}
+
+	Filter filter = new Filter() {
+
+
+
+		@Override
+		protected FilterResults performFiltering(CharSequence pCharSequence) {
+			List<TransactionItem> filteredList = new ArrayList<>();
+			if(pCharSequence.toString().isEmpty()){
+				filteredList.addAll(mtransactionItemListAll);
+
+			}else{
+				for(TransactionItem item:transactionItemList){
+					String category = item.getNameCategoryOfTransaction().toString().toLowerCase();
+					String note = item.getNoteOfTransaction().toString().toLowerCase();
+					String accoount = item.getAccountOfTransaction().toString().toLowerCase();
+					if(category.contains(pCharSequence.toString().toLowerCase())|note.contains(pCharSequence.toString().toLowerCase())|accoount.contains(pCharSequence.toString().toLowerCase())){
+						filteredList.add(item);
+					}
+				}
+			}
+			FilterResults lFilterResults = new FilterResults();
+			lFilterResults.values=filteredList;
+
+			return lFilterResults;
+		}
+
+		@Override
+		protected void publishResults(CharSequence pCharSequence, FilterResults pFilterResults) {
+			transactionItemList.clear();
+			transactionItemList.addAll((Collection<? extends TransactionItem>) pFilterResults.values);
+			notifyDataSetChanged();
+		}
+	};
+
 
 	public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
