@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -61,11 +62,17 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		setHasOptionsMenu(true);
+
 		View v = inflater.inflate(R.layout.main_fragment,container,false);
 		fab = v.findViewById(R.id.fab);
 		recyclerView = v.findViewById(R.id.NavRV);
 		return v;
+	}
+
+	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		setHasOptionsMenu(true);
+		super.onCreate(savedInstanceState);
 	}
 
 	@Override
@@ -76,6 +83,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 		getAsyncData();
 		mNavController= NavHostFragment.findNavController(this);
 
+
 		setUpTransactionRV();
 		new AsyncSetUpCatAct().execute();
 
@@ -85,6 +93,25 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 		//addInitialTestData(5);
 		//clearSPref(); //use to test sharedPref by deleting it completely
 
+	}
+
+	@Override
+	public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+		inflater.inflate(R.menu.recycler_search,menu);
+		MenuItem item=menu.findItem(R.id.action_search);
+		SearchView searchView = (SearchView) item.getActionView();
+		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				return false;
+			}
+
+			@Override
+			public boolean onQueryTextChange(String newText) {
+				return false;
+			}
+		});
+		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	private void setUpFab() {
