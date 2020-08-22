@@ -27,6 +27,7 @@ import com.kjfmbktgl4.fintrack.util.Util;
 //import com.kjfmbktgl4.fintrack.ui.TransactionRV;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -43,13 +44,10 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 	public TransactionRecyclerViewAdapter(Context context, List<TransactionItem> transactionItemList, NavController pNavController) {
 		this.context = context;
 		this.transactionItemList = transactionItemList;
-		//mtransactionItemListAll = new ArrayList<>(transactionItemList);
-
 		this.mNavController=pNavController;
 	}
 		public void initTransListAll(){
 			mtransactionItemListAll = new ArrayList<>(transactionItemList);
-
 		}
 	@NonNull
 	@Override
@@ -64,7 +62,8 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 		TransactionItem transaction = transactionItemList.get(position);
 		holder.categoryName.setText(transaction.getNameCategoryOfTransaction());
 		holder.transNote.setText(transaction.getNoteOfTransaction());
-		holder.transAmount.setText(""+transaction.getAmountOfTransaction());
+		String amountString = NumberFormat.getCurrencyInstance().format(transaction.getAmountOfTransaction());
+		holder.transAmount.setText(amountString);
 
 
 

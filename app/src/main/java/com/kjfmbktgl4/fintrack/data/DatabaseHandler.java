@@ -227,7 +227,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				PeriodTotal periodTotal = new PeriodTotal();
 				String periodName = cursor.getString(0);
 				periodTotal.setPeriodName(cursor.getString(0));
-				periodTotal.setTotalOfPeriod(Integer.parseInt((cursor.getString(1))));
+				periodTotal.setTotalOfPeriod(Float.parseFloat((cursor.getString(1))));
 
 				//add transaction objects to our list
 				periodTotalArrayList.add(periodTotal);

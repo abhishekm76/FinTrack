@@ -2,7 +2,7 @@ package com.kjfmbktgl4.fintrack.model;
 
 public class PeriodTotal {
 	private String periodName;
-	private int totalOfPeriod;
+	private float totalOfPeriod;
 
 	public String getPeriodName() {
 		return periodName;
@@ -12,11 +12,11 @@ public class PeriodTotal {
 		this.periodName = periodName;
 	}
 
-	public int getTotalOfPeriod() {
+	public float getTotalOfPeriod() {
 		return totalOfPeriod;
 	}
 
-	public void setTotalOfPeriod(int totalOfPeriod) {
+	public void setTotalOfPeriod(float totalOfPeriod) {
 		this.totalOfPeriod = totalOfPeriod;
 	}
 }

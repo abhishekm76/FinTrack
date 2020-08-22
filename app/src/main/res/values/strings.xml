@@ -22,14 +22,14 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="enter_any_notes_you_would_like_to_save">Enter any notes you would like to save.</string>
-    <string name="enter_the_date">Enter the date</string>
+    <string name="enter_the_date">Select the date</string>
     <string name="enter_the_amount">Enter the amount</string>
     <string name="edit_a_category">Enter / Edit Details</string>
     <string name="save_changes">Save Changes</string>
     <string name="delete">Delete</string>
     <string name="enter_details">Enter Details</string>
-    <string name="start_date">Start date</string>
-    <string name="end_date">End date</string>
+    <string name="start_date">Select start date</string>
+    <string name="end_date">Select end date</string>
     <string name="refresh">Refresh</string>
     <string name="select_a_category_for_the_transaction">Select a category for the transaction</string>
     <string name="select_an_account_for_the_transaction">Select an account for the transaction</string>

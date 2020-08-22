@@ -22,6 +22,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.kjfmbktgl4.fintrack.R;
@@ -84,7 +85,7 @@ public class BarChartFragment extends Fragment implements View.OnClickListener {
 		Float index;
 		for (int i = 0; i < dataList.size(); i++) {
 			String labelName = dataList.get(i).getPeriodName();
-			int totalOfPeriod = (dataList.get(i).getTotalOfPeriod());
+			float totalOfPeriod = (dataList.get(i).getTotalOfPeriod());
 			index = Float.valueOf(i);
 			entries.add(new BarEntry(index, totalOfPeriod));
 			xAxisLabels.add(labelName);
@@ -105,6 +106,7 @@ public class BarChartFragment extends Fragment implements View.OnClickListener {
 		barChart.setDrawGridBackground(false);
 		// Hide the description
 		barChart.getAxisLeft().setDrawLabels(true);
+		barChart.getAxisLeft().setValueFormatter(new LargeValueFormatter());
 		barChart.getAxisRight().setDrawLabels(false);
 
 		barChart.getAxisLeft().setDrawGridLines(true);
