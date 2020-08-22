@@ -37,21 +37,15 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 	private Context context;
 	private List<TransactionItem> transactionItemList;
 	private List<TransactionItem> mtransactionItemListAll;
+	private List<TransactionItem> mFilteredList;
 	private NavController mNavController;
 
 	public TransactionRecyclerViewAdapter(Context context, List<TransactionItem> transactionItemList, NavController pNavController) {
 		this.context = context;
 		this.transactionItemList = transactionItemList;
-
-		mtransactionItemListAll = new ArrayList<>();
-		for(TransactionItem item:transactionItemList){
-			//mtransactionItemListAll.add(item.clone());
-		}
-
-		//mtransactionItemListAll.addAll(transactionItemList);
-
-
-		//mtransactionItemListAll=transactionItemList;
+		this.mFilteredList = transactionItemList;
+		/*mtransactionItemListAll = new ArrayList<>();
+		mtransactionItemListAll.addAll(transactionItemList);*/
 		this.mNavController=pNavController;
 	}
 
@@ -96,40 +90,39 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 
 	@Override
 	public Filter getFilter() {
-
 		return filter;
 	}
 
 	Filter filter = new Filter() {
 
-
-
 		@Override
 		protected FilterResults performFiltering(CharSequence pCharSequence) {
 			List<TransactionItem> filteredList = new ArrayList<>();
 			if(pCharSequence.toString().isEmpty()){
-				filteredList.addAll(mtransactionItemListAll);
-
+				//filteredList.addAll(mtransactionItemListAll);
+				filteredList = transactionItemList;
 			}else{
 				for(TransactionItem item:transactionItemList){
 					String category = item.getNameCategoryOfTransaction().toString().toLowerCase();
 					String note = item.getNoteOfTransaction().toString().toLowerCase();
-					String accoount = item.getAccountOfTransaction().toString().toLowerCase();
-					if(category.contains(pCharSequence.toString().toLowerCase())|note.contains(pCharSequence.toString().toLowerCase())|accoount.contains(pCharSequence.toString().toLowerCase())){
+					String account = item.getAccountOfTransaction().toString().toLowerCase();
+					if(category.contains(pCharSequence.toString().toLowerCase())||note.contains(pCharSequence.toString().toLowerCase())||account.contains(pCharSequence.toString().toLowerCase())){
 						filteredList.add(item);
 					}
 				}
+				mFilteredList = filteredList;
 			}
 			FilterResults lFilterResults = new FilterResults();
 			lFilterResults.values=filteredList;
-
 			return lFilterResults;
 		}
 
 		@Override
 		protected void publishResults(CharSequence pCharSequence, FilterResults pFilterResults) {
-			transactionItemList.clear();
-			transactionItemList.addAll((Collection<? extends TransactionItem>) pFilterResults.values);
+			//transactionItemList.clear();
+			mFilteredList = new ArrayList<>();
+			mFilteredList.addAll((Collection<? extends TransactionItem>) pFilterResults.values);
+			transactionItemList=mFilteredList;
 			notifyDataSetChanged();
 		}
 	};
