@@ -43,12 +43,14 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 	public TransactionRecyclerViewAdapter(Context context, List<TransactionItem> transactionItemList, NavController pNavController) {
 		this.context = context;
 		this.transactionItemList = transactionItemList;
-		this.mFilteredList = transactionItemList;
-		/*mtransactionItemListAll = new ArrayList<>();
-		mtransactionItemListAll.addAll(transactionItemList);*/
+		//mtransactionItemListAll = new ArrayList<>(transactionItemList);
+
 		this.mNavController=pNavController;
 	}
+		public void initTransListAll(){
+			mtransactionItemListAll = new ArrayList<>(transactionItemList);
 
+		}
 	@NonNull
 	@Override
 	public TransactionRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -99,8 +101,8 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 		protected FilterResults performFiltering(CharSequence pCharSequence) {
 			List<TransactionItem> filteredList = new ArrayList<>();
 			if(pCharSequence.toString().isEmpty()){
-				//filteredList.addAll(mtransactionItemListAll);
-				filteredList = transactionItemList;
+				filteredList.addAll(mtransactionItemListAll);
+
 			}else{
 				for(TransactionItem item:transactionItemList){
 					String category = item.getNameCategoryOfTransaction().toString().toLowerCase();
@@ -110,7 +112,7 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 						filteredList.add(item);
 					}
 				}
-				mFilteredList = filteredList;
+
 			}
 			FilterResults lFilterResults = new FilterResults();
 			lFilterResults.values=filteredList;
@@ -119,10 +121,8 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 
 		@Override
 		protected void publishResults(CharSequence pCharSequence, FilterResults pFilterResults) {
-			//transactionItemList.clear();
-			mFilteredList = new ArrayList<>();
-			mFilteredList.addAll((Collection<? extends TransactionItem>) pFilterResults.values);
-			transactionItemList=mFilteredList;
+			transactionItemList.clear();
+			transactionItemList.addAll((Collection<? extends TransactionItem>) pFilterResults.values);
 			notifyDataSetChanged();
 		}
 	};

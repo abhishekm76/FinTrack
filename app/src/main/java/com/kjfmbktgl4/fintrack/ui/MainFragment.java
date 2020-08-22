@@ -104,13 +104,13 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 		lSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 			@Override
 			public boolean onQueryTextSubmit(String query) {
+				//recyclerViewAdapter.getFilter().filter(query);
 				return false;
 			}
 
 			@Override
 			public boolean onQueryTextChange(String newText) {
 				recyclerViewAdapter.getFilter().filter(newText);
-
 				return false;
 			}
 		});
@@ -341,6 +341,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 		@Override
 		protected void onPostExecute(List<TransactionItem> transactionItems) {
 			transactionItemArrayList.addAll(transactionItems);
+			recyclerViewAdapter.initTransListAll();
 			recyclerViewAdapter.notifyDataSetChanged();
 		}
 	}
