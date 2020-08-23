@@ -38,7 +38,10 @@ dependencies {
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
     //For native ads
-    implementation 'com.google.android.gms:play-services-ads:17.2.0'
+    implementation 'com.google.android.gms:play-services-ads:19.3.0'
+    // import native templates for ads
+    //implementation project(':NativeTemplatesAndroid-1.0.0')
+    implementation project(':nativetemplates')
 
     //graph SEE ALSO THE PROJECT BUILD.GRADLE REPOSITORY SECTION
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'

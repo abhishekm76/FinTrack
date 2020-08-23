@@ -3,6 +3,7 @@ package com.kjfmbktgl4.fintrack.ui;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,6 +19,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
@@ -47,6 +53,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	Boolean error = false;
 	ImageButton delIV;
 	DatabaseHandler db;
+	TemplateView template;
 
 	String categoryName, accountName;
 	TextInputLayout amountTIL;
@@ -77,6 +84,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		accountChipGroup = v.findViewById(R.id.actChipGroup);
 		selChipCategory = v.findViewById(categoryChipGroup.getCheckedChipId());
 		selChipAccount = v.findViewById(accountChipGroup.getCheckedChipId());
+		template = v.findViewById(R.id.ad_small);
 
 		categoryChipGroup.setOnCheckedChangeListener(this);
 		accountChipGroup.setOnCheckedChangeListener(this);
@@ -96,6 +104,8 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		isNew = EditTransactionFragmentArgs.fromBundle(getArguments()).getIsNew();
 		id = EditTransactionFragmentArgs.fromBundle(getArguments()).getIdTransaction();
 
+		showAd();
+
 /*
 		Bundle bundle = getArguments();
 		isNew = bundle.getBoolean("isNew", false);
@@ -113,6 +123,31 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 			setDefaultSelection();
 		}
 		setCurrency();
+	}
+
+	private void showAd() {
+
+		AdLoader.Builder builder = new AdLoader.Builder(
+				getContext(), getResources().getString(R.string.adMob_ID));
+
+		builder.forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+			@Override
+			public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+				ColorDrawable background = new ColorDrawable(getResources().getColor(R.color.amber_500));
+
+
+				NativeTemplateStyle styles = new
+						NativeTemplateStyle.Builder().withMainBackgroundColor(background).build();
+
+				template.setNativeAd(unifiedNativeAd);
+				template.setStyles(styles);
+			}
+		});
+
+		AdLoader adLoader = builder.build();
+		adLoader.loadAd(new AdRequest.Builder().build());
+
+
 	}
 
 	private void setDefaultSelection() {
