@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kjfmbktgl4.fintrack.R;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		MobileAds.initialize(this, getResources().getString(R.string.adMob_ID));
 
 		BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 		NavController navController = Navigation.findNavController(this,R.id.fragment_nav_host);
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 		Toolbar lToolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(lToolbar);
 		getSupportActionBar().setTitle("Recent Transactions");
-		
+
 		AppBarConfiguration lAppBarConfiguration = new AppBarConfiguration.Builder(R.id.mainFragment,R.id.barChartFragment,R.id.pieChartFragment,R.id.settingsFragment).build();
 		NavigationUI.setupWithNavController(lToolbar,navController,lAppBarConfiguration);
 
