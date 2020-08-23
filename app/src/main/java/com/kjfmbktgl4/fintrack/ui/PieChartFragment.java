@@ -198,7 +198,7 @@ public class PieChartFragment extends Fragment implements View.OnClickListener {
 		pieChart.setCenterText("Details By Category");
 		pieChart.setCenterTextSize(18f);
 		pieChart.getLegend().setEnabled(false);
-		
+
 		pieChart.animateY(500);
 		pieChart.invalidate();
 	}
