@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
 		Toolbar lToolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(lToolbar);
-
+		getSupportActionBar().setTitle("Recent Transactions");
+		
 		AppBarConfiguration lAppBarConfiguration = new AppBarConfiguration.Builder(R.id.mainFragment,R.id.barChartFragment,R.id.pieChartFragment,R.id.settingsFragment).build();
 		NavigationUI.setupWithNavController(lToolbar,navController,lAppBarConfiguration);
 

@@ -8,10 +8,11 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.kjfmbktgl4.fintrack.ui.MainFragment"
-        android:label="MainFragment" >
+        android:label="Recent Transactions" >
         <action
             android:id="@+id/action_mainFragment_to_pieChartFragment"
-            app:destination="@id/pieChartFragment" />
+            app:destination="@id/pieChartFragment"
+            />
         <action
             android:id="@+id/action_mainFragment_to_barChartFragment"
             app:destination="@id/barChartFragment" />
@@ -25,7 +26,7 @@
     <fragment
         android:id="@+id/editTransactionFragment"
         android:name="com.kjfmbktgl4.fintrack.ui.EditTransactionFragment"
-        android:label="EditTransactionFragment" >
+        android:label="Transaction Details" >
         <action
             android:id="@+id/action_editTransactionFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
@@ -41,7 +42,7 @@
     <fragment
         android:id="@+id/barChartFragment"
         android:name="com.kjfmbktgl4.fintrack.ui.BarChartFragment"
-        android:label="BarChartFragment" >
+        android:label="Trends In Transactions" >
         <action
             android:id="@+id/action_barChartFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
@@ -49,7 +50,7 @@
     <fragment
         android:id="@+id/pieChartFragment"
         android:name="com.kjfmbktgl4.fintrack.ui.PieChartFragment"
-        android:label="PieChartFragment" >
+        android:label="Transactions By Category" >
         <action
             android:id="@+id/action_pieChartFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
@@ -57,7 +58,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.kjfmbktgl4.fintrack.ui.SettingsFragment"
-        android:label="fragment_settings"
+        android:label="Configure Options"
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_settingsFragment_to_mainFragment"
@@ -69,7 +70,7 @@
     <fragment
         android:id="@+id/accountRVFragment"
         android:name="com.kjfmbktgl4.fintrack.ui.AccountRVFragment"
-        android:label="AccountRVFragment" >
+        android:label="Configure Details" >
         <action
             android:id="@+id/action_accountRVFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
@@ -84,7 +85,7 @@
     <fragment
         android:id="@+id/addEditAccountFragment"
         android:name="com.kjfmbktgl4.fintrack.ui.AddEditAccountFragment"
-        android:label="AddEditAccountFragment" >
+        android:label="Add Or Edit" >
         <action
             android:id="@+id/action_addEditAccountFragment_to_accountRVFragment"
             app:destination="@id/accountRVFragment" />
