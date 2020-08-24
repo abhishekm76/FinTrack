@@ -43,6 +43,11 @@ dependencies {
     //implementation project(':NativeTemplatesAndroid-1.0.0')
     implementation project(':nativetemplates')
 
+    // Billing for IAP
+    def billing_version = "3.0.0"
+    implementation "com.android.billingclient:billing:$billing_version"
+
+
     //graph SEE ALSO THE PROJECT BUILD.GRADLE REPOSITORY SECTION
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
