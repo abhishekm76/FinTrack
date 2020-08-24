@@ -19,6 +19,8 @@ import com.kjfmbktgl4.fintrack.R;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

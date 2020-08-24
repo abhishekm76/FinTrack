@@ -19,6 +19,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
@@ -54,7 +59,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	ImageButton delIV;
 	DatabaseHandler db;
 	TemplateView template;
-
+	BillingClient billingClient;
 	String categoryName, accountName;
 	TextInputLayout amountTIL;
 	public boolean isNew = false;
@@ -105,6 +110,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		id = EditTransactionFragmentArgs.fromBundle(getArguments()).getIdTransaction();
 
 		showAd();
+		setUpBillingClient();
 
 /*
 		Bundle bundle = getArguments();
@@ -125,6 +131,36 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		setCurrency();
 	}
 
+	private void setUpBillingClient() {
+		billingClient = BillingClient.newBuilder(getActivity())
+				.setListener(purchaseUpdateListener)
+				.enablePendingPurchases()
+				.build();
+
+
+		billingClient.startConnection(new BillingClientStateListener() {
+			@Override
+			public void onBillingSetupFinished(BillingResult billingResult) {
+				if (billingResult.getResponseCode() ==  BillingClient.BillingResponseCode.OK) {
+					// The BillingClient is ready. You can query purchases here.
+				}
+			}
+			@Override
+			public void onBillingServiceDisconnected() {
+				// Try to restart the connection on the next request to
+				// Google Play by calling the startConnection() method.
+			}
+		});
+
+
+
+	}
+	private PurchasesUpdatedListener purchaseUpdateListener = new PurchasesUpdatedListener() {
+		@Override
+		public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
+			// To be implemented in a later section.
+		}
+	};
 	private void showAd() {
 
 		AdLoader.Builder builder = new AdLoader.Builder(
