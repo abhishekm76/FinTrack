@@ -21,9 +21,13 @@ import androidx.fragment.app.Fragment;
 
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.SkuDetails;
+import com.android.billingclient.api.SkuDetailsParams;
+import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
@@ -41,6 +45,7 @@ import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
@@ -51,6 +56,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 
 	Button saveButton;
 	Button cancelButton;
+	Button product1,product2;
 	ImageButton delButton;
 	TextInputEditText dateET, amountET, noteET;
 	Chip categoryChip, accountChip, selChipCategory, selChipAccount;
@@ -90,6 +96,8 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		selChipCategory = v.findViewById(categoryChipGroup.getCheckedChipId());
 		selChipAccount = v.findViewById(accountChipGroup.getCheckedChipId());
 		template = v.findViewById(R.id.ad_small);
+		product1=v.findViewById(R.id.button1);
+		product2=v.findViewById(R.id.button2);
 
 		categoryChipGroup.setOnCheckedChangeListener(this);
 		accountChipGroup.setOnCheckedChangeListener(this);
@@ -104,6 +112,8 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		cancelButton.setOnClickListener(this);
 		dateET.setOnClickListener(this);
 		delIV.setOnClickListener(this);
+		product1.setOnClickListener(this);
+		product2.setOnClickListener(this);
 
 		db = new DatabaseHandler(getActivity());
 		isNew = EditTransactionFragmentArgs.fromBundle(getArguments()).getIsNew();
@@ -143,6 +153,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 			public void onBillingSetupFinished(BillingResult billingResult) {
 				if (billingResult.getResponseCode() ==  BillingClient.BillingResponseCode.OK) {
 					// The BillingClient is ready. You can query purchases here.
+					loadAllSKU();
 				}
 			}
 			@Override
@@ -152,15 +163,51 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 			}
 		});
 
+		List<String> skuList = new ArrayList<>();
+		skuList.add("test_product_one");
+		skuList.add("test_product_two");
 
+		SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+		params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
+
+		billingClient.querySkuDetailsAsync(params.build(),
+				new SkuDetailsResponseListener() {
+					@Override
+					public void onSkuDetailsResponse(BillingResult billingResult,
+					                                 List<SkuDetails> skuDetailsList) {
+						// Process the result.
+
+					}
+				});
+		// Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
 
 	}
+
+	private void loadAllSKU() {
+	}
+
 	private PurchasesUpdatedListener purchaseUpdateListener = new PurchasesUpdatedListener() {
 		@Override
 		public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
 			// To be implemented in a later section.
 		}
 	};
+
+	private void launchPurchaseOne() {
+		// Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
+		BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
+				.setSkuDetails(skuDetails)
+				.build();
+// Handle the result.
+
+		int responseCode = billingClient.launchBillingFlow(activity, billingFlowParams).getResponseCode();
+
+// Handle the result.
+	}
+
+	private void launchPurchaseTwo() {
+	}
+
 	private void showAd() {
 
 		AdLoader.Builder builder = new AdLoader.Builder(
@@ -301,9 +348,18 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 				deleteAlertDialog();
 				break;
 
+			case R.id.button1:
+				launchPurchaseOne();
+				break;
+
+			case R.id.button2:
+				launchPurchaseTwo();
+				break;
 		}
 
 	}
+
+
 
 	private void startPrevAct() {
 		Intent intent = new Intent(getContext(), MainActivity.class);

@@ -202,10 +202,23 @@
     <com.google.android.ads.nativetemplates.TemplateView
         android:id="@+id/ad_small"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:gnt_template_type="@layout/gnt_small_template_view"
-       />
+       >
 
+    </com.google.android.ads.nativetemplates.TemplateView>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 
 </LinearLayout>
