@@ -65,12 +65,13 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	ImageButton delIV;
 	DatabaseHandler db;
 	TemplateView template;
-	BillingClient billingClient;
 	String categoryName, accountName;
 	TextInputLayout amountTIL;
 	public boolean isNew = false;
 	int id;
 	BillingFlowParams billingFlowParamsOne, billingFlowParamsTwo;
+	BillingClient billingClient;
+
 
 
 	@Nullable
@@ -157,6 +158,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		billingClient.startConnection(new BillingClientStateListener() {
 			@Override
 			public void onBillingSetupFinished(BillingResult billingResult) {
+				Log.d(Util.TAG,billingResult.getResponseCode()+ "here");
 				if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
 					// The BillingClient is ready. You can query purchases here.
 					loadAllSKU();
