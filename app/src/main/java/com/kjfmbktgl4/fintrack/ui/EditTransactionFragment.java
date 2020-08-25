@@ -56,7 +56,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 
 	Button saveButton;
 	Button cancelButton;
-	Button product1,product2;
+	Button product1, product2;
 	ImageButton delButton;
 	TextInputEditText dateET, amountET, noteET;
 	Chip categoryChip, accountChip, selChipCategory, selChipAccount;
@@ -70,6 +70,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	TextInputLayout amountTIL;
 	public boolean isNew = false;
 	int id;
+	BillingFlowParams billingFlowParamsOne, billingFlowParamsTwo;
 
 
 	@Nullable
@@ -96,8 +97,8 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		selChipCategory = v.findViewById(categoryChipGroup.getCheckedChipId());
 		selChipAccount = v.findViewById(accountChipGroup.getCheckedChipId());
 		template = v.findViewById(R.id.ad_small);
-		product1=v.findViewById(R.id.button1);
-		product2=v.findViewById(R.id.button2);
+		product1 = v.findViewById(R.id.button1);
+		product2 = v.findViewById(R.id.button2);
 
 		categoryChipGroup.setOnCheckedChangeListener(this);
 		accountChipGroup.setOnCheckedChangeListener(this);
@@ -129,7 +130,6 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 */
 
 
-
 		createCategoryViews();
 
 		if (!isNew) {
@@ -141,7 +141,13 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		setCurrency();
 	}
 
+
 	private void setUpBillingClient() {
+/*	// OnCreate calls set up billing client, billing client has listener and calls loadAllSkU after start connection
+		//loadallsku has querySKUDetails which gets detaills, set click, launches billing flow
+		// onpurchaseupdated handles error codes and calls acknowledge purchases
+		// acknowledge purchase has acknowledge purchases*/
+
 		billingClient = BillingClient.newBuilder(getActivity())
 				.setListener(purchaseUpdateListener)
 				.enablePendingPurchases()
@@ -151,17 +157,23 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		billingClient.startConnection(new BillingClientStateListener() {
 			@Override
 			public void onBillingSetupFinished(BillingResult billingResult) {
-				if (billingResult.getResponseCode() ==  BillingClient.BillingResponseCode.OK) {
+				if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
 					// The BillingClient is ready. You can query purchases here.
 					loadAllSKU();
 				}
 			}
+
 			@Override
 			public void onBillingServiceDisconnected() {
 				// Try to restart the connection on the next request to
 				// Google Play by calling the startConnection() method.
 			}
 		});
+
+
+	}
+
+	private void loadAllSKU() {
 
 		List<String> skuList = new ArrayList<>();
 		skuList.add("test_product_one");
@@ -177,13 +189,22 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 					                                 List<SkuDetails> skuDetailsList) {
 						// Process the result.
 
+						if (!skuDetailsList.isEmpty()) {
+							for (SkuDetails lSkuDetails : skuDetailsList) {
+								// Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
+								if (lSkuDetails.getSku() == "test_product_one") {
+									BillingFlowParams billingFlowParamsOne = BillingFlowParams.newBuilder()
+											.setSkuDetails(lSkuDetails)
+											.build();
+								}
+							}
+						}
+
+
 					}
 				});
 		// Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
 
-	}
-
-	private void loadAllSKU() {
 	}
 
 	private PurchasesUpdatedListener purchaseUpdateListener = new PurchasesUpdatedListener() {
@@ -194,15 +215,10 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	};
 
 	private void launchPurchaseOne() {
-		// Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
-		BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
-				.setSkuDetails(skuDetails)
-				.build();
+		billingClient.launchBillingFlow(getActivity(), billingFlowParamsOne);
+		int responseCode = billingClient.launchBillingFlow(getActivity(), billingFlowParamsOne).getResponseCode();
 // Handle the result.
 
-		int responseCode = billingClient.launchBillingFlow(activity, billingFlowParams).getResponseCode();
-
-// Handle the result.
 	}
 
 	private void launchPurchaseTwo() {
@@ -360,7 +376,6 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	}
 
 
-
 	private void startPrevAct() {
 		Intent intent = new Intent(getContext(), MainActivity.class);
 		startActivity(intent);
@@ -440,7 +455,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 			transaction.setDateOfTransaction(DateConverters.dateStringToLong(dateET.getText().toString()));
 			int idAccount = accountChipGroup.getCheckedChipId();
 			if (idAccount != -1) {
-			//	selChipAccount =(Chip)accountChipGroup.getChildAt(id-1);
+				//	selChipAccount =(Chip)accountChipGroup.getChildAt(id-1);
 				transaction.setAccountOfTransaction((selChipAccount.getText().toString()));
 			} else transaction.setAccountOfTransaction("Others");
 			db.addTransaction(transaction);
@@ -494,12 +509,12 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	@Override
 	public void onCheckedChanged(ChipGroup pChipGroup, int pI) {
 
-		if(pChipGroup.getId()==(categoryChipGroup.getId())) {
+		if (pChipGroup.getId() == (categoryChipGroup.getId())) {
 			selChipCategory = getView().findViewById(pI);
-			Log.d(Util.TAG,"Here in chip checked change cat"+selChipCategory.getText().toString());
-		}else{
+			Log.d(Util.TAG, "Here in chip checked change cat" + selChipCategory.getText().toString());
+		} else {
 			selChipAccount = getView().findViewById(pI);
-			Log.d(Util.TAG,"Here in chip checked change act"+selChipAccount.getText().toString());
+			Log.d(Util.TAG, "Here in chip checked change act" + selChipAccount.getText().toString());
 		}
 
 		/*
