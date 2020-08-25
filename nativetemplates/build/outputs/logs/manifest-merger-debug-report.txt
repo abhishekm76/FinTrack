@@ -1,41 +1,41 @@
 -- Merging decision tree log ---
 manifest
-ADDED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
-INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
-INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
-INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
-INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
-INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
-INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
+ADDED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
+INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
+INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
+INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
+INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
+INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
+INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
 	package
-		ADDED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml:2:3-51
-		INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
-		INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+		ADDED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml:2:3-51
+		INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
-		ADDED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
-		INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+		ADDED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
+		INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
-		ADDED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
-		INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+		ADDED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:1-8:12
+		INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:11-69
+		ADDED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml:1:11-69
 application
-ADDED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml:3:3-5:17
+ADDED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml:3:3-5:17
 	android:supportsRtl
-		ADDED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml:3:16-42
+		ADDED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml:3:16-42
 uses-sdk
-INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
-INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
-INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
-INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
-		ADDED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
-		INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+		ADDED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
-		ADDED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
-		INJECTED from H:\Programming\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+		ADDED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\aksha\StudioProjects\FinTrack\nativetemplates\src\main\AndroidManifest.xml

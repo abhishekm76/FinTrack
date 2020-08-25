@@ -178,7 +178,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	private void loadAllSKU() {
 
 		List<String> skuList = new ArrayList<>();
-		skuList.add("test_product_one");
+		skuList.add("ring");
 		skuList.add("test_product_two");
 
 		SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
@@ -190,6 +190,8 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 					public void onSkuDetailsResponse(BillingResult billingResult,
 					                                 List<SkuDetails> skuDetailsList) {
 						// Process the result.
+						Log.d(Util.TAG, (billingResult.getResponseCode()== BillingClient.BillingResponseCode.OK)+" response code");
+						Log.d(Util.TAG, skuDetailsList.size()+" size");
 
 						if (!skuDetailsList.isEmpty()) {
 							for (SkuDetails lSkuDetails : skuDetailsList) {
