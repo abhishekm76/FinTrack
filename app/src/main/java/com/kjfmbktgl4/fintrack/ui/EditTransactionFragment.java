@@ -28,11 +28,13 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
+/*
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
-import com.google.android.gms.ads.AdLoader;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.formats.UnifiedNativeAd;
+*/
+//import com.google.android.gms.ads.AdLoader;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
@@ -64,7 +66,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	Boolean error = false;
 	ImageButton delIV;
 	DatabaseHandler db;
-	TemplateView template;
+	//TemplateView template;
 	String categoryName, accountName;
 	TextInputLayout amountTIL;
 	public boolean isNew = false;
@@ -97,7 +99,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		accountChipGroup = v.findViewById(R.id.actChipGroup);
 		selChipCategory = v.findViewById(categoryChipGroup.getCheckedChipId());
 		selChipAccount = v.findViewById(accountChipGroup.getCheckedChipId());
-		template = v.findViewById(R.id.ad_small);
+		//template = v.findViewById(R.id.ad_small);
 		product1 = v.findViewById(R.id.button1);
 		product2 = v.findViewById(R.id.button2);
 
@@ -121,7 +123,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		isNew = EditTransactionFragmentArgs.fromBundle(getArguments()).getIsNew();
 		id = EditTransactionFragmentArgs.fromBundle(getArguments()).getIdTransaction();
 
-		showAd();
+		//showAd();
 		setUpBillingClient();
 
 /*
@@ -228,7 +230,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	private void launchPurchaseTwo() {
 	}
 
-	private void showAd() {
+	/*private void showAd() {
 
 		AdLoader.Builder builder = new AdLoader.Builder(
 				getContext(), getResources().getString(R.string.adMob_ID));
@@ -252,7 +254,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 
 
 	}
-
+*/
 	private void setDefaultSelection() {
 
 		Chip chip = (Chip) categoryChipGroup.getChildAt(0);

@@ -12,10 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.IAP"></activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/adMob_ID"/>
+            android:value="@string/adMob_ID" />
 
         <activity android:name=".ui.MainActivity" />
         <activity
@@ -23,10 +24,11 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--
+        <!--
         <activity
             android:name=".ui.AddEditAccount"
             android:parentActivityName=".ui.AccountRV" />
@@ -40,8 +42,7 @@
             android:name=".ui.EditTransaction"
             android:parentActivityName=".ui.NavDrawerLauncher" />
         <activity android:name=".ui.NavDrawerLauncher" />
--->
-
+        -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.kjfmbktgl4.fintrack.fileprovider"

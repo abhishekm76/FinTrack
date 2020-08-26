@@ -199,6 +199,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+<!--
     <com.google.android.ads.nativetemplates.TemplateView
         android:id="@+id/ad_small"
         android:layout_width="match_parent"
@@ -207,6 +208,7 @@
        >
 
     </com.google.android.ads.nativetemplates.TemplateView>
+-->
 
     <Button
         android:id="@+id/button1"
