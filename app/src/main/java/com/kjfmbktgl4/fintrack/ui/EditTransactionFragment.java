@@ -69,8 +69,8 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	TextInputLayout amountTIL;
 	public boolean isNew = false;
 	int id;
-	BillingFlowParams billingFlowParamsOne, billingFlowParamsTwo;
-	BillingClient billingClient;
+	/*BillingFlowParams billingFlowParamsOne, billingFlowParamsTwo;
+	BillingClient billingClient;*/
 
 
 
@@ -98,8 +98,8 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		selChipCategory = v.findViewById(categoryChipGroup.getCheckedChipId());
 		selChipAccount = v.findViewById(accountChipGroup.getCheckedChipId());
 		template = v.findViewById(R.id.ad_small);
-		product1 = v.findViewById(R.id.button1);
-		product2 = v.findViewById(R.id.button2);
+	/*	product1 = v.findViewById(R.id.button1);
+		product2 = v.findViewById(R.id.button2);*/
 
 		categoryChipGroup.setOnCheckedChangeListener(this);
 		accountChipGroup.setOnCheckedChangeListener(this);
@@ -114,15 +114,15 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 		cancelButton.setOnClickListener(this);
 		dateET.setOnClickListener(this);
 		delIV.setOnClickListener(this);
-		product1.setOnClickListener(this);
-		product2.setOnClickListener(this);
+/*		product1.setOnClickListener(this);
+		product2.setOnClickListener(this);*/
 
 		db = new DatabaseHandler(getActivity());
 		isNew = EditTransactionFragmentArgs.fromBundle(getArguments()).getIsNew();
 		id = EditTransactionFragmentArgs.fromBundle(getArguments()).getIdTransaction();
 
 		showAd();
-		setUpBillingClient();
+		/*setUpBillingClient();*/
 
 /*
 		Bundle bundle = getArguments();
@@ -143,11 +143,11 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	}
 
 
-	private void setUpBillingClient() {
-/*	// OnCreate calls set up billing client, billing client has listener and calls loadAllSkU after start connection
+	/*private void setUpBillingClient() {
+*//*	// OnCreate calls set up billing client, billing client has listener and calls loadAllSkU after start connection
 		//loadallsku has querySKUDetails which gets detaills, set click, launches billing flow
 		// onpurchaseupdated handles error codes and calls acknowledge purchases
-		// acknowledge purchase has acknowledge purchases*/
+		// acknowledge purchase has acknowledge purchases*//*
 
 		billingClient = BillingClient.newBuilder(getActivity())
 				.setListener(purchaseUpdateListener)
@@ -174,12 +174,13 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 
 
 	}
-
+*/
+/*
 	private void loadAllSKU() {
 
 		List<String> skuList = new ArrayList<>();
 		skuList.add("ring");
-		skuList.add("test_product_two");
+		skuList.add("test_product_trwo");
 
 		SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
 		params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
@@ -227,6 +228,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 
 	private void launchPurchaseTwo() {
 	}
+*/
 
 	private void showAd() {
 
@@ -368,13 +370,13 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 				deleteAlertDialog();
 				break;
 
-			case R.id.button1:
+	/*		case R.id.button1:
 				launchPurchaseOne();
 				break;
 
 			case R.id.button2:
 				launchPurchaseTwo();
-				break;
+				break;*/
 		}
 
 	}
