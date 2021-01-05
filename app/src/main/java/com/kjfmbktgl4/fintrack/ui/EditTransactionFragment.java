@@ -233,7 +233,7 @@ public class EditTransactionFragment extends Fragment implements View.OnClickLis
 	private void showAd() {
 
 		AdLoader.Builder builder = new AdLoader.Builder(
-				getContext(), getResources().getString(R.string.adMob_ID));
+				getContext(), getResources().getString(R.string.adUnit_ID));
 
 		builder.forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
 			@Override
