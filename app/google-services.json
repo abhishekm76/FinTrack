@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "795989043449",
+    "firebase_url": "https://fintrack-c3018.firebaseio.com",
+    "project_id": "fintrack-c3018",
+    "storage_bucket": "fintrack-c3018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795989043449:android:251c960ee122070ffe5a28",
+        "android_client_info": {
+          "package_name": "com.kjfmbktgl4.fintrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795989043449-6dpq3u5femmvhqg0iau22ml6mt6h515a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdkw0qRHRnItOdhBgl_X6t1ROhlyBA-kE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "795989043449-6dpq3u5femmvhqg0iau22ml6mt6h515a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
