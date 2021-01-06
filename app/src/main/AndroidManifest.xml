@@ -14,8 +14,8 @@
         android:theme="@style/AppTheme">
 
         <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/adMob_ID"/>
+            android:name="com.google.android.gms.ads.com.kjfmbktgl4.fintrack"
+            android:value="@string/adMob_AppID"/>
 
         <activity android:name=".ui.MainActivity" />
         <activity

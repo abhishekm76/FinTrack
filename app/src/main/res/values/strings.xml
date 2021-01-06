@@ -5,9 +5,10 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="adMob_ID">ca-app-pub-3964819268651627~7313695268</string>
-
+    <string name="adMob_AppID">ca-app-pub-3964819268651627~7313695268</string>
     <string name="adUnit_ID">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="adUnit_BannerHomeID">ca-app-pub-3964819268651627/4188591055</string>
+
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>

@@ -43,7 +43,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:19.3.0'
     // import native templates for ads
     //implementation project(':NativeTemplatesAndroid-1.0.0')
-    implementation project(':nativetemplates')
+//    implementation project(':nativetemplates')
 
     // Billing for IAP
     def billing_version = "3.0.0"

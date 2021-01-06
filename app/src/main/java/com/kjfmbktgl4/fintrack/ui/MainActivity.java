@@ -12,20 +12,38 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kjfmbktgl4.fintrack.R;
 
 public class MainActivity extends AppCompatActivity {
 
 
+	private AdView mAdView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		MobileAds.initialize(this, getResources().getString(R.string.adMob_ID));
+
+		MobileAds.initialize(this, new OnInitializationCompleteListener() {
+			@Override
+			public void onInitializationComplete(InitializationStatus initializationStatus) {
+			}
+		});
+
+		mAdView = findViewById(R.id.adViewBanner);
+		AdRequest adRequest = new AdRequest.Builder().build();
+		mAdView.loadAd(adRequest);
+
+
+		//MobileAds.initialize(this, getResources().getString(R.string.adMob_ID));
 
 		BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 		NavController navController = Navigation.findNavController(this,R.id.fragment_nav_host);
