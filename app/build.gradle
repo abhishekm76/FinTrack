@@ -18,7 +18,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -36,8 +37,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //lottie addition
-    def lottieVersion = "3.4.1"
-    implementation "com.airbnb.android:lottie:$lottieVersion"
+  //  def lottieVersion = "3.4.1"
 
     //For native ads
     implementation 'com.google.android.gms:play-services-ads:19.3.0'
@@ -46,8 +46,8 @@ dependencies {
 //    implementation project(':nativetemplates')
 
     // Billing for IAP
-    def billing_version = "3.0.0"
-    implementation "com.android.billingclient:billing:$billing_version"
+  //  def billing_version = "3.0.0"
+   // implementation "com.android.billingclient:billing:$billing_version"
 
 
     //graph SEE ALSO THE PROJECT BUILD.GRADLE REPOSITORY SECTION
