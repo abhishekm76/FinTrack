@@ -6,18 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <fragment
-        android:id="@+id/fragment_nav_host"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include"
-        app:navGraph="@navigation/main_nav_graph" />
-
     <include
         android:id="@+id/include"
         layout="@layout/toolbar"
@@ -27,20 +15,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <com.google.android.gms.ads.AdView
         android:id="@+id/adViewBanner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:background="#8B1414"
         app:adSize="BANNER"
-        app:adUnitId="@string/adUnit_BannerHomeID"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:adUnitId="@string/adUnit_TestBannerID"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
     </com.google.android.gms.ads.AdView>
+
+    <fragment
+        android:id="@+id/fragment_nav_host"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+
+        app:layout_constraintBottom_toTopOf="@+id/adViewBanner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:navGraph="@navigation/main_nav_graph" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -50,6 +49,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/btm_nav_control"
-        />
+        app:menu="@menu/btm_nav_control" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ android {
         targetSdkVersion 30
         versionCode 3
         versionName "3.0"
+        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,7 +41,7 @@ dependencies {
   //  def lottieVersion = "3.4.1"
 
     //For native ads
-    implementation 'com.google.android.gms:play-services-ads:19.3.0'
+    implementation 'com.google.android.gms:play-services-ads:19.6.0'
     // import native templates for ads
     //implementation project(':NativeTemplatesAndroid-1.0.0')
 //    implementation project(':nativetemplates')
@@ -60,7 +61,8 @@ dependencies {
     // Declare the dependency for the Firebase SDK for Google Analytics
     implementation 'com.google.firebase:firebase-analytics'
 
-
+    def multidex_version = "2.0.1"
+    implementation "androidx.multidex:multidex:$multidex_version"
 
 
     testImplementation 'junit:junit:4.12'
