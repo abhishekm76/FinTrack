@@ -13,11 +13,13 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -96,7 +98,8 @@ public class BarChartFragment extends Fragment implements View.OnClickListener {
 
 //		data.setBarWidth(0.7f); // set custom bar width
 		barChart.setData(data);
-		set.setColors(Util.colorArray, 255);
+
+		//data.setValueTextColor(android.R.color.white);
 		//barChart.setFitBars(true); // make the x-axis fit exactly all bars
 		barChart.getDescription().setEnabled(false);
 		barChart.setVisibleXRangeMaximum(6);
@@ -108,10 +111,8 @@ public class BarChartFragment extends Fragment implements View.OnClickListener {
 		barChart.getAxisLeft().setDrawLabels(true);
 		barChart.getAxisLeft().setValueFormatter(new LargeValueFormatter());
 		barChart.getAxisRight().setDrawLabels(false);
-
 		barChart.getAxisLeft().setDrawGridLines(true);
 		barChart.getAxisRight().setDrawGridLines(false);
-
 		barChart.getAxisLeft().setDrawAxisLine(false);
 		barChart.getAxisRight().setDrawAxisLine(false);
 
@@ -122,11 +123,34 @@ public class BarChartFragment extends Fragment implements View.OnClickListener {
 		xAxis.setLabelCount(entries.size());
 		xAxis.setTextSize(10f);
 		xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-		xAxis.setTextColor(Color.DKGRAY);
+
 		xAxis.setDrawAxisLine(true);
 		xAxis.setDrawGridLines(false);
 		// set a custom value formatter
 		xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabels));
+
+
+		if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+			set.setColors(Util.colorArrayDark, 255);
+			xAxis.setTextColor(Color.WHITE);
+			barChart.getAxisLeft().setTextColor(Color.WHITE);
+			data.setValueTextColor(Color.WHITE);
+
+		//	xAxis.setTextColor(android.R.color.white);
+
+		}else{
+			set.setColors(Util.colorArray, 255);
+			xAxis.setTextColor(Color.DKGRAY);
+			data.setValueTextColor(Color.DKGRAY);
+			barChart.getAxisLeft().setTextColor(Color.DKGRAY);
+		//	data.setValueTextColor(android.R.color.black);
+		//	barChart.getAxisLeft().setTextColor(android.R.color.black);
+		//	xAxis.setTextColor(android.R.color.darker_gray);
+
+		}
+
+
+
 		barChart.invalidate(); // refresh
 
 	}

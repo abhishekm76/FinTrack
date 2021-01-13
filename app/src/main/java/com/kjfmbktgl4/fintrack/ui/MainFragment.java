@@ -83,10 +83,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 		fab.setOnClickListener(this);
 		getAsyncData();
 		mNavController= NavHostFragment.findNavController(this);
-
-
 		setUpTransactionRV();
-		new AsyncSetUpCatAct().execute();
+		//new AsyncSetUpCatAct().execute();
 
 
 

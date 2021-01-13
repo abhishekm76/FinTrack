@@ -37,7 +37,7 @@ public class Util {
 	//Colourlist
 	public static final int [] colorArray= {0xFFF44336, 0xFF03A9F4,  0xFFFFC107, 0xFF673ab7, 0xFFCDDC39, 0xFFFF9800, 0xFF9E9E9E};
 
-
+	public static final int [] colorArrayDark= {0xFFffccbc, 0xFFb3e5fc,  0xFFffecb3, 0xFFd1c4e9, 0xFFf0f4c3, 0xFFffe082, 0xFFf5f5f5};
 
 	//SharePref
 	public static final String SPREFNAME ="FINTRACKPREFS";

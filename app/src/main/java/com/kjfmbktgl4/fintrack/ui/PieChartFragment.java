@@ -15,6 +15,7 @@ import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
@@ -184,15 +185,25 @@ public class PieChartFragment extends Fragment implements View.OnClickListener {
 		PieDataSet set = new PieDataSet(entries, "Spend by category");
 		PieData data = new PieData(set);
 		pieChart.setData(data);
-		set.setColors(Util.colorArray);
+
+		if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+			set.setColors(Util.colorArrayDark, 255);
+			pieChart.setEntryLabelColor(Color.DKGRAY);
+			data.setValueTextColor(Color.DKGRAY);
+			//pieChart.setCenterTextColor(Color.DKGRAY);
+
+
+		}else{
+			set.setColors(Util.colorArray, 255);
+			pieChart.setEntryLabelColor(Color.WHITE);
+			data.setValueTextColor(Color.WHITE);
+			//pieChart.setCenterTextColor(Color.DKGRAY);
+		}
+
 
 		data.setValueTextSize(13f);
-
-		data.setValueTextColor(Color.WHITE);
-
 		data.setValueFormatter(new PercentFormatter(pieChart));
 		pieChart.setUsePercentValues(usePercent);
-
 		pieChart.getDescription().setEnabled(false);
 		pieChart.setDrawHoleEnabled(true);
 		pieChart.setCenterText("Details By Category");
