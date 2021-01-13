@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/orange_500</item>
+        <item name="colorPrimaryDark">@color/orange_700</item>
+        <item name="colorAccent">@color/orange_900</item>
+        <!--<item name="android:padding">4dp</item>-->
+    </style>
+
+</resources>

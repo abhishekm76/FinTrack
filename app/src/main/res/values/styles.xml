@@ -1,14 +1,14 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+<!--    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <!-- Customize your theme here. -->
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
         <item name ="android:forceDarkAllowed">true</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/light_blue_500</item>
-        <!--<item name="android:padding">4dp</item>-->
-    </style>
+        <item name="colorPrimary">@color/orange_500</item>
+        <item name="colorPrimaryDark">@color/orange_700</item>
+        <item name="colorAccent">@color/orange_900</item>
+        &lt;!&ndash;<item name="android:padding">4dp</item>&ndash;&gt;
+    </style>-->
     <!--      <item format="float" name="alpha" type="dimen">0.6</item>-->
 
 
