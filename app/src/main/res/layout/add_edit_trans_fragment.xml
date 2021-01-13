@@ -45,9 +45,9 @@
             android:layout_height="48dp"
 
             android:layout_marginStart="8dp"
-            android:backgroundTint="@color/colorWhite"
+
             android:scaleType="fitCenter"
-            android:tint="@color/colorPrimary"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextNote"
             app:srcCompat="@drawable/ic_outline_delete_outline_24" />
@@ -152,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
-                android:background="@color/colorWhite"
+
                 android:focusable="false"
                 android:hint="@string/enter_the_date"
                 android:inputType="date" />
@@ -178,7 +178,7 @@
                 android:id="@+id/editTextAmount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorWhite"
+
                 android:hint="@string/enter_the_amount"
                 android:inputType="numberDecimal"
                 android:maxLength="15"

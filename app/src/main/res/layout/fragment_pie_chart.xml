@@ -36,7 +36,7 @@
                     android:id="@+id/selectStartDateForPie"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorWhite"
+
                     android:focusable="false"
                     android:hint="@string/start_date"
                     android:inputType="date" />
@@ -58,7 +58,7 @@
                     android:id="@+id/selectEndDateForPie"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorWhite"
+
                     android:focusable="false"
                     android:hint="@string/end_date"
                     android:inputType="date" />

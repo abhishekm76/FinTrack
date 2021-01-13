@@ -41,7 +41,7 @@
                     android:layout_marginTop="0dp"
                     android:layout_weight="1"
 
-                    android:background="@color/colorWhite"
+
                     android:focusable="false"
                     android:hint="@string/start_date"
                     android:inputType="date" />
@@ -63,7 +63,7 @@
                     android:layout_margin="0dp"
                     android:layout_marginTop="0dp"
                     android:layout_weight="1"
-                    android:background="@color/colorWhite"
+
                     android:focusable="false"
                     android:hint="@string/end_date"
                     android:inputType="date" />

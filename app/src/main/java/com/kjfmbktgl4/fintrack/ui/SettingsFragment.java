@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -21,10 +22,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Switch;
 
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
 import com.kjfmbktgl4.fintrack.model.TransactionItem;
+import com.kjfmbktgl4.fintrack.util.Preferences;
 import com.kjfmbktgl4.fintrack.util.Util;
 
 import java.io.File;
@@ -46,6 +49,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 	NavController mNavController;
 	ImageButton Category, Account, Export, DeleteAll;
 	DatabaseHandler db;
+	Switch darkMode;
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
@@ -79,10 +83,22 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		if (getArguments() != null) {
 			mParam1 = getArguments().getString(ARG_PARAM1);
 			mParam2 = getArguments().getString(ARG_PARAM2);
+		}
+	}
+
+	private void setDarkModeToggle() {
+
+		String status =	Preferences.getPrefs("DarkMode",getContext());
+		boolean isChecked = Boolean.parseBoolean(status);
+		if (isChecked){
+			darkMode.setChecked(true);
+		}else{
+			darkMode.setChecked(false);
 		}
 	}
 
@@ -98,7 +114,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 		Account = v.findViewById(R.id.imageButtonAccount);
 		Export = v.findViewById(R.id.imageButtonExport);
 		DeleteAll = v.findViewById(R.id.imageButtonDeleteAll);
-
+		darkMode =v.findViewById(R.id.darkmodeswitch);
+		setDarkModeToggle();
 		return v;
 
 	}
@@ -110,6 +127,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 		Account.setOnClickListener(this);
 		Export.setOnClickListener(this);
 		DeleteAll.setOnClickListener(this);
+		darkMode.setOnClickListener(this);
 		db = new DatabaseHandler(getActivity());
 
 	}
@@ -129,7 +147,22 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 			case R.id.imageButtonAccount:
 				goToAccountList();
 				break;
+			case R.id.darkmodeswitch:
+				switchMode();
+				break;
 		}
+	}
+
+	private void switchMode() {
+		Log.d(Util.TAG," Switched ");
+		String status = String.valueOf(darkMode.isChecked());
+		Preferences.setPrefs("DarkMode", status, getContext());
+		if (darkMode.isChecked()){
+			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+		}else{
+			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+		}
+
 	}
 
 	private void goToCategoryList() {

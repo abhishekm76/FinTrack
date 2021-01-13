@@ -19,7 +19,7 @@
         android:id="@+id/adViewBanner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#8B1414"
+
         app:adSize="BANNER"
         app:adUnitId="@string/adUnit_TestBannerID"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"

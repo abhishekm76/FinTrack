@@ -12,7 +12,6 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-
         app:cardCornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
 
-                android:textAppearance="@style/TextThemeHeadline"
+
                 app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dateTV" />
@@ -43,7 +42,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:textAlignment="viewEnd"
-                android:textAppearance="@style/TextThemeNote"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +54,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
-                android:textAppearance="@style/TextThemeNote"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/catTV" />
@@ -71,7 +70,7 @@
                 android:layout_marginTop="4dp"
                 android:paddingBottom="8dp"
                 android:textAlignment="viewStart"
-                android:textAppearance="@style/TextThemeBody"
+
                 app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/noteTV" />
@@ -83,7 +82,7 @@
 
                 android:layout_marginEnd="16dp"
                 android:textAlignment="viewEnd"
-                android:textAppearance="@style/TextThemeBody"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dateTV" />
 
@@ -99,7 +98,6 @@
                 android:id="@+id/barVertical"
                 android:layout_width="5dp"
                 android:layout_height="0dp"
-                android:background="#FF0000FF"
                 app:layout_constraintBottom_toBottomOf="@+id/amountTV"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

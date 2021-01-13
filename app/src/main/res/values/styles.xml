@@ -16,18 +16,19 @@
         <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"></style>
     -->
 
-    <style name="MyThemeOverlay_Toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
-       <!-- <item name="android:textColorPrimary">@color/colorWhite</item>-->
+  <!--  <style name="MyThemeOverlay_Toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+       &lt;!&ndash; <item name="android:textColorPrimary">@color/colorWhite</item>&ndash;&gt;
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/colorWhite</item>
-    </style>
+    </style>-->
 
 
-    <style name="Widget.FinTrack.TextView" parent="@android:style/Widget.DeviceDefault.TextView">
+   <!-- <style name="Widget.FinTrack.TextView" parent="@android:style/Widget.DeviceDefault.TextView">
         <item name="android:textColor">@color/primaryTextColor</item>
     </style>
+-->
 
-
+<!--
     <style name="TextThemeHeadline" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="textAllCaps">true</item>
         <item name="android:textColor">@color/emphasisTextColor</item>
@@ -45,20 +46,21 @@
         <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="android:textSize">15sp</item>
     </style>
+-->
 
 
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+ <!--   <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">
             @drawable/background_splash
         </item>
 
-    </style>
+    </style>-->
 
-    <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
+<!--    <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
         <item name="android:state_selected">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/primaryTextColor</item>
         <item name="android:textColorSecondary">@color/secondaryTextColor</item>
 
-    </style>
+    </style>-->
 
 </resources>
