@@ -27,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-
+                android:textAppearance="?attr/textAppearanceHeadline6"
 
                 app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
                 app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +37,7 @@
                 android:id="@+id/dateTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceOverline"
 
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
@@ -54,6 +55,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
+                android:textAppearance="?attr/textAppearanceCaption"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
-
+                android:textAppearance="?attr/textAppearanceBody1"
                 android:layout_marginStart="16dp"
 
                 android:layout_marginTop="4dp"
@@ -79,7 +81,7 @@
                 android:id="@+id/accountTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
+                android:textAppearance="?attr/textAppearanceSubtitle2"
                 android:layout_marginEnd="16dp"
                 android:textAlignment="viewEnd"
 

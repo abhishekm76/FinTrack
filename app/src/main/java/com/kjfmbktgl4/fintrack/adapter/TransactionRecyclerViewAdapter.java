@@ -93,7 +93,7 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 		int[] lightMode = context.getResources().getIntArray(R.array.ColorArrayLight);
 
 		if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-			selectedColour = darkMode[weekday];
+			selectedColour = lightMode[weekday];
 		}else{
 			selectedColour = lightMode[weekday];
 		}

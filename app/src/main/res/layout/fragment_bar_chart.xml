@@ -40,8 +40,6 @@
                     android:layout_margin="0dp"
                     android:layout_marginTop="0dp"
                     android:layout_weight="1"
-
-
                     android:focusable="false"
                     android:hint="@string/start_date"
                     android:inputType="date" />
@@ -71,12 +69,12 @@
 
             <Button
                 android:id="@+id/refreshGraphs"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="10dp"
-                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
 
                 android:layout_gravity="start"
-                android:layout_weight="1"
+                android:layout_weight=".2"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:text="@string/refresh" />
