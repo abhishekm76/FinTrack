@@ -7,6 +7,7 @@
         <item name="colorPrimary">@color/teal_300</item>
         <item name="colorPrimaryDark">@color/orange_700</item>
         <item name="colorAccent">@color/orange_900</item>
+
         <!--<item name="android:padding">4dp</item>-->
     </style>
 

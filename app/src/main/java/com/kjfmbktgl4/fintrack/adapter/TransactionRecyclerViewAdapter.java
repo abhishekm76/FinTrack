@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +41,7 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 	private List<TransactionItem> mtransactionItemListAll;
 	private List<TransactionItem> mFilteredList;
 	private NavController mNavController;
+	private int selectedColour;
 
 	public TransactionRecyclerViewAdapter(Context context, List<TransactionItem> transactionItemList, NavController pNavController) {
 		this.context = context;
@@ -73,15 +75,29 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 		holder.transDate.setText(tranDate);
 		holder.transAccount.setText(transaction.getAccountOfTransaction());
 
+
 		//coloru formats
 		Log.d(Util.TAG,"postion "+ position);
-		    int color= Util.getColorCode(weekday);
+		    //int color= Util.getColorCode(weekday);
+		int color= getColorBar(weekday);
+
 		/*	holder.categoryName.setTextColor(color);
 			holder.transAmount.setTextColor(color);*/
 			holder.barVertical.setBackgroundColor(color);
 
+	}
 
+	private int getColorBar(int weekday) {
 
+		int[] darkMode = context.getResources().getIntArray(R.array.ColorArrayDark);
+		int[] lightMode = context.getResources().getIntArray(R.array.ColorArrayLight);
+
+		if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+			selectedColour = darkMode[weekday];
+		}else{
+			selectedColour = lightMode[weekday];
+		}
+		return selectedColour;
 	}
 
 	@Override

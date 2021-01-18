@@ -89,6 +89,39 @@
 
     <color name="secondaryTextColor">#99828282</color>
 
+        <array name="ColorArrayDark">
+            <item>@color/light_blue_100</item>
+            <item>@color/purple_100</item>
+            <item>@color/orange_100</item>
+            <item>@color/green_100</item>
+            <item>@color/pink_100</item>
+            <item>@color/yellow_100</item>
+            <item>@color/deep_purple_100</item>
+            <item>@color/deep_orange_100</item>
+            <item>@color/blue_grey_100</item>
+            <item>@color/red_100</item>
+            <item>@color/indigo_100</item>
+            <item>@color/cyan_100</item>
+        </array>
+
+
+
+    <array name="ColorArrayLight">
+        <item>@color/light_blue_500</item>
+        <item>@color/purple_500</item>
+        <item>@color/orange_500</item>
+        <item>@color/green_500</item>
+        <item>@color/pink_500</item>
+        <item>@color/yellow_500</item>
+        <item>@color/deep_purple_500</item>
+        <item>@color/deep_orange_500</item>
+        <item>@color/blue_grey_500</item>
+        <item>@color/red_500</item>
+        <item>@color/indigo_500</item>
+        <item>@color/cyan_500</item>
+    </array>
+
+
 
     <!--    <color name="purple_200">#bb86fc</color> &lt;!&ndash;Color primary (dark)&ndash;&gt;
         <color name="purple_500">#6200ee</color> &lt;!&ndash;Color primary (light)&ndash;&gt;

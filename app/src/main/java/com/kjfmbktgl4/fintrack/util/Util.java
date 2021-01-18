@@ -1,5 +1,7 @@
 package com.kjfmbktgl4.fintrack.util;
 
+import com.kjfmbktgl4.fintrack.R;
+
 import java.sql.Timestamp;
 
 public class Util {
@@ -35,9 +37,9 @@ public class Util {
 	public static final String TAG ="dbTest";
 
 	//Colourlist
-	public static final int [] colorArray= {0xFFF44336, 0xFF03A9F4,  0xFFFFC107, 0xFF673ab7, 0xFFCDDC39, 0xFFFF9800, 0xFF9E9E9E};
+/*	public static final int [] colorArray= {0xFFF44336, 0xFF03A9F4,  0xFFFFC107, 0xFF673ab7, 0xFFCDDC39, 0xFFFF9800, 0xFF9E9E9E};
 
-	public static final int [] colorArrayDark= {0xFFffccbc, 0xFFb3e5fc,  0xFFffecb3, 0xFFd1c4e9, 0xFFf0f4c3, 0xFFffe082, 0xFFf5f5f5};
+	public static final int [] colorArrayDark= {0xFFffccbc, 0xFFb3e5fc,  0xFFffecb3, 0xFFd1c4e9, 0xFFf0f4c3, 0xFFffe082, 0xFFf5f5f5};*/
 
 	//SharePref
 	public static final String SPREFNAME ="FINTRACKPREFS";
@@ -53,8 +55,15 @@ public class Util {
 
 	}
 
-	public static int getColorCode(int weekday){
+/*	public static int getColorCode(int weekday){
+		//int[] rainbow = getResources().getIntArray(R.array.rainbow);
+
+		//String [] mIdsArray= getResources().getIntArray(R.colors.);
+
+
+
+
 		return colorArray[weekday];
-	}
+	}*/
 
 }

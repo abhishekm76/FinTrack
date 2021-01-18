@@ -131,7 +131,8 @@ public class BarChartFragment extends Fragment implements View.OnClickListener {
 
 
 		if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-			set.setColors(Util.colorArrayDark, 255);
+			int[] darkMode = getContext().getResources().getIntArray(R.array.ColorArrayDark);
+			set.setColors(darkMode, 255);
 			xAxis.setTextColor(Color.WHITE);
 			barChart.getAxisLeft().setTextColor(Color.WHITE);
 			data.setValueTextColor(Color.WHITE);
@@ -139,7 +140,8 @@ public class BarChartFragment extends Fragment implements View.OnClickListener {
 		//	xAxis.setTextColor(android.R.color.white);
 
 		}else{
-			set.setColors(Util.colorArray, 255);
+			int[] lightMode = getContext().getResources().getIntArray(R.array.ColorArrayLight);
+			set.setColors(lightMode, 255);
 			xAxis.setTextColor(Color.DKGRAY);
 			data.setValueTextColor(Color.DKGRAY);
 			barChart.getAxisLeft().setTextColor(Color.DKGRAY);

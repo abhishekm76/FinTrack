@@ -1,9 +1,11 @@
 package com.kjfmbktgl4.fintrack.ui;
 
 import android.app.DatePickerDialog;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -187,27 +190,35 @@ public class PieChartFragment extends Fragment implements View.OnClickListener {
 		pieChart.setData(data);
 
 		if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-			set.setColors(Util.colorArrayDark, 255);
-			pieChart.setEntryLabelColor(Color.DKGRAY);
-			data.setValueTextColor(Color.DKGRAY);
-			//pieChart.setCenterTextColor(Color.DKGRAY);
-
-
+			int[] darkMode = getContext().getResources().getIntArray(R.array.ColorArrayDark);
+			set.setColors(darkMode, 255);
+		//	pieChart.setEntryLabelColor(Color.DKGRAY);
+		//	data.setValueTextColor(Color.DKGRAY);
 		}else{
-			set.setColors(Util.colorArray, 255);
-			pieChart.setEntryLabelColor(Color.WHITE);
-			data.setValueTextColor(Color.WHITE);
+			int[] lightMode = getContext().getResources().getIntArray(R.array.ColorArrayLight);
+			set.setColors(lightMode, 255);
+			//pieChart.setEntryLabelColor(Color.WHITE);
 			//pieChart.setCenterTextColor(Color.DKGRAY);
 		}
+		TypedValue colorForText = new TypedValue();
+		Resources.Theme theme = getContext().getTheme();
+		theme.resolveAttribute(R.attr.colorSurface, colorForText, true);
+		@ColorInt int colorText = colorForText.data;
+		pieChart.setEntryLabelColor(colorText);
+		data.setValueTextColor(colorText);
+		pieChart.setHoleColor(colorText);
 
+/*
+		pieChart.setHoleColor(colorSurface);
+		pieChart.setCenterTextColor(colorText);*/
 
 		data.setValueTextSize(13f);
 		data.setValueFormatter(new PercentFormatter(pieChart));
 		pieChart.setUsePercentValues(usePercent);
 		pieChart.getDescription().setEnabled(false);
 		pieChart.setDrawHoleEnabled(true);
-		pieChart.setCenterText("Details By Category");
-		pieChart.setCenterTextSize(18f);
+	/*	pieChart.setCenterText("Details By Category");
+		pieChart.setCenterTextSize(18f);*/
 		pieChart.getLegend().setEnabled(false);
 
 		pieChart.animateY(500);
