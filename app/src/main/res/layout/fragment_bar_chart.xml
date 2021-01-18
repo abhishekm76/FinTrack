@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingTop="4dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,9 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:padding="4dp"
-            android:paddingTop="4dp">
+            android:padding="4dp">
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -29,17 +26,13 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:padding="0dp">
+                android:layout_marginRight="2dp"
+                android:layout_weight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/selectStartDateForBar"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="1"
                     android:focusable="false"
                     android:hint="@string/start_date"
                     android:inputType="date" />
@@ -50,18 +43,14 @@
                 android:id="@+id/dateTIL2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
+                android:layout_marginRight="2dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="0dp">
+                android:layout_weight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/selectEndDateForBar"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="1"
-
                     android:focusable="false"
                     android:hint="@string/end_date"
                     android:inputType="date" />
@@ -70,12 +59,11 @@
             <Button
                 android:id="@+id/refreshGraphs"
                 style="@style/Widget.MaterialComponents.Button"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-
-                android:layout_gravity="start"
-                android:layout_weight=".2"
-                android:insetTop="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:insetTop="6dp"
                 android:insetBottom="0dp"
                 android:text="@string/refresh" />
 
@@ -137,7 +125,7 @@
                 android:layout_height="wrap_content"
 
                 android:textAlignment="center"
-                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
 
                 android:text="@string/barTitle" />
 
