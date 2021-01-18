@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
 
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAppearance="?attr/textAppearanceHeadline6"
 
                 android:text="@string/barTitle" />
 

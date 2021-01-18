@@ -5,9 +5,12 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 <!--        <item name="colorPrimary">@color/orange_200</item>
+
         <item name="colorPrimaryDark">@color/orange_400</item>
         <item name="colorPrimaryVariant">@color/grey_900</item>-->
+        <item name="colorPrimary">@color/orange_300</item>
         <item name="colorPrimaryVariant">@color/grey_900</item>
+        <item name="colorSecondary">@color/orange_300</item>
         <!--<item name="android:padding">4dp</item>-->
     </style>
 

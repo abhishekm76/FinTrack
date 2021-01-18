@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/pieTitle"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="?attr/textAppearanceHeadline6" />
 
             <TextView
                 android:id="@+id/tv_result"
