@@ -15,9 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />/
-    app:layout_constraintTop_toBottomOf="@+id/include3"
-    tools:listitem="@layout/transaction_rv_row" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!--  <com.google.android.material.appbar.AppBarLayout
           android:id="@+id/appBarLayout"

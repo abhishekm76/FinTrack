@@ -47,7 +47,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 	public List<TransactionItem> exportArrayList;
 
 	NavController mNavController;
-	ImageButton Category, Account, Export, DeleteAll;
+	ImageButton Category, Account, Export, DeleteAll,About,OpenSource;
 	DatabaseHandler db;
 	Switch darkMode;
 	// TODO: Rename parameter arguments, choose names that match
@@ -115,6 +115,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 		Export = v.findViewById(R.id.imageButtonExport);
 		DeleteAll = v.findViewById(R.id.imageButtonDeleteAll);
 		darkMode =v.findViewById(R.id.darkmodeswitch);
+		About = v.findViewById(R.id.imageButtonAbout);
+		OpenSource = v.findViewById(R.id.imageButtonOpenSource);
 		setDarkModeToggle();
 		return v;
 
@@ -128,6 +130,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 		Export.setOnClickListener(this);
 		DeleteAll.setOnClickListener(this);
 		darkMode.setOnClickListener(this);
+		About.setOnClickListener(this);
+		OpenSource.setOnClickListener(this);
+
 		db = new DatabaseHandler(getActivity());
 
 	}
@@ -150,7 +155,54 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 			case R.id.darkmodeswitch:
 				switchMode();
 				break;
+			case R.id.imageButtonOpenSource:
+				openSource();
+				break;
+			case R.id.imageButtonAbout:
+				about();
+				break;
+
 		}
+	}
+
+	private void about() {
+
+		final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+		//alertDialogBuilder.setTitle("About the app");
+		LayoutInflater inflater = requireActivity().getLayoutInflater();
+		alertDialogBuilder.setView(inflater.inflate(R.layout.about_dialog, null));
+
+		alertDialogBuilder.setPositiveButton("Ok",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+
+					}
+				});
+
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+
+	}
+
+	private void openSource() {
+
+		final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+		//alertDialogBuilder.setTitle("About the app");
+		LayoutInflater inflater = requireActivity().getLayoutInflater();
+		alertDialogBuilder.setView(inflater.inflate(R.layout.open_source, null));
+
+		alertDialogBuilder.setPositiveButton("Ok",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+
+					}
+				});
+
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+
 	}
 
 	private void switchMode() {
