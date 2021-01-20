@@ -34,22 +34,15 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setDarkMode();
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		MobileAds.initialize(this, new OnInitializationCompleteListener() {
-			@Override
-			public void onInitializationComplete(InitializationStatus initializationStatus) {
-			}
-		});
-
-		mAdView = findViewById(R.id.adViewBanner);
-		AdRequest adRequest = new AdRequest.Builder().build();
-		mAdView.loadAd(adRequest);
+		setUpAds();
+		setUpNav();
 
 
-		//MobileAds.initialize(this, getResources().getString(R.string.adMob_ID));
+	}
+
+	private void setUpNav() {
 
 		BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 		NavController navController = Navigation.findNavController(this,R.id.fragment_nav_host);
@@ -61,6 +54,19 @@ public class MainActivity extends AppCompatActivity {
 
 		AppBarConfiguration lAppBarConfiguration = new AppBarConfiguration.Builder(R.id.mainFragment,R.id.barChartFragment,R.id.pieChartFragment,R.id.settingsFragment).build();
 		NavigationUI.setupWithNavController(lToolbar,navController,lAppBarConfiguration);
+	}
+
+	private void setUpAds() {
+		MobileAds.initialize(this, new OnInitializationCompleteListener() {
+			@Override
+			public void onInitializationComplete(InitializationStatus initializationStatus) {
+			}
+		});
+
+		mAdView = findViewById(R.id.adViewBanner);
+		AdRequest adRequest = new AdRequest.Builder().build();
+		mAdView.loadAd(adRequest);
+
 
 	}
 

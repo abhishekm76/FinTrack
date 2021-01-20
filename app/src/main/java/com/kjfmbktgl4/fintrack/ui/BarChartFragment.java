@@ -102,7 +102,7 @@ public class BarChartFragment extends Fragment implements View.OnClickListener {
 		//data.setValueTextColor(android.R.color.white);
 		//barChart.setFitBars(true); // make the x-axis fit exactly all bars
 		barChart.getDescription().setEnabled(false);
-		barChart.setVisibleXRangeMaximum(6);
+		barChart.setVisibleXRangeMaximum(24);
 		barChart.setPinchZoom(true);
 		barChart.setDrawBorders(false);
 		barChart.setAutoScaleMinMaxEnabled(false);

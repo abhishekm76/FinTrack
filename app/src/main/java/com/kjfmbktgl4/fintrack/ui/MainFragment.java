@@ -119,8 +119,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 	}
 
 	private void setUpFab() {
+
+
 		MainFragmentDirections.ActionMainFragmentToEditTransactionFragment action = MainFragmentDirections.actionMainFragmentToEditTransactionFragment();
 		action.setIsNew(true);
+
 		mNavController.navigate(action);
 
 				/*Intent intent = new Intent(getContext(), EditTransaction.class);
