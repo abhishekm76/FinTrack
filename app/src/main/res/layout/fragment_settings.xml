@@ -14,14 +14,14 @@
         android:id="@+id/darkmodeswitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="8dp"
         android:text="@string/dark_mode"
         android:textAppearance="?attr/textAppearanceBody1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -33,14 +33,15 @@
             android:layout_weight="1"
             android:text="Set up list of categories" />
 
-        <View style="@style/verticalDivider"/>
+        <View style="@style/verticalDivider"  />
+
 
 
         <ImageButton
             android:id="@+id/imageButtonCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_marginLeft="8dp"
             app:srcCompat="@drawable/ic_outline_add_24" />
 
 
@@ -49,7 +50,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -68,6 +69,7 @@
             android:id="@+id/imageButtonAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             app:srcCompat="@drawable/ic_outline_account_balance_24" />
 
 
@@ -76,7 +78,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -95,7 +97,7 @@
         android:id="@+id/imageButtonExport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+            android:layout_marginLeft="8dp"
         app:srcCompat="@drawable/ic_baseline_import_export_24" />
 
 
@@ -105,7 +107,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -124,6 +126,7 @@
             android:id="@+id/imageButtonDeleteAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             app:srcCompat="@drawable/ic_outline_delete_outline_24" />
 
 
@@ -133,7 +136,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/sendFeedback"
+            android:layout_width="wrap_content"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="Send Feedback" />
+
+        <View style="@style/verticalDivider"/>
+
+        <ImageButton
+            android:id="@+id/imageButtonSendFeedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            app:srcCompat="@drawable/ic_baseline_feedback_24" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -151,7 +181,7 @@
             android:id="@+id/imageButtonAbout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_marginLeft="8dp"
             app:srcCompat="@drawable/ic_twotone_info_24" />
 
 
@@ -160,7 +190,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -178,10 +208,12 @@
             android:id="@+id/imageButtonOpenSource"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_marginLeft="8dp"
             app:srcCompat="@drawable/ic_baseline_policy_24" />
 
 
     </LinearLayout>
+
+
 
 </LinearLayout>

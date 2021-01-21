@@ -16,6 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.kjfmbktgl4.fintrack.R;
 import com.kjfmbktgl4.fintrack.data.DatabaseHandler;
@@ -47,7 +51,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 	public List<TransactionItem> exportArrayList;
 
 	NavController mNavController;
-	ImageButton Category, Account, Export, DeleteAll,About,OpenSource;
+	ImageButton Category, Account, Export, DeleteAll,About,OpenSource,SendFeedback;
 	DatabaseHandler db;
 	Switch darkMode;
 	// TODO: Rename parameter arguments, choose names that match
@@ -117,6 +121,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 		darkMode =v.findViewById(R.id.darkmodeswitch);
 		About = v.findViewById(R.id.imageButtonAbout);
 		OpenSource = v.findViewById(R.id.imageButtonOpenSource);
+		SendFeedback=v.findViewById(R.id.imageButtonSendFeedback);
 		setDarkModeToggle();
 		return v;
 
@@ -132,7 +137,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 		darkMode.setOnClickListener(this);
 		About.setOnClickListener(this);
 		OpenSource.setOnClickListener(this);
-
+		SendFeedback.setOnClickListener(this);
 		db = new DatabaseHandler(getActivity());
 
 	}
@@ -160,9 +165,24 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 				break;
 			case R.id.imageButtonAbout:
 				about();
+ 				break;
+			case R.id.imageButtonSendFeedback:
+				sendFeedback();
 				break;
 
 		}
+	}
+
+	private void sendFeedback() {
+
+		Intent Email = new Intent(Intent.ACTION_SEND);
+		Email.setType("text/email");
+		Email.putExtra(Intent.EXTRA_EMAIL, new String[] { "terrificappstester@gmail.com" });
+		Email.putExtra(Intent.EXTRA_SUBJECT, "Feedback Expense Tracker");
+		//Email.putExtra(Intent.EXTRA_TEXT, "Dear ...," + "");
+		startActivity(Intent.createChooser(Email, "Send Feedback:"));
+
+
 	}
 
 	private void about() {
@@ -192,6 +212,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 		LayoutInflater inflater = requireActivity().getLayoutInflater();
 		alertDialogBuilder.setView(inflater.inflate(R.layout.open_source, null));
 
+
+
 		alertDialogBuilder.setPositiveButton("Ok",
 				new DialogInterface.OnClickListener() {
 					@Override
@@ -202,7 +224,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
-
+		((TextView)alertDialog.findViewById(R.id.textView9)).setMovementMethod(LinkMovementMethod.getInstance());
 	}
 
 	private void switchMode() {
